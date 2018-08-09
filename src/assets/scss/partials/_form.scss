@@ -1,0 +1,40 @@
+label{
+    display: block;
+    // 
+}
+input[type="text"],input[type="password"],input[type="email"]{
+    width: 100%;
+
+    margin-bottom: 40px;
+
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0);
+    border-bottom: 1px solid #fff;
+    border-radius: 0px;
+
+	/* remove default style in iOS*/
+	appearance: none;
+	outline: none;
+    
+    font-family: 'HelveticaNeueLT', Arial, sans-serif;
+    color: #fff;
+}
+/* fix for webkit yellow background*/
+input:-webkit-autofill{
+	&,
+	&:hover,
+	&:focus,
+	&:active{
+		transition-delay: 9999s;
+		transition-property: background-color, color;
+	}
+}
+.button, button{
+	width: 100%;
+	padding: 13px;
+
+	background: #fff;
+	border: 0;
+	
+	color: $principale;
+}

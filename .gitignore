@@ -1,4 +1,5 @@
 .DS_Store
+.idea
 node_modules/
 npm-debug.log
 /www
@@ -6,3 +7,6 @@ npm-debug.log
 # cordova stuff
 /platforms
 /plugins
+
+# yarn
+yarn-error.log

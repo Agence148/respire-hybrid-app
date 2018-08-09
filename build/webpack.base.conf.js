@@ -12,7 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/app.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -33,20 +33,20 @@ module.exports = {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.vue$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.vue$/,
+    //     loader: 'eslint',
+    //     include: projectRoot,
+    //     exclude: /node_modules/
+    //   },
+    // {
+    //   test: /\.js$/,
+    //   loader: 'eslint',
+    //   include: projectRoot,
+    //   exclude: /node_modules/
+    // }
+    // ],
     loaders: [
       {
         test: /\.vue$/,
@@ -67,7 +67,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: utils.assetsPath('images/[name].[hash:7].[ext]')
         }
       },
       {
@@ -80,11 +80,11 @@ module.exports = {
       }
     ]
   },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  },
+  // eslint: {
+  //   formatter: require('eslint-friendly-formatter')
+  // },
   vue: {
-    loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
+    loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
     postcss: [
       require('autoprefixer')({
         browsers: ['last 2 versions']
