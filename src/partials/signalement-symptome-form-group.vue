@@ -28,7 +28,6 @@
 </template>
 
 <script>
-
   export default {
     props: ['category', 'model'],
     data () {
@@ -85,12 +84,9 @@
       })
     }
   }
-
 </script>
 
 <style lang="scss">
-    @import "../assets/scss/_vars.scss";
-
     #form-signalement {
 
         h3 {

@@ -30,8 +30,6 @@
 </script>
 
 <style lang="scss">
-
-    @import "../assets/scss/_vars.scss";
     @import "../assets/scss/helpers/_rem.scss";
 
     .bottom-nav {

@@ -77,5 +77,8 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
+  },
+  sassResources: [
+    path.resolve(__dirname, '../src/assets/scss/_vars.scss'),
+  ]
 }
