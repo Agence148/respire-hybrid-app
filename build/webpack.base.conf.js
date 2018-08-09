@@ -26,27 +26,14 @@ module.exports = {
       'vue$': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'fonts': path.resolve(__dirname, '../src/assets/fonts')
     }
   },
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.vue$/,
-    //     loader: 'eslint',
-    //     include: projectRoot,
-    //     exclude: /node_modules/
-    //   },
-    // {
-    //   test: /\.js$/,
-    //   loader: 'eslint',
-    //   include: projectRoot,
-    //   exclude: /node_modules/
-    // }
-    // ],
     loaders: [
       {
         test: /\.vue$/,
@@ -64,6 +51,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        exclude: [/fonts/],
         loader: 'url',
         query: {
           limit: 10000,
@@ -71,18 +59,17 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+        exclude: [/images/],
         loader: 'url',
         query: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
+          publicPath: env === 'production' ? '../' : '/'
         }
       }
     ]
   },
-  // eslint: {
-  //   formatter: require('eslint-friendly-formatter')
-  // },
   vue: {
     loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
     postcss: [

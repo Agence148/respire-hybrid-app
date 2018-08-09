@@ -39,9 +39,7 @@
         position: fixed;
         bottom: 0;
         left: 0;
-
         width: 100%;
-
         background: #fff;
 
         @include font-size(1.2);
@@ -64,7 +62,6 @@
         [class^="icon-"]:before, [class*=" icon-"]:before {
             display: block;
             margin: 0 auto 8px;
-
             font-size: 220%;
         }
     }
