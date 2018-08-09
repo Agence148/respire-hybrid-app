@@ -14,6 +14,8 @@ import './assets/scss/main.scss'
  */
 import './bootstrap.js'
 
+import VueCordova from 'vue-cordova'
+
 /**
  * Load our router to plug it in our Vue instance later
  */
@@ -21,6 +23,8 @@ import router from './routes.js'
 
 import TopBar from './partials/top-bar.vue'
 import MainNav from './partials/main-nav.vue'
+
+Vue.use(VueCordova)
 
 /**
  * Let's create our Vue instance
@@ -32,7 +36,8 @@ new Vue({
   router: router,
   components: {'TopBar': TopBar, 'MainNav': MainNav},
   data: {
-    shared: store
+    shared: store,
+    cordova: Vue.cordova
   },
   mounted () {
     if (this.isRunningStandalone()) {

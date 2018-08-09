@@ -108,10 +108,9 @@ export default class Form {
 
         })
         .catch(error => {
+          this.onFail(error)
 
-          this.onFail(error.response.data)
-
-          reject(error.response.data)
+          reject(error)
         })
     })
   }
