@@ -7,8 +7,6 @@
 |
 */
 
-window.appURL = 'http://respire.test:8888'
-
 /**
  * Load Vue
  * vue is the base framework of our app

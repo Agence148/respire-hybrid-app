@@ -10,6 +10,11 @@
 import './assets/scss/main.scss'
 
 /**
+ * Load config
+ */
+import './config.js'
+
+/**
  * Load our bootstrap
  */
 import './bootstrap.js'

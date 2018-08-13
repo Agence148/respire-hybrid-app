@@ -10,3 +10,6 @@ npm-debug.log
 
 # yarn
 yarn-error.log
+
+# config
+src/config.js
