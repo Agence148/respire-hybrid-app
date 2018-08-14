@@ -93,23 +93,18 @@ export default class Form {
         .then(response => {
 
           if (!response.data.error) {
-
             this.onSuccess(response.data)
-
             resolve(response.data)
-
           }
+
           else {
-
             this.onFail(response.data)
-
             reject(response.data)
           }
 
         })
         .catch(error => {
-          this.onFail(error)
-
+          this.onFail(error.response.data)
           reject(error)
         })
     })
@@ -121,8 +116,6 @@ export default class Form {
    * @param {object} data
    */
   onSuccess (data) {
-    // alert(data.message); // temporary
-
     this.reset()
   }
 
@@ -133,6 +126,6 @@ export default class Form {
    */
   onFail (errors) {
     this.errors.record(errors)
-
   }
+
 }

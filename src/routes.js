@@ -27,14 +27,6 @@ const routes = [
     }
   },
   {
-    path: '/login',
-    component: require('./views/Login.vue'),
-    meta: {
-      requiresAuth: false,
-      showMainNav: false
-    }
-  },
-  {
     path: '/install',
     component: require('./views/Install.vue'),
     meta: {
@@ -43,10 +35,26 @@ const routes = [
     }
   },
   {
+    path: '/login',
+    component: require('./views/Login.vue'),
+    meta: {
+      requiresAuth: false,
+      showMainNav: true
+    }
+  },
+  {
+    path: '/register',
+    component: require('./views/Register.vue'),
+    meta: {
+      requiresAuth: false,
+      showMainNav: true
+    }
+  },
+  {
     path: '/signalements',
     component: require('./views/Signalements/signalements.vue'),
     meta: {
-      requiresAuth: true,
+      // requiresAuth: true,
       showMainNav: true
     },
     children: [
@@ -63,14 +71,6 @@ const routes = [
         component: require('./views/Signalements/show.vue')
       },
     ]
-  },
-  {
-    path: '/signalement',
-    component: require('./views/Signalements/create.vue'),
-    meta: {
-      requiresAuth: true,
-      showMainNav: true
-    }
   },
   {
     path: '/profil',

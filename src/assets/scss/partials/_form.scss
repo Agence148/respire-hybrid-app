@@ -1,6 +1,6 @@
 label{
     display: block;
-    // 
+    //
 }
 input[type="text"],input[type="password"],input[type="email"]{
     width: 100%;
@@ -15,7 +15,7 @@ input[type="text"],input[type="password"],input[type="email"]{
 	/* remove default style in iOS*/
 	appearance: none;
 	outline: none;
-    
+
     font-family: 'HelveticaNeueLT', Arial, sans-serif;
     color: #fff;
 }
@@ -35,6 +35,15 @@ input:-webkit-autofill{
 
 	background: #fff;
 	border: 0;
-	
+
 	color: $principale;
+}
+
+.error {
+  font-size: 0.7em;
+  background: $rouge;
+  padding: 0.5em;
+  display: block;
+  text-align: center;
+  margin-bottom: 1em;
 }

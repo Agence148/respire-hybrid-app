@@ -66,7 +66,7 @@ new Vue({
         }
       } else {
         local.clear('user')
-        router.push({path: '/login'})
+        router.push({path: '/signalements'})
       }
     }
   },
