@@ -40,7 +40,7 @@
     },
     methods: {
       onSubmit() {
-        this.form.post(appURL + '/api/login')
+        this.form.post(appURL + '/api/v1/login')
           .then((response) => {
             for(let field in response){
               this.shared[field] = response[field];
@@ -54,7 +54,7 @@
       },
       ping: function (event) {
         const AuthStr = 'Bearer '.concat(store.user.api_token)
-        const url = appURL + '/api/ping'
+        const url = appURL + '/api/v1/ping'
         axios['get'](url, null, {headers: {Authorization: AuthStr}})
           .then(response => {
             console.log(response.data);
