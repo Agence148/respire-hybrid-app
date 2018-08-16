@@ -1,28 +1,28 @@
 <template>
 
     <div class="form-group" :class="open">
-        <h3 @click="onclick" v-html="titre"></h3>
-        <div class="symptomes-inputs">
-            <div v-for="(symptome,index) in category.symptomes" class="">
-                <input
-                        v-if="category.input == 'checkbox'"
-                        :id="'sympt-' + symptome.id"
-                        type="checkbox"
-                        v-model="model[category.id]"
-                        :value="symptome.id"
-                        @click="checkclick(index)"
-                >
-                <input
-                        v-else
-                        :id="'sympt-' + symptome.id"
-                        type="radio"
-                        v-model="model[category.id]"
-                        :value="symptome.id"
-                        @click="radioclick(index)"
-                >
-                <label :for="'sympt-'+symptome.id">{{symptome.name}}</label>
-            </div>
+      <h3 @click.self="onclick" v-html="titre"></h3>
+      <div class="symptomes-inputs">
+        <div v-for="(symptome,index) in category.symptomes" :key="symptome.id">
+          <input
+                  v-if="category.input == 'checkbox'"
+                  :id="'sympt-' + symptome.id"
+                  type="checkbox"
+                  v-model="model[category.id]"
+                  :value="symptome.id"
+                  @click="checkclick(index)"
+          >
+          <input
+                  v-else
+                  :id="'sympt-' + symptome.id"
+                  type="radio"
+                  v-model="model[category.id]"
+                  :value="symptome.id"
+                  @click="radioclick(index)"
+          >
+          <label :for="'sympt-'+symptome.id">{{symptome.name}}</label>
         </div>
+      </div>
     </div>
 
 </template>
@@ -60,7 +60,7 @@
 
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened', this.category.id)
+        E.$emit('symptometype-opened-group', this.category.id)
       },
 
       checkclick (index) {
@@ -107,7 +107,7 @@
             padding-bottom: 0;
             transition: padding-bottom .15s;
             &.open {
-                padding-bottom: 120px;
+                padding-bottom: 200px;
                 .symptomes-inputs {
                     top: 50px;
                 }
