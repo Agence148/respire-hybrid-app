@@ -3,7 +3,9 @@
 
 <div>
 
-    <h1>{{signalement.user.name}}</h1>
+    <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
+    <h1 v-else>Anonyme</h1>
+
     <span>{{signalement.created_at}}</span>
 
     <div class="symp">
