@@ -14,12 +14,12 @@
             </option>
         </select>
 
-        <input v-if="selected != '1'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" />
+        <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" />
 
         <signalement-symptome-form-container 
             v-for="category in shared.symptomes_categories"
             :category="category"
-            :model="symptomes"
+            :model="form.symptomes"
             :key="category.id"/>
         
         <div class="send-container">
@@ -39,7 +39,8 @@
 
 <script>
 
-    import Form from "../../helpers/form/Form.js"
+    import Form from '../../helpers/form/Form.js'
+    import store from '../../helpers/data/Store.js'
     import moment from 'moment'
 
     Vue.component('signalement-symptome-form-container',require('../../partials/signalement-symptome-form-container.vue'));
@@ -50,63 +51,55 @@
                 
                 shared:store,
                 form: new Form({
-                    symptomes : [],
+                    symptomes: [],
                     lng:0,
                     lat:0,
                     created_at:0,
-                    date:0
+                    date:0,
+                    live: true,
+                    uuid: '000-0000-000'
                 }),
                 sending:false,
                 sent:false,
-                selected: '1',
+                selected: '0',
                 days: [
-                    { text: 'Maintenant', value: '1' },
-                    { text: 'Aujourd\'hui', value: '2' },
-                    { text: 'Hier', value: '3' },
-                    { text: 'Avant-Hier', value: '4' }
+                    { text: 'Maintenant', value: '0' },
+                    { text: 'Aujourd\'hui', value: '1' },
+                    { text: 'Hier', value: '2' },
+                    { text: 'Avant-Hier', value: '3' }
                 ],
                 time: '',
-                live: true
+                pastDate: 0
             }
         },
 
         watch: {
             selected(val) { 
-                if (val != '1') {
+                if (val != '0') {
                     this.getTime(); 
-                    this.live = false;
-                } else {
-                    this.live = true;
+                    this.pastDate = moment().subtract(val - 1, 'day').format('YYYY-MM-DD HH:mm:ss');
                 }
             }
         },
 
         computed: {
-            symptomes() {
-                this.shared.symptomes_categories;
-            }
         },
 
         methods:{
 
             getTime() {
-                var d = new Date(),        
-                    h = d.getHours(),
-                    m = d.getMinutes();
-                if(h < 10) h = '0' + h; 
-                if(m < 10) m = '0' + m; 
-                this.time = h + ':' + m;
+                this.time = moment().format('HH:mm');
             },
-
             onSubmit() {
                 
-                this.form.created_at = moment().format('Y-m-d H:i:s');
+                this.form.created_at = moment().format('YYYY-MM-DD HH:mm:ss');
                 this.form.lat = this.shared.user_position[0];
                 this.form.lng = this.shared.user_position[1];
-                this.live;
-                this.live ? this.form.date = this.form.created_at : this.form.date = document.querySelector('#signalement-time').value;
-                this.form.uuid = '10200';
-                this.form.symptomes = this.flatten(this.symptomes);
+                this.form.date = this.form.live ? this.form.created_at : this.pastDate;
+                this.form.live = this.selected == '0' ;
+                this.form.uuid = '111-1111-111';
+                this.getSymptomes();
+                console.log(this.form.symptomes);
                 
                 let s = (store.signalements.push(this.form.data()))-1;
                
@@ -124,6 +117,13 @@
                         console.log(err);
                     });
             },
+            getSymptomes() {
+                for(let i = 0; i < this.shared.symptomes_categories.length; i++) {
+                    for(let j = 0; j < this.shared.symptomes_categories[i].length; j++) {
+                        this.form.symptomes.push(this.shared.symptomes_categories[i].children[j].symptomes);
+                    }
+                }
+            },
             flatten(arr) {
                 return arr.reduce( (flat, toFlatten) => {
                     return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
@@ -135,8 +135,14 @@
             this.$parent.classes="signalements-create";
             local.get("symptomes_categories")
 
+            console.log('REGARDE -> ', this.shared.symptomes_categories);
+
             this.$parent.mapCenter = this.shared.user_position;
             this.$parent.mapZoom = 15;
+
+            E.$on('symptometype-changed-container', (id, symptomesId) => {
+                this.form.symptomes = symptomesId.filter( e => typeof e == 'number');
+            })
         }
     }
 </script>

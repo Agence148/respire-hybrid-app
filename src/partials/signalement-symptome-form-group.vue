@@ -8,9 +8,9 @@
                   v-if="category.input == 'checkbox'"
                   :id="'sympt-' + symptome.id"
                   type="checkbox"
-                  v-model="model[category.id]"
+                  v-model="model[category.order]"
                   :value="symptome.id"
-                  @click="checkclick(index)"
+                  @click="checkclick(index, symptome.id)"
           >
           <input
                   v-else
@@ -18,7 +18,7 @@
                   type="radio"
                   v-model="model[category.id]"
                   :value="symptome.id"
-                  @click="radioclick(index)"
+                  @click="radioclick(index, symptome.id)"
           >
           <label :for="'sympt-'+symptome.id">{{symptome.name}}</label>
         </div>
@@ -33,7 +33,8 @@
     data () {
       return {
         visible: false,
-        symptomes: []
+        symptomes: [],
+        symptomesId: []
       }
     },
     computed: {
@@ -42,7 +43,9 @@
       },
       titre () {
         if (this.category.input === 'checkbox') {
-          let arr = this.symptomes.filter(function (n) { return n != undefined })
+          let arr = this.symptomes.filter(function (n) { 
+            return n != undefined
+          })
           return this.category.description + ' ' + arr.join(', ')
         }
         else {
@@ -60,28 +63,42 @@
 
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened-group', this.category.id)
+        E.$emit('symptometype-opened-group', this.category.id, this.symptomesId)
       },
 
-      checkclick (index) {
-
+      checkclick (index, id) {
         if (this.symptomes[index] === undefined || this.symptomes[index] === '') {
           Vue.set(this.symptomes, index, this.category.symptomes[index].description)
+          this.symptomesId.push(id)
         } else {
           Vue.set(this.symptomes, index, undefined)
+          let i = this.symptomesId.indexOf(id)
+          if(i != -1) {
+            this.symptomesId.splice(i, 1)
+          }
         }
+        E.$emit('symptometype-changed-group', this.category.id, this.symptomesId)
       },
 
-      radioclick (index) {
+      radioclick (index, id) {
         Vue.set(this.symptomes, 0, this.category.symptomes[index].description)
+
+        let categorySymptomesIds = this.category.symptomes.map((el) => {
+          return el.id
+        });
+        let newSymptomesIds = [];
+        this.symptomesId.forEach((el) => {
+          if (categorySymptomesIds.indexOf(el) == -1) {
+            newSymptomesIds.push(el);
+          }
+        })
+        newSymptomesIds.push(id);
+        this.symptomesId = newSymptomesIds;
+        E.$emit('symptometype-changed-group', this.category.id, this.symptomesId)
       }
     },
     mounted () {
-      E.$on('symptometype-opened', (id) => {
-        if (id != this.category.id) {
-          this.visible = false
-        }
-      })
+      
     }
   }
 </script>
@@ -108,6 +125,7 @@
             transition: padding-bottom .15s;
             &.open {
                 padding-bottom: 200px;
+                overflow: scroll;
                 .symptomes-inputs {
                     top: 50px;
                 }

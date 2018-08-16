@@ -4,7 +4,7 @@
         <signalement-symptome-form-group 
         v-for="category in category.children"
         :category="category"
-        :model="symptomes"
+        :model="symptomesId"
         :key="category.id"/>
     </div>
 </template>
@@ -18,55 +18,26 @@ export default {
     data () {
       return {
         visible: false,
-        symptomes: []
+        symptomesId: []
       }
     },
     computed: {
       open () {
         return (this.visible) ? 'open' : ''
-      },
-      titre () {
-        if (this.child.input === 'checkbox') {
-          let arr = this.symptomes.filter(function (n) { return n != undefined })
-          return this.child.description + ' ' + arr.join(', ')
-        }
-        else {
-          if (this.symptomes[0] === undefined || this.symptomes[0] === '') {
-            return this.category.children.description
-          }
-          else {
-            return this.symptomes[0]
-          }
-        }
-
       }
     },
     methods: {
 
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened-container', this.category.id)
-      },
-
-      checkclick (index) {
-
-        if (this.symptomes[index] === undefined || this.symptomes[index] === '') {
-          Vue.set(this.symptomes, index, this.category.symptomes[index].description)
-        } else {
-          Vue.set(this.symptomes, index, undefined)
-        }
-      },
-
-      radioclick (index) {
-        Vue.set(this.symptomes, 0, this.category.symptomes[index].description)
+        E.$emit('symptometype-opened-container', this.category.id, this.symptomesId)
       }
     },
     mounted () {
-      E.$on('symptometype-opened', (id) => {
-        if (id != this.category.id) {
-          this.visible = false
-        }
-      })
+      E.$on('symptometype-changed-group', (id, symptomesId) => {
+          this.symptomesId = symptomesId;
+          E.$emit('symptometype-changed-container', this.category.id, this.symptomesId)
+        })
     }
 }
 </script>
