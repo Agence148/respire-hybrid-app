@@ -20,7 +20,7 @@
         html: '<div></div>'
       })
 
-      this.marker = L.marker([this.data.lat, this.data.long], {icon: icon}).addTo(this.map)
+      this.marker = L.marker([this.data.lat, this.data.lng], {icon: icon}).addTo(this.map)
 
       this.marker.on('click', this.onClick)
 
@@ -103,4 +103,3 @@
     }
 
 </style>
-

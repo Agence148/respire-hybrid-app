@@ -5,14 +5,14 @@
 
     <h1>{{signalement.user.name}}</h1>
     <span>{{signalement.created_at}}</span>
-    
+
     <div class="symp">
         <h3  v-for="cat in signalement.symptome_category">
             {{cat.description}}
             <div v-html="join(cat.symptomes)"></div>
         </h3>
     </div>
-    
+
 </div>
 
 </template>
@@ -32,10 +32,10 @@ export default {
             }
         }
     },
-    
+
     methods:{
 
-        
+
     },
 
     mounted(){
@@ -43,11 +43,11 @@ export default {
 
         const url = appURL + "/api/v1/signalements/" + this.$route.params.id;
         const AuthStr = 'Bearer '.concat(store.user.api_token);
-        
+
         axios.get(url,{ headers: { Authorization: AuthStr }})
             .then(response => {
                 this.$parent.liste = [response.data];
-                this.$parent.mapCenter = [response.data.lat,response.data.long];
+                this.$parent.mapCenter = [response.data.lat,response.data.lng];
                 this.$parent.mapZoom = 15;
                 this.signalement = response.data;
             })
@@ -58,7 +58,7 @@ export default {
                     }
                 }
             });
-       
+
     },
     methods:{
         join(arr){
