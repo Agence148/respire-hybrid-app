@@ -1,22 +1,22 @@
 <template>
 
-  <div v-if="shared.user.api_token" class="profile">
-    <h1>Bonjour <span>{{ shared.user.name }}</span> !</h1>
-    <div>{{ shared.user.email }}</div>
+  <div class="profile">
+    <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1>
 
-    <button @click.prevent="logout" >Se déconnecter</button>
-  </div>
-
-  <div v-else class="profile">
-    <h1>Mes signalements</h1>
+    <h2>Mes signalements</h2>
     <table>
       <tr v-for="signalement in shared.user.signalements" :key="signalement.id">
         <td><router-link :to="'/signalements/' + signalement.id">{{ signalement.date }}</router-link></td>
       </tr>
     </table>
 
-    <router-link to="/login" class="link--login">Se connecter</router-link>
-    <router-link to="/register" class="link--register">Créer mon compte</router-link>
+    <div v-if="shared.user.api_token">
+      <button @click.prevent="logout" >Se déconnecter</button>
+    </div>
+    <div v-else>
+      <router-link to="/login" class="link--login">Se connecter</router-link>
+      <router-link to="/register" class="link--register">Créer mon compte</router-link>
+    </div>
   </div>
 
 </template>
