@@ -1,0 +1,36 @@
+#device_properties {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 999;
+  font-size: 1.4rem;
+  color: #0078a8;
+
+  input {
+    display: none;
+
+    &:checked ~ table {
+      display: block;
+    }
+  }
+  label {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.4em;
+    padding-left: 3px;
+    background: white;
+    border: 2px solid #0078a8;
+    cursor: pointer;
+  }
+  table {
+    display: none;
+    font-size: 1em;
+    background: white;
+    padding: 8px;
+    text-align: left;
+    margin-top: 5px;
+    border: 2px solid #0078a8;
+  }
+}

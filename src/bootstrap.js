@@ -38,6 +38,14 @@ import Local from './helpers/data/Local.js'
 window.local = Local
 
 /**
+ * Load Local
+ * Local is a helper to pass data from store to local storage and vice versa
+ *
+ * and make it available globally
+ */
+import './helpers/Debug.js'
+
+/**
  * Load axios
  * axios is for http requests
  *

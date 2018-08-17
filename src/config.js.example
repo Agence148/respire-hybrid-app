@@ -5,3 +5,4 @@
 */
 
 window.appURL = 'http://respire.test:8888'
+window.debug = false

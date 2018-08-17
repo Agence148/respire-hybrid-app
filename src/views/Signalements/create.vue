@@ -87,7 +87,7 @@
         this.form.lng = this.shared.user_position[1];
         this.form.date = this.form.live ? this.form.created_at : this.pastDate;
         this.form.live = this.selected == '0' ;
-        this.form.uuid = '000-0000-000';
+        this.form.uuid = device.platform == 'browser' ? 'dev-test' : device.uuid;
 
         let s = (store.signalements.push(this.form.data()))-1;
         local.save("signalements");
