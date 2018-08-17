@@ -48,7 +48,7 @@ new Vue({
 
   computed: {
     uuid() {
-      return window.device.platform === 'browser' ? 'dev-test' : device.uuid
+      return !device || device.platform === 'browser' ? 'dev-test' : device.uuid
     }
   },
 
