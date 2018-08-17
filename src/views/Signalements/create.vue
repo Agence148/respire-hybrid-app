@@ -112,7 +112,9 @@
       this.$parent.mapZoom = 15;
 
       E.$on('symptome-added', (id) => {
-        this.form.symptomes.push(id);
+        if (this.form.symptomes.indexOf(id) == -1) {
+          this.form.symptomes.push(id);
+        }
       })
       E.$on('symptome-removed', (id) => {
         let index = this.form.symptomes.indexOf(id);

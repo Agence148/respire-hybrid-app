@@ -41,11 +41,12 @@
         return (this.visible) ? 'open' : ''
       },
       titre () {
-        let symptomesDescriptions = this.symptomes.filter(function (el) {
-          return typeof el === 'object'
-        }).map(function (el) {
-          return el.description
-        })
+        var symptomesDescriptions = [], key;
+        for (key in this.symptomes) {
+          if (key.match(/^key:/) && this.symptomes.hasOwnProperty(key)) {
+            symptomesDescriptions.push(this.symptomes[key].description);
+          }
+        }
         if (symptomesDescriptions.length == 0) {
           return this.category.description
         } else {
@@ -64,11 +65,11 @@
       },
 
       checkclick (symptome) {
-        if (typeof this.symptomes[symptome.id] === 'object') {
-          Vue.delete(this.symptomes, symptome.id)
+        if (typeof this.symptomes['key:' + symptome.id] === 'object') {
+          Vue.delete(this.symptomes, 'key:' + symptome.id)
           E.$emit('symptome-removed', symptome.id)
         } else {
-          Vue.set(this.symptomes, symptome.id, symptome)
+          Vue.set(this.symptomes, 'key:' + symptome.id, symptome)
           E.$emit('symptome-added', symptome.id)
         }
       },
