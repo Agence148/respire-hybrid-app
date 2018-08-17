@@ -87,8 +87,7 @@
         this.form.lng = this.shared.user_position[1];
         this.form.date = this.form.live ? this.form.created_at : this.pastDate;
         this.form.live = this.selected == '0' ;
-        this.form.uuid = '111-1111-111';
-        this.getSymptomes();
+        this.form.uuid = '000-0000-000';
 
         let s = (store.signalements.push(this.form.data()))-1;
         local.save("signalements");
@@ -102,18 +101,6 @@
           .catch((err) => {
             console.log(err);
           });
-      },
-      getSymptomes() {
-        for(let i = 0; i < this.shared.symptomes_categories.length; i++) {
-          for(let j = 0; j < this.shared.symptomes_categories[i].length; j++) {
-            this.form.symptomes.push(this.shared.symptomes_categories[i].children[j].symptomes);
-          }
-        }
-      },
-      flatten(arr) {
-        return arr.reduce( (flat, toFlatten) => {
-          return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
-        }, []);
       }
     },
 
@@ -124,9 +111,14 @@
       this.$parent.mapCenter = this.shared.user_position;
       this.$parent.mapZoom = 15;
 
-      E.$on('symptometype-changed-container', (id, symptomes) => {
-        // console.log(symptomes);
-        // this.form.symptomes = symptomes.filter( e => typeof e == 'number' );
+      E.$on('symptome-added', (id) => {
+        this.form.symptomes.push(id);
+      })
+      E.$on('symptome-removed', (id) => {
+        let index = this.form.symptomes.indexOf(id);
+        if (index != -1) {
+          this.form.symptomes.splice(index, 1);
+        }
       })
     }
   }

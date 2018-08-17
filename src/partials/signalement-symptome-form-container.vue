@@ -31,14 +31,9 @@
     methods: {
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened-container', this.category.id, this.symptomes)
       }
     },
     mounted () {
-      E.$on('symptometype-changed-group', (id, symptomes) => {
-        this.symptomes = symptomes;
-        E.$emit('symptometype-changed-container', this.category.id, this.symptomes)
-      })
     }
   }
 

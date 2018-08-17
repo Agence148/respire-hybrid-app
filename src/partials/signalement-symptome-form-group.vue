@@ -61,26 +61,25 @@
     methods: {
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened-group', this.category.id, this.symptomes)
       },
 
       checkclick (symptome) {
         if (typeof this.symptomes[symptome.id] === 'object') {
           Vue.delete(this.symptomes, symptome.id)
+          E.$emit('symptome-removed', symptome.id)
         } else {
           Vue.set(this.symptomes, symptome.id, symptome)
+          E.$emit('symptome-added', symptome.id)
         }
-        // this.symptomes = this.symptomes.filter((el) => { return typeof el === 'object' })
-        E.$emit('symptometype-changed-group', this.category.id, this.symptomes)
       },
 
       radioclick (symptome) {
         this.category.symptomes.forEach((el) => {
           Vue.delete(this.symptomes, el.id)
+          E.$emit('symptome-removed', el.id)
         })
         Vue.set(this.symptomes, symptome.id, symptome)
-        // this.symptomes = this.symptomes.filter((el) => { return typeof el === 'object' })
-        E.$emit('symptometype-changed-group', this.category.id, this.symptomes)
+        E.$emit('symptome-added', symptome.id)
       }
     },
 
