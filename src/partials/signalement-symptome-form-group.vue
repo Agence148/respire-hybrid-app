@@ -1,200 +1,180 @@
 <template>
 
-    <div class="form-group" :class="open">
-      <h3 @click.self="onclick" v-html="titre"></h3>
-      <div class="symptomes-inputs">
-        <div v-for="(symptome,index) in category.symptomes" :key="symptome.id">
-          <input
-                  v-if="category.input == 'checkbox'"
-                  :id="'sympt-' + symptome.id"
-                  type="checkbox"
-                  v-model="model[category.order]"
-                  :value="symptome.id"
-                  @click="checkclick(index, symptome.id)"
-          >
-          <input
-                  v-else
-                  :id="'sympt-' + symptome.id"
-                  type="radio"
-                  v-model="model[category.id]"
-                  :value="symptome.id"
-                  @click="radioclick(index, symptome.id)"
-          >
-          <label :for="'sympt-'+symptome.id">{{symptome.name}}</label>
-        </div>
+  <div class="form-group" :class="open">
+    <h3 @click.self="onclick" v-html="titre"></h3>
+    <div class="symptomes-inputs">
+      <div v-for="(symptome,index) in category.symptomes" :key="symptome.id">
+        <input
+          v-if="category.input == 'checkbox'"
+          :id="'sympt-' + symptome.id"
+          type="checkbox"
+          v-model="model[category.order]"
+          :value="symptome.id"
+          @click="checkclick(symptome)">
+        <input
+          v-else
+          :id="'sympt-' + symptome.id"
+          type="radio"
+          v-model="model[category.id]"
+          :value="symptome.id"
+          @click="radioclick(symptome)">
+        <label :for="'sympt-'+symptome.id">{{symptome.name}}</label>
       </div>
     </div>
+  </div>
 
 </template>
 
 <script>
+
   export default {
     props: ['category', 'model'],
     data () {
       return {
         visible: false,
-        symptomes: [],
-        symptomesId: []
+        symptomes: []
       }
     },
+
     computed: {
       open () {
         return (this.visible) ? 'open' : ''
       },
       titre () {
-        if (this.category.input === 'checkbox') {
-          let arr = this.symptomes.filter(function (n) { 
-            return n != undefined
-          })
-          return this.category.description + ' ' + arr.join(', ')
-        }
-        else {
-          if (this.symptomes[0] === undefined || this.symptomes[0] === '') {
-            return this.category.description
+        let symptomesDescriptions = this.symptomes.filter(function (el) {
+          return typeof el === 'object'
+        }).map(function (el) {
+          return el.description
+        })
+        if (symptomesDescriptions.length == 0) {
+          return this.category.description
+        } else {
+          if (this.category.input === 'checkbox') {
+            return this.category.description.replace('...', symptomesDescriptions.join(', '))
+          } else {
+            return this.category.description.replace('...', symptomesDescriptions.pop())
           }
-          else {
-            return this.symptomes[0]
-          }
         }
-
       }
     },
-    methods: {
 
+    methods: {
       onclick () {
         this.visible = !this.visible
-        E.$emit('symptometype-opened-group', this.category.id, this.symptomesId)
+        E.$emit('symptometype-opened-group', this.category.id, this.symptomes)
       },
 
-      checkclick (index, id) {
-        if (this.symptomes[index] === undefined || this.symptomes[index] === '') {
-          Vue.set(this.symptomes, index, this.category.symptomes[index].description)
-          this.symptomesId.push(id)
+      checkclick (symptome) {
+        if (typeof this.symptomes[symptome.id] === 'object') {
+          Vue.delete(this.symptomes, symptome.id)
         } else {
-          Vue.set(this.symptomes, index, undefined)
-          let i = this.symptomesId.indexOf(id)
-          if(i != -1) {
-            this.symptomesId.splice(i, 1)
-          }
+          Vue.set(this.symptomes, symptome.id, symptome)
         }
-        E.$emit('symptometype-changed-group', this.category.id, this.symptomesId)
+        // this.symptomes = this.symptomes.filter((el) => { return typeof el === 'object' })
+        E.$emit('symptometype-changed-group', this.category.id, this.symptomes)
       },
 
-      radioclick (index, id) {
-        Vue.set(this.symptomes, 0, this.category.symptomes[index].description)
-
-        let categorySymptomesIds = this.category.symptomes.map((el) => {
-          return el.id
-        });
-        let newSymptomesIds = [];
-        this.symptomesId.forEach((el) => {
-          if (categorySymptomesIds.indexOf(el) == -1) {
-            newSymptomesIds.push(el);
-          }
+      radioclick (symptome) {
+        this.category.symptomes.forEach((el) => {
+          Vue.delete(this.symptomes, el.id)
         })
-        newSymptomesIds.push(id);
-        this.symptomesId = newSymptomesIds;
-        E.$emit('symptometype-changed-group', this.category.id, this.symptomesId)
+        Vue.set(this.symptomes, symptome.id, symptome)
+        // this.symptomes = this.symptomes.filter((el) => { return typeof el === 'object' })
+        E.$emit('symptometype-changed-group', this.category.id, this.symptomes)
       }
     },
+
     mounted () {
-      
     }
   }
+
 </script>
 
 <style lang="scss">
-    #form-signalement {
 
-        h3 {
+  #form-signalement {
+    h3 {
+      padding: 10px 0;
+      font-variant: none;
 
-            padding: 10px 0;
-            font-variant: none;
-
-            span {
-                color: $font-color;
-            }
-
-        }
-        .form-group {
-            border-bottom: 1px solid #fff;
-            position: relative;
-            overflow: hidden;
-
-            padding-bottom: 0;
-            transition: padding-bottom .15s;
-            &.open {
-                padding-bottom: 200px;
-                overflow: scroll;
-                .symptomes-inputs {
-                    top: 50px;
-                }
-            }
-        }
-        .symptomes-inputs {
-            position: absolute;
-            top: 100px;
-            left: 0;
-            transition: top .4s;
-
-            width: 100%;
-            overflow-x: scroll-x;
-            -webkit-overflow-scrolling: touch; // for iOS
-            z-index: 0 !important; /* for android - http://stackoverflow.com/questions/15906508/chrome-browser-for-android-no-longer-supports-webkit-overflow-scrolling-is-the */
-            overflow-y: hidden;
-            white-space: nowrap;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-
-            & > div {
-
-                display: inline-block;
-                width: 120px;
-                text-align: center;
-            }
-
-        }
-        [type="radio"]:not(:checked),
-        [type="radio"]:checked,
-        [type="checkbox"]:not(:checked),
-        [type="checkbox"]:checked {
-            position: absolute;
-            left: -9999px;
-
-            & + label {
-                position: relative;
-
-                display: block;
-                padding: 10px 30px 10px 10px;
-
-                text-align: center;
-                cursor: pointer;
-
-                &:before {
-                    content: "";
-                    display: block;
-
-                    width: 60px;
-                    height: 60px;
-                    margin: 0 auto 12px;
-
-                    background: #fff;
-                    border-radius: 30px;
-
-                    transition: background-color .3s;
-                }
-            }
-        }
-
-        /* Aspect si "cochée" */
-        [type="radio"]:checked + label,
-        [type="checkbox"]:checked + label {
-            &:before {
-                background: rgba(255, 255, 255, .6);
-            }
-        }
+      span {
+        color: $font-color;
+      }
     }
+
+    .form-group {
+      border-bottom: 1px solid #fff;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 0;
+      transition: padding-bottom .15s;
+
+      &.open {
+        padding-bottom: 200px;
+        overflow: scroll;
+        .symptomes-inputs {
+          top: 50px;
+        }
+      }
+    }
+
+    .symptomes-inputs {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      transition: top .4s;
+      width: 100%;
+      overflow-x: scroll-x;
+      -webkit-overflow-scrolling: touch; // for iOS
+      z-index: 0 !important; /* for android - http://stackoverflow.com/questions/15906508/chrome-browser-for-android-no-longer-supports-webkit-overflow-scrolling-is-the */
+      overflow-y: hidden;
+      white-space: nowrap;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      & > div {
+        display: inline-block;
+        width: 120px;
+        text-align: center;
+      }
+    }
+
+    [type="radio"]:not(:checked),
+    [type="radio"]:checked,
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+      position: absolute;
+      left: -9999px;
+
+      & + label {
+        position: relative;
+        display: block;
+        padding: 10px 30px 10px 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:before {
+          content: "";
+          display: block;
+          width: 60px;
+          height: 60px;
+          margin: 0 auto 12px;
+          background: #fff;
+          border-radius: 30px;
+          transition: background-color .3s;
+        }
+      }
+    }
+
+    /* Aspect si "cochée" */
+    [type="radio"]:checked + label,
+    [type="checkbox"]:checked + label {
+      &:before {
+        background: rgba(255, 255, 255, .6);
+      }
+    }
+  }
 
 </style>
