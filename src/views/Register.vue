@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <form id="form-register" class="fixed-middle" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear()">
       <h1>Vos informations :</h1>
@@ -25,10 +26,13 @@
       </div>
     </form>
   </div>
+
 </template>
 
 <script>
+
   import Form from '../helpers/form/Form.js';
+
   export default {
     data() {
       return {
@@ -55,16 +59,20 @@
       }
     }
   }
+
 </script>
 
 <style lang="scss">
+
   #form-register {
     width: 60%;
-    h1{
+
+    h1 {
       margin-bottom:50px;
     }
-    label{
+    label {
       text-transform: uppercase;
     }
   }
+
 </style>

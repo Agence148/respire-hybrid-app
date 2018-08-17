@@ -23,7 +23,7 @@ const routes = [
     component: require('./views/Home.vue'),
     meta: {
       requiresAuth: false,
-      showMainNav: false
+      showMainNav: true
     }
   },
   {
@@ -54,7 +54,7 @@ const routes = [
     path: '/signalements',
     component: require('./views/Signalements/signalements.vue'),
     meta: {
-      // requiresAuth: true,
+      requiresAuth: false,
       showMainNav: true
     },
     children: [
@@ -69,14 +69,14 @@ const routes = [
       {
         path: ':id',
         component: require('./views/Signalements/show.vue')
-      },
+      }
     ]
   },
   {
     path: '/profil',
     component: require('./views/Profil.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       showMainNav: true
     }
   }
@@ -87,9 +87,7 @@ const routes = [
  * Instanciate the router
  */
 let router = new VueRouter({
-  routes: routes,
-  // base:'/mobile/',
-  // mode:'history'
+  routes: routes
 })
 
 /**
@@ -134,11 +132,11 @@ router.beforeEach((to, from, next) => {
    * Should we show the main navigation
    */
   if (to.matched.some(record => record.meta.showMainNav)) {
-    E.$emit('showMainNav', true)
+    E.$emit('nav-show', true)
     next()
   }
   else {
-    E.$emit('showMainNav', false)
+    E.$emit('nav-show', false)
     next()
   }
 })

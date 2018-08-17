@@ -40,11 +40,19 @@ new Vue({
   el: '#app',
   router: router,
   components: {'TopBar': TopBar, 'MainNav': MainNav},
+
   data: {
     shared: store,
     cordova: Vue.cordova
   },
-  mounted () {
+
+  computed: {
+    uuid() {
+      return window.device.platform === 'browser' ? 'dev-test' : device.uuid
+    }
+  },
+
+  mounted() {
     if (this.isRunningStandalone()) {
       router.push({path: '/'})
       this.checkUser()
@@ -54,13 +62,14 @@ new Vue({
       }
     }
   },
+
   watch: {
     'shared.authenticated': function (authenticated) {
       if (authenticated) {
         if (this.$route.query.redirect) {
           router.push({path: this.$route.query.redirect})
         } else {
-          if (this.$route.path === '/' || this.$route.path == '/login') {
+          if (this.$route.path === '/' || this.$route.path === '/login') {
             router.push({path: '/signalements/index'})
           }
         }
@@ -70,29 +79,28 @@ new Vue({
       }
     }
   },
+
   methods: {
     checkUser () {
       local.get('user')
         .then(() => {
           if (store.user.api_token) {
             local.get()
-            this.updateUser()
-
+            this.getUser()
+          } else {
+            this.getOrphansReports()
           }
         })
-        .catch((err) => {
-            console.log(err)
-            store.authenticated = false
-          }
-        )
+        .catch(() => {
+          this.getOrphansReports()
+          store.authenticated = false
+        })
     },
-    updateUser () {
+    getUser () {
       const url = appURL + '/api/v1/users/' + store.user.id
       const AuthStr = 'Bearer '.concat(store.user.api_token)
       axios.get(url, {headers: {Authorization: AuthStr}})
         .then(response => {
-
-          console.log(response)
           store.authenticated = true
         })
         .catch(error => {
@@ -102,13 +110,14 @@ new Vue({
             }
           }
         })
-
     },
-    isIos () {
-      // Reference: http://stackoverflow.com/questions/9038625/detect-if-device-is-ios#answer-9039885
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+    getOrphansReports () {
+      const url = appURL + '/api/v1/signalements/' + this.uuid + '/orphelins'
+      axios.get(url)
+        .then(response => {
+          store.user.signalements = response.data
+        })
     },
-
     isRunningStandalone () {
       // Bullet proof way to check if iOS standalone
       var isRunningiOSStandalone = window.navigator.standalone

@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <form id="form-login" class="fixed-middle" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear()">
       <h1>Bonjour !</h1>
@@ -22,10 +23,13 @@
       <router-link to="/register" class="link--register">Créer mon compte</router-link>
     </form>
   </div>
+
 </template>
 
 <script>
+
   import Form from '../helpers/form/Form.js';
+
   export default {
     data() {
       return {
@@ -52,18 +56,22 @@
       }
     }
   }
+
 </script>
 
 <style lang="scss">
-  #form-login{
+
+  #form-login {
     width: 60%;
-    h1{
+
+    h1 {
       margin-bottom:50px;
     }
-    label{
+    label {
       text-transform: uppercase;
     }
   }
+
   a.link--register {
     display: block;
     text-align: center;
@@ -71,4 +79,5 @@
     font-size: 0.7em;
     color: white;
   }
+
 </style>

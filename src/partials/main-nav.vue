@@ -22,7 +22,7 @@
 
     },
     mounted () {
-      E.$on('showMainNav', (show) => {
+      E.$on('nav-show', (show) => {
         this.show = show
       })
     }
