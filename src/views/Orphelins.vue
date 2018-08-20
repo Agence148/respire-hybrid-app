@@ -27,7 +27,7 @@ export default {
             axios.post(url, this.shared.user.signalements, {headers: {Authorization: AuthStr}})
                 .then(response => {
                     if(!response.data.error) console.log('OK');
-                    this.$router.push({path: 'signalement/index'});
+                    this.$router.push({path: 'signalements/index'});
                 })
                 .catch(error => {
                     console.log('error.response.data: ', error.response.data);
