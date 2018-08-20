@@ -47,13 +47,11 @@ new Vue({
   },
 
   computed: {
-    uuid() {
-      // return typeof !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
-      return 'dev-test';
-    }
   },
-
+  
   mounted() {
+    // return typeof !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
+    this.shared.uuid = 'dev-test'
     if (this.isRunningStandalone()) {
       router.push({path: '/'})
       this.checkUser()
@@ -113,7 +111,7 @@ new Vue({
         })
     },
     getOrphansReports () {
-      const url = appURL + '/api/v1/signalements/' + this.uuid + '/orphelins'
+      const url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/orphelins'
       axios.get(url)
         .then(response => {
           store.user.signalements = response.data

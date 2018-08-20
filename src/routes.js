@@ -79,6 +79,14 @@ const routes = [
       requiresAuth: false,
       showMainNav: true
     }
+  },
+  {
+    path: '/orphelins',
+    component: require('./views/Orphelins.vue'),
+    meta: {
+      requiresAuth: true,
+      showMainNav: false
+    }
   }
 
 ]

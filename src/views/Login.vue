@@ -49,11 +49,23 @@
             }
             this.shared.authenticated = true;
             local.save();
+            if(this.shared.orphelins.length > 0) {
+              this.$router.push({path: 'orphelins'});
+            }
           })
           .catch((error) => {
             console.log(error);
           });
       }
+    },
+    computed: {
+      orphelins() {
+        const url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/orphelins';
+        axios.get(url)
+          .then(response => {
+            this.shared.orphelins = response.data
+          })
+      },
     }
   }
 

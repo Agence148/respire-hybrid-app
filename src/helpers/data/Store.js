@@ -14,7 +14,8 @@ let store = {
   user_position: [48.86, 2.34],
   geolocalised: false,
   symptomes_categories: [],
-  authenticated: undefined
+  authenticated: undefined,
+  uuid: ''
 
 }
 
