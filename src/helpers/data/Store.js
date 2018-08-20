@@ -12,10 +12,16 @@ let store = {
     api_token: undefined
   },
   user_position: [48.86, 2.34],
+  uuid: '',
+
   geolocalised: false,
-  symptomes_categories: [],
   authenticated: undefined,
-  uuid: ''
+
+  symptomes: [],
+  orphelins: [],
+  origines: [],
+  signalements: [],
+  symptomes_categories: [] // TODO: delete ?
 
 }
 

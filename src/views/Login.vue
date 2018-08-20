@@ -44,28 +44,19 @@
       onSubmit() {
         this.form.post(appURL + '/api/v1/login')
           .then((response) => {
-            for(let field in response){
+            for (let field in response){
               this.shared[field] = response[field];
             }
-            this.shared.authenticated = true;
+            store.authenticated = true;
             local.save();
-            if(this.shared.orphelins.length > 0) {
-              this.$router.push({path: 'orphelins'});
+            if (store.orphelins.length > 0) {
+              this.$router.push({ path: 'orphelins' });
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }
-    },
-    computed: {
-      orphelins() {
-        const url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/orphelins';
-        axios.get(url)
-          .then(response => {
-            this.shared.orphelins = response.data
-          })
-      },
     }
   }
 

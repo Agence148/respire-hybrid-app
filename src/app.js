@@ -48,10 +48,9 @@ new Vue({
 
   computed: {
   },
-  
+
   mounted() {
-    // return typeof !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
-    this.shared.uuid = 'dev-test'
+    store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
     if (this.isRunningStandalone()) {
       router.push({path: '/'})
       this.checkUser()
@@ -60,6 +59,34 @@ new Vue({
         this.checkUser()
       }
     }
+
+    // Get signalements
+    axios.get(appURL + '/api/v1/signalements')
+      .then(response => {
+        store.signalements = response.data
+      })
+
+    // Get origines
+    axios.get(appURL + '/api/v1/origines')
+      .then(response => {
+        store.origines = response.data
+      })
+
+    // Get symptomes
+    axios.get(appURL + '/api/v1/symptomes')
+      .then(response => {
+        store.symptomes = response.data
+      })
+
+    // Get orphans
+    axios.get(appURL + '/api/v1/signalements/' + store.uuid + '/orphelins')
+      .then(response => {
+        store.orphelins = response.data
+        if (!store.authenticated) {
+          store.user.signalements = response.data
+        }
+      })
+
   },
 
   watch: {
@@ -86,12 +113,9 @@ new Vue({
           if (store.user.api_token) {
             local.get()
             this.getUser()
-          } else {
-            this.getOrphansReports()
           }
         })
         .catch(() => {
-          this.getOrphansReports()
           store.authenticated = false
         })
     },
@@ -105,13 +129,13 @@ new Vue({
         .catch(error => {
           if (error.response) {
             if (error.response.status === 401) {
-              this.shared.authenticated = false
+              store.authenticated = false
             }
           }
         })
     },
     getOrphansReports () {
-      const url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/orphelins'
+      const url = appURL + '/api/v1/signalements/' + store.uuid + '/orphelins'
       axios.get(url)
         .then(response => {
           store.user.signalements = response.data
