@@ -2,13 +2,20 @@
 
   <div class="profile">
     <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1>
-
-    <h2>Mes signalements</h2>
-    <table>
-      <tr v-for="signalement in shared.user.signalements" :key="signalement.id">
-        <td><router-link :to="'/signalements/' + signalement.id">{{ signalement.date }}</router-link></td>
-      </tr>
-    </table>
+    <div v-if="shared.user.signalements.length > 0">
+      <h2>Mes signalements</h2>
+      <ul class="signalement-container">
+        <li v-for="signalement in shared.user.signalements" :key="signalement.id" class="signalement-list">
+          <router-link :to="'/signalements/' + signalement.id" class="signalement-item icon-dot-circled">{{ signalement.date }}</router-link>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <span class="cross-icon">&#10008;</span>
+      <h2>Aucun signalement</h2>
+      <p>Vous n'avez aucun signalement...</p>
+      <!-- <router-link :to="'/signalements/create'" class="create-signalement">Créez un signalement</router-link> -->
+    </div>
 
     <div v-if="shared.user.api_token">
       <button @click.prevent="logout" >Se déconnecter</button>
@@ -50,6 +57,34 @@
     }
     button {
       margin-top: 60px;
+    }
+
+    .cross-icon {
+      text-align: center;
+      display: block;
+      font-size: 4em;
+      
+      & + h2 {
+        text-align: center;
+      }
+    }
+
+    .signalement {
+      &-container {
+        list-style: none;
+        padding: 0;
+      }
+      &-list {
+          margin-bottom: 5px;
+      }
+      &-item {
+        color: #fff;
+        position: relative;
+        &::before {
+          margin-left: 0;
+          margin-right: 10px;
+        }
+      }
     }
   }
 

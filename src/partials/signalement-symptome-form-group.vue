@@ -3,7 +3,7 @@
   <div class="form-group" :class="open">
     <h3 @click.self="onclick" v-html="titre"></h3>
     <div class="symptomes-inputs">
-      <div v-for="(symptome,index) in category.symptomes" :key="symptome.id">
+      <div v-for="symptome in category.symptomes" :key="symptome.id">
         <input
           v-if="category.input == 'checkbox'"
           :id="'sympt-' + symptome.id"

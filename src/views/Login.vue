@@ -72,12 +72,16 @@
     }
   }
 
-  a.link--register {
-    display: block;
-    text-align: center;
-    margin-top: 1em;
-    font-size: 0.7em;
-    color: white;
+  a.link{
+    &--register, &--login {
+      display: block;
+      padding: 10px 20px;
+      text-align: center;
+      margin-top: 1em;
+      font-size: 0.7em;
+      color: $principale;
+      background: #fff;
+    }
   }
 
 </style>

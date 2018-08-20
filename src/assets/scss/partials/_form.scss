@@ -31,9 +31,11 @@ input:-webkit-autofill{
 }
 .button, button{
 	width: 100%;
-	padding: 13px;
+	padding: 10px 20px;
 
-	background: #fff;
+    background: #fff;
+    font-family: 'HelveticaNeueLT', Arial, sans-serif;
+    font-size: 0.7em;
 	border: 0;
 
 	color: $principale;
