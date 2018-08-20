@@ -50,44 +50,12 @@
     @import "../../assets/scss/_vars.scss";
 
     .map-marker {
-
-        left: -10px;
-        top: -10px;
-
-        width: 21px;
-        height: 21px;
-
-        border-radius: 10px;
-        border: 3px solid $rouge;
-
-        &:before {
-            content: '';
-
-            position: absolute;
-            top: 5px;
-            left: 5px;
-
-            display: block;
-            width: 5px;
-            height: 5px;
-
-            border-radius: 3px;
-            background: $rouge;
-        }
-        &:after {
-            content: '';
-
-            position: absolute;
-            top: -3px;
-            left: -3px;
-
-            display: block;
-            width: 21px;
-            height: 21px;
-
-            border-radius: 10px;
-            border: 3px solid $rouge;
-        }
+        top: -5px;
+        left: -5px;
+        width: 10px;
+        height: 10px;
+        background: $rouge;
+        border-radius: 50px;
 
         &.click {
             &:after {

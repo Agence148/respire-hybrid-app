@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="7px" viewBox="0 0 10 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SIGNALEMENT---ETAPE-03" transform="translate(-126.000000, -434.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="//-SIGNALEMENT" transform="translate(30.000000, 142.000000)">
+                <g id="::-partie-copy" transform="translate(43.000000, 281.000000)">
+                    <path d="M56.5977186,18 C56.3948213,18 56.191713,17.9247121 56.0369326,17.7740222 L53.2323464,15.045621 C52.9225512,14.7442412 52.9225512,14.2556904 53.2323464,13.9543106 C53.5421416,13.6529309 54.0443341,13.6529309 54.3541293,13.9543106 L56.5977186,16.1369541 L61.6458941,11.2260006 C61.9556893,10.9247121 62.4579991,10.9246209 62.7675833,11.2260006 C63.0774722,11.5273804 63.0774722,12.0160452 62.7675833,12.317311 L57.1586218,17.7740222 C57.0037242,17.9246209 56.8007097,18 56.5977186,18 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

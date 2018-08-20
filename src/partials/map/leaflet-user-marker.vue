@@ -16,9 +16,13 @@
 
     mounted () {
 
-      this.marker = L.circle(this.shared.user_position, {
-        radius: 200,
-        color: '#4dbcc3'
+      this.marker = L.circleMarker(this.shared.user_position, {
+        radius: 5,
+        color: '#321f40',
+        opacity: '0.3',
+        weight: '25',
+        fillOpacity: '1',
+
       }).addTo(this.map)
 
     },
