@@ -1,8 +1,8 @@
 {
-  "name": "vue-cordova-demo",
+  "name": "com.weare148.respire",
   "version": "1.0.0",
-  "description": "Demo for vue-cordova NPM package",
-  "author": "Simon Tarchichi <kartsims@gmail.com>",
+  "description": "Surveillez la qualité de l'air à Paris !",
+  "author": "Agence 148 <contact@148.fr>",
   "private": true,
   "scripts": {
     "browser": "cordova prepare browser && cross-env PORT=3000 node build/dev-server.js",

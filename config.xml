@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.vue.cordova.demo" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>VueCordovaDemo</name>
+<widget id="com.weare148.respire" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Respire</name>
     <description>
-        Demo app for vue-cordova NPM package
+      Surveillez la qualité de l'air à Paris !
     </description>
-    <author email="kartsims@gmail.com">
-        Simon Tarchichi
+    <author email="contact@148.fr">
+      Agence 148
     </author>
     <content src="index.html" />
     <access origin="*" />
