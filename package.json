@@ -12,13 +12,15 @@
     "ios": "cordova prepare ios && cordova run ios",
     "android": "cordova prepare android && cordova run android",
     "lint": "eslint --ext .js,.vue src",
-    "postinstall": "npm run build && cordova prepare"
+    "postinstall": "npm run build && cordova prepare",
+    "icons": "cordova-icon"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "cordova": "^6.5.0",
     "cordova-android": "^6.2.2",
     "cordova-browser": "~4.1.0",
+    "cordova-icon": "^1.0.0",
     "cordova-ios": "~4.2.1",
     "cordova-plugin-camera": "~2.3.0",
     "cordova-plugin-contacts": "~2.2.0",
