@@ -15,6 +15,7 @@
  */
 body {
   background: $principale;
+  margin: 0;
 
   @include font-size(1.8);
 

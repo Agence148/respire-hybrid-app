@@ -2,7 +2,7 @@
 
   <div class="startup-screen">
     <div class="fixed-middle">
-      <img src="../assets/images/logo-big.png" alt="">
+      <img src="../assets/images/logo-big.png" alt="Respire">
     </div>
   </div>
 

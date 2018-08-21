@@ -1,6 +1,7 @@
 <template>
     <div>
         <div id="map"></div>
+        <top-bar></top-bar>
         <leaflet-marker v-for="marker in markers" :map="map" :key="marker.id" :data="marker"></leaflet-marker>
         <leaflet-user-marker v-if="map" :map="map"></leaflet-user-marker>
     </div>
@@ -11,6 +12,8 @@
   import L from 'leaflet'
   import leafletMarker from './leaflet-marker.vue'
   import leafletUserMarker from './leaflet-user-marker.vue'
+  
+  Vue.component('top-bar',require('../top-bar.vue'));
 
   export default {
 

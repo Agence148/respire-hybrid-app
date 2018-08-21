@@ -2,17 +2,30 @@
 
     <div class="top-bar">
         <div class="top-bar-left">
-            <slot name="left"></slot>
+            <button class="btn">
+                <img src="../assets/images/icons/gps.svg" alt="Geolocalisation">
+            </button>
         </div>
         <div class="top-bar-center">
-            <slot></slot>
+            <button class="btn">
+                <img src="../assets/images/icons/layers.svg" alt="Heat map">
+            </button>
         </div>
         <div class="top-bar-right">
-            <slot name="right"></slot>
+            <button class="btn">
+                <img src="../assets/images/icons/info.svg" alt="Informations">
+            </button>
         </div>
     </div>
 
 </template>
+
+<script>
+export default {
+    
+}
+</script>
+
 
 <style lang="scss">
     .top-bar {
@@ -20,38 +33,52 @@
         position: fixed;
         top: 0;
         left: 0;
-
         width: 100%;
-        padding: 20px 10px 10px;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: row;
 
-        text-align: center;
-        line-height: 1;
+        &-left, &-right, &-center {
+            text-align: center;
+            display: inline-block;
+            margin: 0 10px;
+            .btn {
+                padding: 0;
+                font-family: sans-serif;
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
+                img {
+                    width: 22px;
+                }
+            }
+        }
+
+        &-left {
+            .btn {
+                img {
+                    width: 24px;
+                }
+            }
+        }
+        
+        &-center {
+
+        }
+
+        &-right {
+            position: absolute;
+            right: 20px;
+            opacity: 0.65;
+            .btn {
+                box-shadow: none;
+            }
+        }
 
         a {
             color: #fff;
         }
-    }
-
-    .top-bar-left, .top-bar-right {
-        position: absolute;
-        top: 20px;
-
-        & > * {
-            display: inline-block;
-            padding: 10px;
-        }
-    }
-
-    .top-bar-left {
-        right: 0;
-    }
-
-    .top-bar-center {
-        display: none;
-    }
-
-    .top-bar-right {
-        right: 0;
     }
 
 </style>

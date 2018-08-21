@@ -2,7 +2,9 @@
     <nav class="main-nav bottom-nav" v-show="show">
         <ul class="nav-items">
             <li v-for="item in navItems">
-                <router-link :to="item.url" :class="item.icon"></router-link>
+                <router-link :to="item.url" :class="item.icon">
+                    <img :src="item.image" :alt="item.name" />
+                </router-link>
             </li>
         </ul>
     </nav>
@@ -11,14 +13,19 @@
 <script>
   export default {
     data () {
-      return {
-        navItems: [
-          {name: 'carte', url: '/signalements/index', icon: 'icon-map-o'},
-          {name: 'signalement', url: '/signalements/create', icon: 'icon-dot-circled'},
-          {name: 'profil', url: '/profil', icon: 'icon-user-outline'}
-        ],
-        show: false
-      }
+        var navItems = [
+            {name: 'carte', url: '/signalements/index', icon: 'map'},
+            {name: 'signalement', url: '', icon: 'plus'},
+            {name: 'profil', url: '/profil', icon: 'avatar'}
+        ]
+        navItems.forEach(el => {
+            el.image = require('../assets/images/icons/' + el.icon + '.svg');
+        });
+        
+        return {
+            navItems: navItems,
+            show: false
+        }
 
     },
     mounted () {
@@ -61,21 +68,25 @@
                 &:nth-child(2) {
                     background: $violet;
                     border-radius: 50px;
-                    width: 80px;
-                    height: 80px;
-                    bottom: -15px;
+                    width: 75px;
+                    height: 75px;
                     left: 50%;
                     transform: translateX(-50%);
                     position: absolute;
+                    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
                 }
                 a {
                     display: inline-block;
                     vertical-align: top;
-                    padding: 8px 5px 2px;
+                    padding: 13px 10px;
                     line-height: 1;
         
                     &.router-link-active {
                         color: $principale;
+                    }
+                    img{
+                        width: 100%;
+                        height:auto;
                     }
                 }
             }
