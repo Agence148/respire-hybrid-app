@@ -1,0 +1,11 @@
+{
+  "android": {
+    "release": {
+        "keystore": "/Users/samuel/Documents/148/Android/respire.keystore",
+        "storePassword": "148likeandroid",
+        "alias": "Respire",
+        "password" : "148likeandroid",
+        "keystoreType": "pkcs12"
+    }
+  }
+}
