@@ -1,8 +1,6 @@
-# vue-cordova-demo
+# com.weare148.com
 
-This repository is an example of using the [vue-cordova](https://www.npmjs.com/package/vue-cordova) package. You may use this code to test your dev environment or get inspiration to implement `vue-cordova` in your Vue-based mobile app.
-
-**This example features VueJS 2.x. For 1.x versions, check the `vue1.x` branch of this repository.**
+Based on [vue-cordova-demo](https://github.com/kartsims/vue-cordova-demo).
 
 ## How-to
 
