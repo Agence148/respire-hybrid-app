@@ -2,8 +2,8 @@
 <template>
 
   <div>
-    <form v-show="sent===false" id="form-signalement" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
-      <h1>Nouveau <br>signalement<br></h1>
+
+    <form v-show="show" id="form-signalement" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 
       <select class="signal-select" v-model="selected">
         <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
@@ -22,10 +22,10 @@
       </div>
     </form>
 
-    <div v-show="sent">
+    <!-- <div v-show="sent">
       <h1>Merci !</h1>
       <router-link to="/signalements/index" >retour vers la carte</router-link>
-    </div>
+    </div> -->
   </div>
 
 </template>
@@ -53,6 +53,7 @@
         }),
         sending:false,
         sent:false,
+        show: false,
         selected: '0',
         days: [
           { text: 'Maintenant', value: '0' },
@@ -101,6 +102,14 @@
           .catch((err) => {
             console.log(err);
           });
+      },
+
+      onClickCause() {
+
+      },
+
+      onClickSymptome() {
+
       }
     },
 

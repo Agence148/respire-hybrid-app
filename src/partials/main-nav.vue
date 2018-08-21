@@ -1,13 +1,30 @@
 <template>
-    <nav class="main-nav bottom-nav" v-show="show">
-        <ul class="nav-items">
-            <li v-for="item in navItems">
-                <router-link :to="item.url" :class="item.icon">
-                    <img :src="item.image" :alt="item.name" />
-                </router-link>
-            </li>
-        </ul>
-    </nav>
+    <aside :class="popupShow ? ' popup-visible' : ''" id="main-nav-wrapper">    
+        <nav class="main-nav bottom-nav" v-show="show">
+            <ul class="nav-items">
+                <li v-for="item in navItems">
+                    <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name">
+                        <img :src="item.image" :alt="item.name" />
+                    </router-link>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="popup-signalement">
+            <div class="boutons-signalement-container">
+                <button>
+                    <img src="../assets/images/icons/danger.svg" alt="Incident"> Signaler un incident
+                </button>
+
+                <span class="line"></span>
+                
+                <button>
+                    <img src="../assets/images/icons/lifeline.svg" alt="Symptome"> Signaler un symptôme
+                </button>
+            </div>
+        </div>
+    </aside>
+
 </template>
 
 <script>
@@ -15,7 +32,7 @@
     data () {
         var navItems = [
             {name: 'carte', url: '/signalements/index', icon: 'map'},
-            {name: 'signalement', url: '', icon: 'plus'},
+            {name: 'signalement', url: '#', icon: 'plus'},
             {name: 'profil', url: '/profil', icon: 'avatar'}
         ]
         navItems.forEach(el => {
@@ -24,13 +41,18 @@
         
         return {
             navItems: navItems,
-            show: false
+            popupShow: false,
+            show: true
         }
 
     },
     mounted () {
       E.$on('nav-show', (show) => {
         this.show = show
+      })
+      document.querySelector('#link-signalement').addEventListener('click', (e) => {
+          e.preventDefault();
+          this.popupShow = !this.popupShow;
       })
     }
   }
@@ -39,6 +61,48 @@
 <style lang="scss">
     @import "../assets/scss/helpers/_rem.scss";
 
+    .popup-signalement {
+        position: fixed;
+        bottom: 50px;
+        left: 0;
+        transform: translateY(110%);
+        transition: all .5s;
+        height: calc(30vh - 30px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        background: #fff;
+        width: 100%;
+        z-index: 2000;
+        box-shadow: 0px -5px 10px 0 rgba(0,0,0,0.15);
+        .popup-visible & {
+            transform: translateY(0%);
+        }
+        .boutons-signalement-container {
+            width: 65%;
+            button {
+                text-align: left;
+                margin: 5px 0;
+                color: $noir;
+                img {
+                    width: 24px;
+                    margin-right: 10px;
+                }
+            }
+            .line {
+                background: rgba(151, 151, 151, 0.25);
+                height: 1px;
+                width: 85%;
+                margin: auto;
+                display: block;
+            }
+        }
+    }
+
+
     .bottom-nav {
         z-index: 10000;
         position: fixed;
@@ -46,7 +110,7 @@
         left: 0;
         width: 100%;
         background: #fff;
-        border-top: 2px solid $gris-clair;
+        border-top: 1px solid $gris-clair;
 
         @include font-size(1.2);
 

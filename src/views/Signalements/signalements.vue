@@ -41,20 +41,30 @@
 
 <style lang="scss">
 
-    #map {
-        height: 100vh;
-        transition: all .5s;
+  #map {
+    height: 100vh;
+    transition: all .3s;
+    z-index: -1;
+    &::before {
+        content: '';
+        transition: .4s;
+        transition-delay: 0.1s;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 2000;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        pointer-events: none;
     }
+  }
 
-    .signalements-create, .signalements-show {
-
-        #map {
-            margin-top: 60px;
-            height: 220px;
-        }
-        .signalement-content {
-            padding: 30px 0px 60px 70px;
-        }
+  .signalements-create, .signalements-show {
+    
+    .signalement-content {
+      
     }
+  }
 
 </style>
