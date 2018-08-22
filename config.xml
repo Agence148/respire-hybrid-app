@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.weare148.respire.test" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="10001" id="com.weare148.respire.test" ios-CFBundleVersion="1.0.0" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Respire</name>
     <description>Surveillez la qualité de l'air à Paris !</description>
     <author email="contact@148.fr">Agence 148</author>
@@ -24,8 +24,6 @@
     <preference name="Orientation" value="portrait" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="android-targetSdkVersion" value="26" />
-    <preference name="android-versionCode" value="10001" />
-    <preference name="ios-CFBundleVersion" value="1.0.0" />
     <engine name="ios" spec="~4.2.1" />
     <engine name="browser" spec="~4.1.0" />
     <engine name="android" spec="^6.2.2" />
