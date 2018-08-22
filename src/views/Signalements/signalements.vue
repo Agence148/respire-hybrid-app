@@ -17,7 +17,7 @@
         mapCenter: store.user_position,
         mapZoom: 12,
         classes: 'signalements',
-        geolocated: false
+        geolocated: false,
       }
     },
     methods: {
@@ -44,7 +44,6 @@
   #map {
     height: 100vh;
     transition: all .3s;
-    z-index: -1;
     &::before {
         content: '';
         transition: .4s;

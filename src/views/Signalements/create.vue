@@ -1,15 +1,17 @@
 
 <template>
 
-  <div>
+  <div class="create-signalement">
 
     <form v-show="show" id="form-signalement" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 
-      <select class="signal-select" v-model="selected">
-        <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
-      </select>
+      <h1>Signaler un {{ end }}</h1>
 
-      <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" />
+      <!-- <select class="signal-select" v-model="selected">
+        <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
+      </select> 
+
+      <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" /> -->
 
       <signalement-symptome-form-container
         v-for="category in shared.symptomes_categories"
@@ -18,9 +20,11 @@
         :key="category.id"/>
 
       <div class="send-container">
-        <button @click.prevent="onSubmit">Envoyer</button>
+        <button v-if="readyToSend" @click.prevent="onSubmit"><img src="../../assets/images/icons/check.svg" alt="Envoyer"></button>
+        <button v-else class="close-modal" @click="onCloseModal"><img src="../../assets/images/icons/close.svg" alt="Fermer"></button>
       </div>
     </form>
+
 
     <!-- <div v-show="sent">
       <h1>Merci !</h1>
@@ -53,7 +57,7 @@
         }),
         sending:false,
         sent:false,
-        show: false,
+        show: true,
         selected: '0',
         days: [
           { text: 'Maintenant', value: '0' },
@@ -62,7 +66,9 @@
           { text: 'Avant-Hier', value: '3' }
         ],
         time: '',
-        pastDate: 0
+        pastDate: 0,
+        end: 'symptôme',
+        readyToSend: false,
       }
     },
 
@@ -110,6 +116,9 @@
 
       onClickSymptome() {
 
+      },
+      onCloseModal() {
+        this.$router.push('/signalements/index');
       }
     },
 
@@ -138,13 +147,36 @@
 
 <style lang="scss">
 
-  .page-signalement {
-    padding-right:0px;
+  .create-signalement {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($color: #321f40, $alpha: 0.9);
+    z-index: 10001;
+    padding: 50px;
+    pointer-events: all;
+  }
+
+  .close-modal {
+    background: #fff;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    padding: 0;
+    font-size: 0;
+    align-self: center;
   }
 
   #form-signalement {
     h1 {
       margin-bottom:30px;
+      font-size: 24px;
+      font-variant: none;
     }
     .signal {
       &-time {
@@ -173,12 +205,16 @@
     }
 
     .send-container {
-      padding-right:70px;
-    }
-
-    button {
-      margin-top:40px;
-      margin-bottom:40px;
+      display: flex;
+      justify-content: center;
+      margin-top: 60px;
+      button {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        font-size: 0;
+      }
     }
   }
 

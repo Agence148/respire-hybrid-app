@@ -1,19 +1,37 @@
 
 <template>
 
-<div>
+<div class="signalement-details">
 
-    <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
-    <h1 v-else>Anonyme</h1>
+    <div class="modal-header">
+        <router-link to="/signalements/index" class="back-arrow"><img src="../../assets/images/icons/back.svg" alt="Retour"></router-link>
 
-    <span>{{signalement.created_at}}</span>
-
-    <div class="symp">
-        <h3  v-for="cat in signalement.symptome_category">
-            {{cat.description}}
-            <div v-html="join(cat.symptomes)"></div>
-        </h3>
+        <!-- <ul class="signalement-icons">
+            <li v-for="origines in signalement.origines" :key="origines.id">{{ origines.id }}</li>
+            <li v-for="symptome in signalement.symptomes" :key="symptome.id">{{ symptome.id }}</li>
+        </ul> -->
     </div>
+
+    <div class="modal-container">   
+        <div>
+            <span v-if="timeAgo > 59">Il y a {{ Math.round(timeAgo/60) }}h</span>
+            <span v-else>Il y a {{ timeAgo }}</span>
+            <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
+            <h1 v-else>Origine iconnue</h1>
+            <span class="signalement-adresse"><img src="../../assets/images/icons/placeholder.svg" alt="Adresse"> Une adresse inconnue</span>
+        </div>
+
+        <button class="open-details"><img src="../../assets/images/icons/menu.svg" alt="menu"></button>
+    </div>
+
+    <ul class="details">
+        <li v-for="origines in signalement.origines" :key="origines.id" v-html="origines.description" class="details-origines">
+            <!-- <div v-html="join(signal.description)"></div> -->
+        </li>
+        <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptome.description" class="details-symptomes">
+            <!-- <div v-html="join(signal.description)"></div> -->
+        </li>
+    </ul>
 
 </div>
 
@@ -31,13 +49,25 @@ export default {
             signalement:{
                 user:{},
                 symptome_category:{}
-            }
+            },
+            timeAgo: '',
         }
     },
 
     methods:{
 
 
+    },
+
+    updated() {
+        var timeBetween = moment().diff(this.signalement.date, 'minute');
+        if (timeBetween/60 > 23) {
+            this.timeAgo = moment().diff(this.signalement.date, 'days') + 'j';
+        } else if (timeBetween > 59) {
+            this.timeAgo = moment().diff(this.signalement.date, 'hour') + 'h';
+        } else {
+            this.timeAgo = timeBetween + 'min';
+        }
     },
 
     mounted(){
@@ -61,11 +91,23 @@ export default {
                 }
             });
 
+        var btn = document.querySelector(".open-details");
+        var content = document.querySelector(".details");
+        btn.addEventListener("click", function() {
+            this.classList.toggle("open");
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        });
+
     },
     methods:{
-        join(arr){
-            return " " +arr.join(", ") ;
-        }
+        // join(arr){
+        //     return " " + arr.join(', ') ;
+        // }
+        
     }
 }
 </script>
@@ -73,16 +115,100 @@ export default {
 
 <style lang="scss">
 
-.page-signalement{
-    padding-right:0px;
-}
-.symp{
-    margin:30px 0 60px;
-    span{
-        color:#555;
+.signalement-details{
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2002;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 30px;
+    transform: translateY(-100%);
+    transition: all .3s;
+    transition-delay: .5s;
+    &.modal-show {
+        transform: translateY(0%);
     }
-    h3{
-        margin-bottom:10px;
+    .back-arrow {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .modal-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        .signalement-icons {
+            padding: 0;
+            margin: 0;
+            color: $violet;
+            list-style: none;
+            display: inline-block;
+            li {
+                display: inline-block;
+            }
+        }
+    }
+    .modal-container {
+        display: flex;
+        flex-direction: row;
+        div {
+            flex-grow: 1;
+            h1 {
+                color: $violet;
+                font-size: 24px;
+                font-variant: inherit;
+            }
+            span {
+                color: $noir;
+                font-style: italic;
+                font-size: 12px;
+                color: $gris;
+            }
+            .signalement-adresse {
+                img {
+                    vertical-align: text-bottom;
+                }
+            }
+        }
+        .open-details {
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            font-size: 0;
+            transition: all .3s;
+            &.open {
+                background: rgba($color: $noir, $alpha: 0.05);
+            }
+        }
+    }
+    .details{
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .2s ease-out;
+        color: $violet;
+        padding: 0;
+        margin: 5px 0;
+        list-style-type: none;
+        &-origines, &-symptomes {
+            margin: 0;
+            font-size: 14px;
+            &::before {
+                content: '-';
+                padding-right: 8px;
+                color: $violet;
+            }
+        }
+        span{
+            color:#555;
+        }
+        h3{
+                color: $noir;
+            margin-bottom:10px;
+        }
     }
 }
 

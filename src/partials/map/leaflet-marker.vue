@@ -38,6 +38,10 @@
         }, 500)
 
         this.$router.push('/signalements/' + this.data.id)
+
+        setTimeout(() => {
+          document.querySelector('.view .signalement-details').classList.add('modal-show');
+        }, 100)
       }
     }
 
@@ -56,7 +60,7 @@
         height: 10px;
         background: $rouge;
         border-radius: 50px;
-
+        box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, .15);
         &.click {
             &:after {
                 transition: all .4s;

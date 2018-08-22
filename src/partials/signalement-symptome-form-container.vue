@@ -1,7 +1,6 @@
 <template>
 
-  <div class="form-group symptome-container" :class="open">
-    <h3 @click.self="onclick">{{ category.description }}</h3>
+  <div class="symptome-container" :class="open">
     <signalement-symptome-form-group
       v-for="category in category.children"
       :category="category"
@@ -40,9 +39,5 @@
 </script>
 
 <style lang="scss">
-
-  .symptome-container{
-    max-height: 50px;
-  }
 
 </style>

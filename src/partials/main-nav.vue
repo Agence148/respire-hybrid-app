@@ -12,13 +12,13 @@
 
         <div class="popup-signalement">
             <div class="boutons-signalement-container">
-                <button>
+                <button id="link-origine" @click="originClick">
                     <img src="../assets/images/icons/danger.svg" alt="Incident"> Signaler un incident
                 </button>
 
                 <span class="line"></span>
                 
-                <button>
+                <button id="link-symptome" @click="symptomeClick">
                     <img src="../assets/images/icons/lifeline.svg" alt="Symptome"> Signaler un symptôme
                 </button>
             </div>
@@ -42,9 +42,25 @@
         return {
             navItems: navItems,
             popupShow: false,
-            show: true
+            show: true,
+            origineShow: false,
+            symptomeShow: false,
         }
 
+    },
+    methods: {
+        originClick() {
+            this.origineShow = !this.origineShow;
+            this.symptomeShow = false;
+            E.$emit('origine-show', this.origineShow)
+            E.$emit('symptome-show', this.symptomeShow)
+        },
+        symptomeClick() {
+            this.symptomeShow = !this.symptomeShow;
+            this.origineShow = false;
+            E.$emit('origine-show', this.origineShow)
+            E.$emit('symptome-show', this.symptomeShow)
+        }
     },
     mounted () {
       E.$on('nav-show', (show) => {
@@ -76,8 +92,8 @@
         border-top-left-radius: 20px;
         background: #fff;
         width: 100%;
-        z-index: 2000;
-        box-shadow: 0px -5px 10px 0 rgba(0,0,0,0.15);
+        z-index: 2001;
+        box-shadow: 10px 10px 20px 0 rgba(0,0,0,0.15);
         .popup-visible & {
             transform: translateY(0%);
         }
