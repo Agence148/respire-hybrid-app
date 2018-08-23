@@ -14,8 +14,18 @@
     },
 
     mounted () {
+      var markerClass = 'map-marker ';
+      if (this.data.symptomes.length > 0) {
+        if (this.data.incidents.length > 0) {
+          markerClass += 'map-marker-both ';
+        } else {
+          markerClass += 'map-marker-symptomes ';
+        }
+      } else {
+        markerClass += 'map-marker-incidents ';
+      }
       var icon = L.divIcon({
-        className: 'map-marker ',
+        className: markerClass,
         iconSize: null,
         html: '<div></div>'
       })
@@ -51,27 +61,35 @@
 
 <style lang="scss">
 
-    @import "../../assets/scss/_vars.scss";
+  @import "../../assets/scss/_vars.scss";
 
-    .map-marker {
-        top: -5px;
-        left: -5px;
-        width: 10px;
-        height: 10px;
-        background: $rouge;
-        border-radius: 50px;
-        box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, .15);
-        &.click {
-            &:after {
-                transition: all .4s;
-                width: 42px;
-                height: 42px;
-                border-radius: 21px;
-                left: -13px;
-                top: -13px;
-                opacity: 0;
-            }
-        }
+  .map-marker {
+    top: -5px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: $undefined;
+    border-radius: 50px;
+    box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, .15);
+
+    &-symptomes {
+      background: $symptomes;
     }
+    &-incidents {
+      background: $incidents;
+    }
+
+    &.click {
+      &:after {
+        transition: all .4s;
+        width: 42px;
+        height: 42px;
+        border-radius: 21px;
+        left: -13px;
+        top: -13px;
+        opacity: 0;
+      }
+    }
+  }
 
 </style>
