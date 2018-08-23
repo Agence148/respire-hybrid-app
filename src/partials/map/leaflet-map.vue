@@ -2,6 +2,7 @@
     <div>
         <div id="map"></div>
         <top-bar></top-bar>
+        <slider-marker></slider-marker>
         <leaflet-marker v-for="marker in markers" :map="map" :key="marker.id" :data="marker"></leaflet-marker>
         <leaflet-user-marker v-if="map" :map="map"></leaflet-user-marker>
     </div>
@@ -14,8 +15,9 @@
   import * as proj4 from 'proj4'
   import leafletMarker from './leaflet-marker.vue'
   import leafletUserMarker from './leaflet-user-marker.vue'
-
-  Vue.component('top-bar',require('../top-bar.vue'))
+  
+  Vue.component('top-bar',require('../top-bar.vue'));
+  Vue.component('slider-marker',require('../slider-marker.vue'));
 
   export default {
 

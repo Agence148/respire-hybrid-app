@@ -77,7 +77,7 @@
         left: 0;
         transform: translateY(110%);
         transition: all .5s;
-        height: calc(30vh - 30px);
+        height: calc(30vh - 15px);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -86,7 +86,7 @@
         border-top-left-radius: 20px;
         background: #fff;
         width: 100%;
-        z-index: 2001;
+        z-index: 2010;
         box-shadow: 10px 10px 20px 0 rgba(0,0,0,0.15);
         .popup-visible & {
             transform: translateY(0%);

@@ -14,8 +14,7 @@
 
     <div class="modal-container">
         <div>
-            <span v-if="timeAgo > 59">Il y a {{ Math.round(timeAgo/60) }}h</span>
-            <span v-else>Il y a {{ timeAgo }}</span>
+            <span>Il y a {{ timeAgo }}</span>
             <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
             <h1 v-else>Origine iconnue</h1>
             <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg')" :aria-labelledby="Adresse"> Une adresse inconnue</span>
@@ -25,10 +24,10 @@
     </div>
 
     <ul class="details">
-        <li v-for="incidents in signalement.incidents" :key="incidents.id" v-html="incidents.description" class="details-incidents">
+        <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title" class="details-incidents">
             <!-- <div v-html="join(signal.description)"></div> -->
         </li>
-        <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptome.description" class="details-symptomes">
+        <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptome.title_combined" class="details-symptomes">
             <!-- <div v-html="join(signal.description)"></div> -->
         </li>
     </ul>
@@ -107,6 +106,8 @@ export default {
         // join(arr){
         //     return " " + arr.join(', ') ;
         // }
+
+        
 
     }
 }

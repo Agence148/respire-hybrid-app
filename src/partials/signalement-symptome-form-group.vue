@@ -44,16 +44,16 @@
         var symptomesDescriptions = [], key;
         for (key in this.symptomes) {
           if (key.match(/^key:/) && this.symptomes.hasOwnProperty(key)) {
-            symptomesDescriptions.push(this.symptomes[key].description);
+            symptomesDescriptions.push(this.symptomes[key].title_combined);
           }
         }
         if (symptomesDescriptions.length == 0) {
-          return this.category.description
+          return this.category.title_combined
         } else {
           if (this.category.input === 'checkbox') {
-            return this.category.description.replace('...', symptomesDescriptions.join(', '))
+            return this.category.title_combined.replace('...', symptomesDescriptions.join(', '))
           } else {
-            return this.category.description.replace('...', symptomesDescriptions.pop())
+            return this.category.title_combined.replace('...', symptomesDescriptions.pop())
           }
         }
       }

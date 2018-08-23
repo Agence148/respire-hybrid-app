@@ -50,7 +50,8 @@ new Vue({
   },
 
   mounted() {
-    store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
+    // store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
+    store.uuid = 'dev-test'
     if (this.isRunningStandalone()) {
       router.push({path: '/'})
       this.checkUser()
