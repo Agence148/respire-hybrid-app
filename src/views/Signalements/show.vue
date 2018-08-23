@@ -7,12 +7,12 @@
         <router-link to="/signalements/index" class="back-arrow"><img src="../../assets/images/icons/back.svg" alt="Retour"></router-link>
 
         <!-- <ul class="signalement-icons">
-            <li v-for="origines in signalement.origines" :key="origines.id">{{ origines.id }}</li>
+            <li v-for="incidents in signalement.incidents" :key="incidents.id">{{ incidents.id }}</li>
             <li v-for="symptome in signalement.symptomes" :key="symptome.id">{{ symptome.id }}</li>
         </ul> -->
     </div>
 
-    <div class="modal-container">   
+    <div class="modal-container">
         <div>
             <span v-if="timeAgo > 59">Il y a {{ Math.round(timeAgo/60) }}h</span>
             <span v-else>Il y a {{ timeAgo }}</span>
@@ -25,7 +25,7 @@
     </div>
 
     <ul class="details">
-        <li v-for="origines in signalement.origines" :key="origines.id" v-html="origines.description" class="details-origines">
+        <li v-for="incidents in signalement.incidents" :key="incidents.id" v-html="incidents.description" class="details-incidents">
             <!-- <div v-html="join(signal.description)"></div> -->
         </li>
         <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptome.description" class="details-symptomes">
@@ -99,7 +99,7 @@ export default {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-            } 
+            }
         });
 
     },
@@ -107,7 +107,7 @@ export default {
         // join(arr){
         //     return " " + arr.join(', ') ;
         // }
-        
+
     }
 }
 </script>
@@ -193,7 +193,7 @@ export default {
         padding: 0;
         margin: 5px 0;
         list-style-type: none;
-        &-origines, &-symptomes {
+        &-incidents, &-symptomes {
             margin: 0;
             font-size: 14px;
             &::before {

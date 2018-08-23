@@ -19,7 +19,7 @@ let store = {
 
   symptomes: [],
   orphelins: [],
-  origines: [],
+  incidents: [],
   signalements: [],
   symptomes_categories: [] // TODO: delete ?
 

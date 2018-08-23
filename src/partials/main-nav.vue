@@ -12,7 +12,7 @@
 
         <div class="popup-signalement">
             <div class="boutons-signalement-container">
-                <button id="link-origine" @click="originClick">
+                <button id="link-incident" @click="originClick">
                     <img src="../assets/images/icons/danger.svg" alt="Incident"> Signaler un incident
                 </button>
 
@@ -43,22 +43,22 @@
             navItems: navItems,
             popupShow: false,
             show: true,
-            origineShow: false,
+            incidentShow: false,
             symptomeShow: false,
         }
 
     },
     methods: {
         originClick() {
-            this.origineShow = !this.origineShow;
+            this.incidentShow = !this.incidentShow;
             this.symptomeShow = false;
-            E.$emit('origine-show', this.origineShow)
+            E.$emit('incident-show', this.incidentShow)
             E.$emit('symptome-show', this.symptomeShow)
         },
         symptomeClick() {
             this.symptomeShow = !this.symptomeShow;
-            this.origineShow = false;
-            E.$emit('origine-show', this.origineShow)
+            this.incidentShow = false;
+            E.$emit('incident-show', this.incidentShow)
             E.$emit('symptome-show', this.symptomeShow)
         }
     },

@@ -66,10 +66,10 @@ new Vue({
         store.signalements = response.data
       })
 
-    // Get origines
-    axios.get(appURL + '/api/v1/origines')
+    // Get incidents
+    axios.get(appURL + '/api/v1/incidents')
       .then(response => {
-        store.origines = response.data
+        store.incidents = response.data
       })
 
     // Get symptomes
