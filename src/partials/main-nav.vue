@@ -1,6 +1,6 @@
 <template>
-    <aside :class="popupShow ? ' popup-visible' : ''" id="main-nav-wrapper">    
-        <nav class="main-nav bottom-nav" v-show="show">
+    <aside id="main-nav-wrapper" :class="popupShow ? ' popup-visible' : ''" v-show="show">
+        <nav class="main-nav bottom-nav">
             <ul class="nav-items">
                 <li v-for="item in navItems">
                     <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name">
@@ -17,7 +17,7 @@
                 </button>
 
                 <span class="line"></span>
-                
+
                 <button id="link-symptome" @click="symptomeClick">
                     <img src="../assets/images/icons/lifeline.svg" alt="Symptome"> Signaler un symptôme
                 </button>
@@ -38,7 +38,7 @@
         navItems.forEach(el => {
             el.image = require('../assets/images/icons/' + el.icon + '.svg');
         });
-        
+
         return {
             navItems: navItems,
             popupShow: false,
@@ -160,7 +160,7 @@
                     vertical-align: top;
                     padding: 13px 10px;
                     line-height: 1;
-        
+
                     &.router-link-active {
                         color: $principale;
                     }

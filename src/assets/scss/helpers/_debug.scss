@@ -1,10 +1,10 @@
 #device_properties {
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 100px;
+  left: 30px;
   z-index: 999;
   font-size: 1.4rem;
-  color: #0078a8;
+  color: #333;
 
   input {
     display: none;
@@ -15,14 +15,15 @@
   }
   label {
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
     font-size: 1.4em;
-    padding-left: 3px;
+    padding-left: 9px;
+    padding-top: 1px;
     background: white;
-    border: 2px solid #0078a8;
     cursor: pointer;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
   }
   table {
     display: none;
@@ -30,7 +31,7 @@
     background: white;
     padding: 8px;
     text-align: left;
-    margin-top: 5px;
-    border: 2px solid #0078a8;
+    margin-top: 10px;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
   }
 }

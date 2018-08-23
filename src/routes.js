@@ -23,7 +23,7 @@ const routes = [
     component: require('./views/Home.vue'),
     meta: {
       requiresAuth: false,
-      showMainNav: true
+      showMainNav: false
     }
   },
   {
