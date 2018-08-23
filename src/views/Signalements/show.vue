@@ -4,7 +4,7 @@
 <div class="signalement-details">
 
     <div class="modal-header">
-        <router-link to="/signalements/index" class="back-arrow"><img src="../../assets/images/icons/back.svg" alt="Retour"></router-link>
+        <router-link to="/signalements/index" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" :aria-labelledby="Retour"></router-link>
 
         <!-- <ul class="signalement-icons">
             <li v-for="incidents in signalement.incidents" :key="incidents.id">{{ incidents.id }}</li>
@@ -18,10 +18,10 @@
             <span v-else>Il y a {{ timeAgo }}</span>
             <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
             <h1 v-else>Origine iconnue</h1>
-            <span class="signalement-adresse"><img src="../../assets/images/icons/placeholder.svg" alt="Adresse"> Une adresse inconnue</span>
+            <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg')" :aria-labelledby="Adresse"> Une adresse inconnue</span>
         </div>
 
-        <button class="open-details"><img src="../../assets/images/icons/menu.svg" alt="menu"></button>
+        <button class="open-details" v-html="require('../../assets/images/icons/menu.svg')" :aria-labelledby="menu"></button>
     </div>
 
     <ul class="details">
@@ -134,6 +134,9 @@ export default {
     .back-arrow {
         display: inline-block;
         margin-bottom: 10px;
+        svg {
+          width: 20px;
+        }
     }
     .modal-header {
         display: flex;
@@ -168,8 +171,9 @@ export default {
                 color: $gris;
             }
             .signalement-adresse {
-                img {
-                    vertical-align: text-bottom;
+                svg {
+                  height: 15px;
+                  vertical-align: text-bottom;
                 }
             }
         }
@@ -180,6 +184,10 @@ export default {
             border-radius: 50px;
             font-size: 0;
             transition: all .3s;
+
+            svg {
+              width: 20px;
+            }
             &.open {
                 background: rgba($color: $noir, $alpha: 0.05);
             }

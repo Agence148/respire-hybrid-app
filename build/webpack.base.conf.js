@@ -50,11 +50,18 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        exclude: [/fonts/],
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
+          name: utils.assetsPath('images/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(svg)(\?.*)?$/,
+        exclude: [/fonts/],
+        loader: 'svg-inline-loader',
+        query: {
           name: utils.assetsPath('images/[name].[hash:7].[ext]')
         }
       },

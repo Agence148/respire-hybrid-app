@@ -9,7 +9,7 @@
 
       <!-- <select class="signal-select" v-model="selected">
         <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
-      </select> 
+      </select>
 
       <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" /> -->
 
@@ -20,8 +20,8 @@
         :key="category.id"/>
 
       <div class="send-container">
-        <button v-if="readyToSend" @click.prevent="onSubmit"><img src="../../assets/images/icons/check.svg" alt="Envoyer"></button>
-        <button v-else class="close-modal" @click="onCloseModal"><img src="../../assets/images/icons/close.svg" alt="Fermer"></button>
+        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" :aria-labelledby="Envoyer"></button>
+        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" :aria-labelledby="Fermer"></button>
       </div>
     </form>
 

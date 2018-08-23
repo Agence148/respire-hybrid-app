@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
-    <title>layers</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="TOP" transform="translate(-89.000000, -14.000000)" fill="#321F40" fill-rule="nonzero">
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#321F40">
+   <g id="Symbols" stroke="none" stroke-width="1"  fill-rule="evenodd">
+        <g id="TOP" transform="translate(-89.000000, -14.000000)"  fill-rule="nonzero">
             <g id="//-TOGGLE-Copy" transform="translate(75.000000, 0.000000)">
                 <g id="layers" transform="translate(14.000000, 14.000000)">
                     <path d="M21.5086886,5.16155338 L11.3974449,0.0940339782 C11.1472344,-0.0313446594 10.8527226,-0.0313446594 10.6025551,0.0940339782 L0.491268435,5.16155338 C0.190182288,5.31247291 0,5.62090178 0,5.95831718 C0,6.29573259 0.190182288,6.60420452 0.491268435,6.75508098 L10.6025551,11.8226435 C10.7276818,11.8853112 10.8638087,11.9166667 11.0000215,11.9166667 C11.1361483,11.9166667 11.2724041,11.8853112 11.3974449,11.8226435 L21.5087316,6.75508098 C21.8098177,6.60416145 22,6.29577566 22,5.95831718 C21.999957,5.62090178 21.8097318,5.31242984 21.5086886,5.16155338 Z M11.0000215,10.0299572 L2.87589479,5.95831718 L10.9999785,1.88667715 L19.1240622,5.95831718 L11.0000215,10.0299572 Z" id="Shape"></path>

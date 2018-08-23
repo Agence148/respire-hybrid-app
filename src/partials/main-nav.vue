@@ -3,24 +3,18 @@
         <nav class="main-nav bottom-nav">
             <ul class="nav-items">
                 <li v-for="item in navItems">
-                    <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name">
-                        <img :src="item.image" :alt="item.name" />
-                    </router-link>
+                    <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name" v-html="item.image" :aria-labelledby="item.name"></router-link>
                 </li>
             </ul>
         </nav>
 
         <div class="popup-signalement">
             <div class="boutons-signalement-container">
-                <button id="link-incident" @click="originClick">
-                    <img src="../assets/images/icons/danger.svg" alt="Incident"> Signaler un incident
-                </button>
+                <button id="link-incident" @click="originClick" v-html="require('../assets/images/icons/danger.svg') + 'Signaler un incident'"></button>
 
                 <span class="line"></span>
 
-                <button id="link-symptome" @click="symptomeClick">
-                    <img src="../assets/images/icons/lifeline.svg" alt="Symptome"> Signaler un symptôme
-                </button>
+                <button id="link-symptome" @click="symptomeClick" v-html="require('../assets/images/icons/lifeline.svg') + 'Signaler un symptôme'"></button>
             </div>
         </div>
     </aside>
@@ -103,7 +97,7 @@
                 text-align: left;
                 margin: 5px 0;
                 color: $noir;
-                img {
+                svg  {
                     width: 24px;
                     margin-right: 10px;
                 }
@@ -164,9 +158,9 @@
                     &.router-link-active {
                         color: $principale;
                     }
-                    img{
-                        width: 100%;
-                        height:auto;
+                    svg {
+                        width: 24px;
+                        height: 24px;
                     }
                 }
             }

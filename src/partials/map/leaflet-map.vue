@@ -25,6 +25,7 @@
       return {
         shared: store,
         map: false,
+        layers: {},
         resizeInterval: undefined,
         resizeCpt: 0,
       }
@@ -47,6 +48,24 @@
         //     zoom: this.zoom
         //   })
 
+        this.layers.base = L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 2,
+        });
+        this.layers.heatmap = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 2,
+        });
+        // this.layers.heatmap = L.tileLayer.wms('http://magellan.airparif.asso.fr/geoserver/apisHorAir/wms?', {
+        //   service: 'WMS',
+        //   version: 1.3,
+        //   request: 'GetMap',
+        //   layers: 'apisHorAir:indice_api',
+        //   crs: 'EPSG:27572',
+        //   format: 'image/svg',
+        //   authkey: 'f18d13c0-feec-f830-e039-9e397f5aa62b'
+        // })
+
         this.map = L.map('map', {
 
           keyboard: false,
@@ -64,19 +83,7 @@
           // crs: crs,
 
           layers: [
-            L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-              maxZoom: 18,
-              minZoom: 2,
-            }),
-            // L.tileLayer.wms('http://magellan.airparif.asso.fr/geoserver/apisHorAir/wms?', {
-            //   service: 'WMS',
-            //   version: 1.3,
-            //   request: 'GetMap',
-            //   layers: 'apisHorAir:indice_api',
-            //   crs: 'EPSG:27572',
-            //   format: 'image/svg',
-            //   authkey: 'f18d13c0-feec-f830-e039-9e397f5aa62b'
-            // })
+            this.layers.base
           ]
         })
       },
@@ -109,6 +116,17 @@
       E.$on('route-change', (route) => {
         this.resizeCpt = 0
         requestAnimationFrame(this.resizeMap)
+      })
+
+      var switchHeatmap = document.querySelector('#switch-heatmap');
+      switchHeatmap.addEventListener('click', (e) => {
+        if(this.map.hasLayer(this.layers.heatmap)) {
+          switchHeatmap.classList.remove('btn-active');
+          this.map.removeLayer(this.layers.heatmap);
+        } else {
+          this.map.addLayer(this.layers.heatmap);
+          switchHeatmap.classList.add('btn-active');
+        }
       })
 
     },
