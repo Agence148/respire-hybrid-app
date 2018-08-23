@@ -4,19 +4,18 @@
         <swiper :options="swiperOption" id="slider-marker">
             <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type">
                 <ul class="icons-list">
-                    <li>
-                        <img :src="el.icon" :alt="el.title" v-for="el in signalement[signalement._type]" :key="el.id">
+                    <li v-for="el in signalement[signalement._type]" :key="el.id" v-html="require('../assets/images/icons/signalements/' + el.icon + '.svg')">
                     </li>
                 </ul>
+                <h2 v-if="signalement._type == 'symptomes'">Symptôme</h2>
+                <h2 v-else-if="signalement._type == 'incidents'">Incident</h2>
+                <h2 v-else>Signalement</h2>
                 <div class="slide-details">
                     <div class="details-left">
-                        <h2 v-for="e in signalement[signalement._type]" :key="e.id">{{e.title}}</h2>
                         <span v-if="signalement._timeAgo">Il y a {{ signalement._timeAgo }}</span>
                     </div>
                     <div class="details-right">
-                        <span class="signalement-adresse">
-                            <img src="../assets/images/icons/placeholder.svg" alt="Adresse"> 
-                            500m
+                        <span class="signalement-adresse" v-html="require('../assets/images/icons/placeholder.svg') + ' à 500m'">
                         </span>
                     </div>
                 </div>
@@ -77,13 +76,6 @@
                         } else {
                             el._type = 'incidents'
                         }
-
-                        el.symptomes.forEach(e => {
-                            e.icon = require('../assets/images/icons/signalements/' + e.icon + '.svg');
-                        });
-                        el.incidents.forEach(e => {
-                            e.icon = require('../assets/images/icons/signalements/' + e.icon + '.svg');
-                        });
                     });
                 })
                 .catch(error => {
@@ -129,24 +121,31 @@
                     margin-bottom: 10px;
                     li {
                         display: inline-block;
-                        img {
+                        svg {
                             height: 25px;
+                            fill: #fff;
                         }
                     }
+                }
+                h2 {
+                    margin: 0;
+                    font-variant: none;
+                    font-size: 18px;
+                    font-weight: normal;
+                    color: #fff;
                 }
                 .slide-details {
                     display: flex;
                     flex-direction: row;
+                    flex-wrap: wrap;
                     .details {
+                        &-left, &-right {
+                            justify-content: flex-end;
+                            display: flex;
+                            flex-direction: column;
+                        }
                         &-left {
                             flex-grow: 1;
-                            h2 {
-                                margin: 0;
-                                font-variant: none;
-                                font-size: 18px;
-                                font-weight: normal;
-                                color: #fff;
-                            }
                             span {
                                 font-style: italic;
                                 font-size: 12px;
@@ -154,11 +153,12 @@
                         }
                         &-right {
                             .signalement-adresse {
-                                align-content: flex-end;
                                 font-size: 12px;
-                                img {
+                                svg {
+                                    width: 14px;
                                     vertical-align: text-bottom;
-                                    stroke: #fff;
+                                    fill: #fff;
+                                    margin-right: 2px;
                                 }
                             }
                         }
