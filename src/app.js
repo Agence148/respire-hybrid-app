@@ -52,14 +52,9 @@ new Vue({
   mounted() {
     store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
     // store.uuid = 'dev-test'
-    if (this.isRunningStandalone()) {
-      router.push({path: '/'})
-      this.checkUser()
-    } else {
-      if (this.$route.path !== '/install') {
-        this.checkUser()
-      }
-    }
+
+    router.push({path: '/'})
+    this.checkUser()
 
     // Get signalements
     axios.get(appURL + '/api/v1/signalements')
@@ -102,7 +97,7 @@ new Vue({
         }
       } else {
         local.clear('user')
-        router.push({path: '/signalements'})
+        router.push({path: '/signalements/index'})
       }
     }
   },
@@ -134,23 +129,6 @@ new Vue({
             }
           }
         })
-    },
-    getOrphansReports () {
-      const url = appURL + '/api/v1/signalements/' + store.uuid + '/orphelins'
-      axios.get(url)
-        .then(response => {
-          store.user.signalements = response.data
-        })
-    },
-    isRunningStandalone () {
-      // Bullet proof way to check if iOS standalone
-      var isRunningiOSStandalone = window.navigator.standalone
-
-      // Reliable way (in newer browsers) to check if Android standalone.
-      // http://stackoverflow.com/questions/21125337/how-to-detect-if-web-app-running-standalone-on-chrome-mobile#answer-34516083
-      var isRunningAndroidStandalone = window.matchMedia('(display-mode: standalone)').matches
-
-      return isRunningiOSStandalone || isRunningAndroidStandalone
     }
   }
 })

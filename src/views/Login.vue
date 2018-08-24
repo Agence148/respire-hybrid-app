@@ -50,7 +50,7 @@
             store.authenticated = true;
             local.save();
             if (store.orphelins.length > 0) {
-              this.$router.push({ path: 'orphelins' });
+              this.$router.push({ path: '/orphelins' });
             }
           })
           .catch((error) => {

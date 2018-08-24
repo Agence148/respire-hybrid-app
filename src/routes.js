@@ -27,14 +27,6 @@ const routes = [
     }
   },
   {
-    path: '/install',
-    component: require('./views/Install.vue'),
-    meta: {
-      requiresAuth: false,
-      showMainNav: false
-    }
-  },
-  {
     path: '/login',
     component: require('./views/Login.vue'),
     meta: {
@@ -52,7 +44,7 @@ const routes = [
   },
   {
     path: '/signalements',
-    component: require('./views/Signalements/signalements.vue'),
+    component: require('./views/Signalements/Base.vue'),
     meta: {
       requiresAuth: false,
       showMainNav: true
@@ -60,15 +52,15 @@ const routes = [
     children: [
       {
         path: 'index',
-        component: require('./views/Signalements/index.vue')
+        component: require('./views/Signalements/Index.vue')
       },
       {
         path: 'create',
-        component: require('./views/Signalements/create.vue')
+        component: require('./views/Signalements/Create.vue')
       },
       {
         path: ':id',
-        component: require('./views/Signalements/show.vue')
+        component: require('./views/Signalements/Show.vue')
       }
     ]
   },
@@ -142,8 +134,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.showMainNav)) {
     E.$emit('nav-show', true)
     next()
-  }
-  else {
+  } else {
     E.$emit('nav-show', false)
     next()
   }

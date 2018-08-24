@@ -2,7 +2,7 @@
 
   <div class="top-bar">
     <div class="top-bar-left">
-      <button class="btn" v-html="require('../assets/images/icons/gps.svg')" aria-labelledby="Geolocalisation"></button>
+      <button class="btn" id="button-locate" v-html="require('../assets/images/icons/gps.svg')" aria-labelledby="Geolocalisation"></button>
     </div>
     <div class="top-bar-center">
       <button class="btn" id="switch-heatmap" v-html="require('../assets/images/icons/layers.svg')" aria-labelledby="Heat map"></button>

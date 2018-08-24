@@ -47,7 +47,7 @@
           this.marker._icon.classList.remove('click')
         }, 500)
 
-        this.$router.push('/signalements/' + this.data.id)
+        this.$router.push({path: '/signalements/' + this.data.id})
 
         setTimeout(() => {
           document.querySelector('.view .signalement-details').classList.add('modal-show');

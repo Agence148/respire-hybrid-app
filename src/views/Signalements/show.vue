@@ -4,7 +4,7 @@
 <div class="signalement-details">
 
     <div class="modal-header">
-        <router-link to="/signalements/index" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" :aria-labelledby="Retour"></router-link>
+        <router-link to="/signalements/index?center" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" :aria-labelledby="Retour"></router-link>
 
         <ul class="signalement-icons">
             <li v-for="incident in signalement.incidents" :key="incident.id" v-html="require('../../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
@@ -73,14 +73,12 @@ export default {
         this.$parent.classes="signalements-show";
 
         const url = appURL + "/api/v1/signalements/" + this.$route.params.id;
-        const AuthStr = 'Bearer '.concat(store.user.api_token);
 
-        axios.get(url,{ headers: { Authorization: AuthStr }})
+        axios.get(url)
             .then(response => {
                 this.$parent.liste = [response.data];
-                this.$parent.mapCenter = [response.data.lat,response.data.lng];
-                this.$parent.mapZoom = 15;
                 this.signalement = response.data;
+                E.$emit('map-locate-report', response.data);
             })
             .catch(error => {
                 if (error.response) {
@@ -107,7 +105,7 @@ export default {
         //     return " " + arr.join(', ') ;
         // }
 
-        
+
 
     }
 }

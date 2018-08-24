@@ -9,6 +9,7 @@
         axios.get(url)
           .then(response => {
             this.$parent.liste = response.data;
+            E.$emit('map-locate-user')
           })
           .catch(error => {
         });
@@ -17,9 +18,6 @@
     mounted() {
       this.$parent.classes="signalements-index";
       this.getLatestSignalements();
-
-      this.$parent.mapCenter = store.user_position;
-      this.$parent.mapZoom = 12;
     }
   }
 

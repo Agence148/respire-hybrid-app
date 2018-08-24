@@ -118,7 +118,7 @@
 
       },
       onCloseModal() {
-        this.$router.push('/signalements/index');
+        this.$router.push({path: '/signalements/index'});
       }
     },
 

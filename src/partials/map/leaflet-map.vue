@@ -15,7 +15,7 @@
   import * as proj4 from 'proj4'
   import leafletMarker from './leaflet-marker.vue'
   import leafletUserMarker from './leaflet-user-marker.vue'
-  
+
   Vue.component('top-bar',require('../top-bar.vue'));
   Vue.component('slider-marker',require('../slider-marker.vue'));
 
@@ -119,6 +119,12 @@
         this.resizeCpt = 0
         requestAnimationFrame(this.resizeMap)
       })
+      E.$on('map-locate-user', () => {
+        this.map.setView(store.user_position, 16)
+      })
+      E.$on('map-locate-report', (report) => {
+        this.map.setView(new L.LatLng(report.lat, report.lng), 16)
+      })
 
       var switchHeatmap = document.querySelector('#switch-heatmap');
       switchHeatmap.addEventListener('click', (e) => {
@@ -131,15 +137,8 @@
         }
       })
 
-    },
-
-    watch: {
-      'zoom': function () {
-        // this.map.setZoom(this.zoom)
-      },
-      'center': function () {
-        // this.map.setView(this.center, this.zoom)
-      }
+      var switchHeatmap = document.querySelector('#button-locate');
+      switchHeatmap.addEventListener('click', this.centerMap)
 
     }
   }
