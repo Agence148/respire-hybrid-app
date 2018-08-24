@@ -20,8 +20,8 @@
         :key="category.id"/>
 
       <div class="send-container">
-        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" :aria-labelledby="Envoyer"></button>
-        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" :aria-labelledby="Fermer"></button>
+        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
+        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
     </form>
 
