@@ -141,32 +141,32 @@
       }
     }
 
-    [type="radio"]:not(:checked),
-    [type="radio"]:checked,
-    [type="checkbox"]:not(:checked),
-    [type="checkbox"]:checked {
-      position: absolute;
-      left: -9999px;
+    // [type="radio"]:not(:checked),
+    // [type="radio"]:checked,
+    // [type="checkbox"]:not(:checked),
+    // [type="checkbox"]:checked {
+    //   position: absolute;
+    //   left: -9999px;
 
-      & + label {
-        position: relative;
-        display: block;
-        padding: 10px 30px 10px 10px;
-        text-align: center;
-        cursor: pointer;
+    //   & + label {
+    //     position: relative;
+    //     display: block;
+    //     padding: 10px 30px 10px 10px;
+    //     text-align: center;
+    //     cursor: pointer;
 
-        &:before {
-          content: "";
-          display: block;
-          width: 60px;
-          height: 60px;
-          margin: 0 auto 12px;
-          background: #fff;
-          border-radius: 30px;
-          transition: background-color .3s;
-        }
-      }
-    }
+    //     &:before {
+    //       content: "";
+    //       display: block;
+    //       width: 60px;
+    //       height: 60px;
+    //       margin: 0 auto 12px;
+    //       background: #fff;
+    //       border-radius: 30px;
+    //       transition: background-color .3s;
+    //     }
+    //   }
+    // }
 
     /* Aspect si "cochée" */
     [type="radio"]:checked + label,

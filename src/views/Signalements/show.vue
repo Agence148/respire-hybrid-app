@@ -4,7 +4,7 @@
 <div class="signalement-details">
 
     <div class="modal-header">
-        <router-link to="/signalements/index?center" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" :aria-labelledby="Retour"></router-link>
+        <router-link to="/signalements/index?center" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" aria-labelledby="Retour"></router-link>
 
         <ul class="signalement-icons">
             <li v-for="incident in signalement.incidents" :key="incident.id" v-html="require('../../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
@@ -17,10 +17,10 @@
             <span>Il y a {{ timeAgo }}</span>
             <h1 v-if="signalement.user">{{signalement.user.name}}</h1>
             <h1 v-else>Origine iconnue</h1>
-            <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg')" :aria-labelledby="Adresse"> Une adresse inconnue</span>
+            <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg')" aria-labelledby="Adresse"> Une adresse inconnue</span>
         </div>
 
-        <button class="open-details" v-html="require('../../assets/images/icons/menu.svg')" :aria-labelledby="menu"></button>
+        <button class="open-details" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
     </div>
 
     <ul class="details">

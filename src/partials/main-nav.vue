@@ -2,7 +2,7 @@
     <aside id="main-nav-wrapper" :class="popupShow ? ' popup-visible' : ''" v-show="show">
         <nav class="main-nav bottom-nav">
             <ul class="nav-items">
-                <li v-for="item in navItems">
+                <li v-for="(item, index) in navItems" :key="index">
                     <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name" v-html="item.image" :aria-labelledby="item.name"></router-link>
                 </li>
             </ul>

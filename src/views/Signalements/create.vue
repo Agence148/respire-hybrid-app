@@ -2,10 +2,10 @@
 <template>
 
   <div class="create-signalement">
-
     <form v-show="show" id="form-signalement" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+      <signalement-incidents></signalement-incidents>
 
-      <h1>Signaler un {{ end }}</h1>
+      <!-- <h1>Signaler un {{ end }}</h1> -->
 
       <!-- <select class="signal-select" v-model="selected">
         <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
@@ -13,17 +13,17 @@
 
       <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" /> -->
 
-      <signalement-symptome-form-container
+      <!-- <signalement-symptome-form-container
         v-for="category in shared.symptomes_categories"
         :category="category"
         :model="form.symptomes"
-        :key="category.id"/>
+        :key="category.id"/> -->
 
       <div class="send-container">
-        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" :aria-labelledby="Envoyer"></button>
-        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" :aria-labelledby="Fermer"></button>
+        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
+        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
-    </form>
+    </form> 
 
 
     <!-- <div v-show="sent">
@@ -41,6 +41,7 @@
   import moment from 'moment'
 
   Vue.component('signalement-symptome-form-container',require('../../partials/signalement-symptome-form-container.vue'));
+  Vue.component('signalement-incidents',require('../../partials/signalement-incidents.vue'));
 
   export default {
     data() {
@@ -170,9 +171,15 @@
     padding: 0;
     font-size: 0;
     align-self: center;
+    svg {
+      width: 16px;
+    }
   }
 
   #form-signalement {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     h1 {
       margin-bottom:30px;
       font-size: 24px;
@@ -207,13 +214,15 @@
     .send-container {
       display: flex;
       justify-content: center;
-      margin-top: 60px;
       button {
         border-radius: 50px;
         width: 50px;
         height: 50px;
         padding: 0;
         font-size: 0;
+        svg {
+          width: 20px;
+        }
       }
     }
   }
