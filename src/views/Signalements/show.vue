@@ -114,7 +114,8 @@
             if(error.response.status === 401){
               this.shared.authenticated = false;
             }
-            });
+          }
+        })
 
       var btn = document.querySelector(".open-details");
       var content = document.querySelector(".details");
