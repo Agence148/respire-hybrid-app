@@ -48,10 +48,6 @@
         }, 500)
 
         this.$router.push({path: '/signalements/' + this.data.id})
-
-        setTimeout(() => {
-          document.querySelector('.view .signalement-details').classList.add('modal-show');
-        }, 100)
       }
     }
 
