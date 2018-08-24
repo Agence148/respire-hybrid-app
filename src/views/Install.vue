@@ -25,7 +25,6 @@
       width: 140px;
       height:140px;
       padding:16px 20px 20px 18px;
-      background: #fff;
       border-radius:100px;
     }
     img {
