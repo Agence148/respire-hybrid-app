@@ -15,7 +15,7 @@
             <span v-if="signalement._timeAgo">Il y a {{ signalement._timeAgo }}</span>
           </div>
           <div class="details-right">
-            <span class="signalement-adresse" v-html="require('../assets/images/icons/placeholder.svg') + ' à 500m'"></span>
+            <span class="signalement-adresse" v-html="require('../assets/images/icons/placeholder.svg') + ' à ' + getDistanceFromUser(signalement.lat, signalement.lng)"></span>
           </div>
         </div>
       </swiper-slide>
@@ -54,6 +54,39 @@
     methods: {
       showMarker(id) {
         this.$router.push({path: '/signalements/' + id})
+      },
+      degreesToRadians(degrees) {
+        return degrees * Math.PI / 180
+      },
+      getDistanceFromUser(lat, lng) {
+        const earthRadiusKm = 6371
+        var dLat = this.degreesToRadians(this.shared.user_position[0] - lat)
+        var dLon = this.degreesToRadians(this.shared.user_position[1] - lng)
+
+        var lat1 = this.degreesToRadians(this.shared.user_position[0])
+        var lat2 = this.degreesToRadians(lat)
+
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2)
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+
+        var distance = earthRadiusKm * c * 1000
+        // 12km, 11km, 10km
+        if (distance > 10000) {
+          return parseInt(distance / 1000) + 'km'
+        }
+        // 1.2km, 1.1km, 1km
+        if (distance > 1000) {
+          return (parseInt(distance / 100) / 10) + 'km'
+        }
+        // 700m, 600m, 500m
+        else if (distance > 500) {
+          return (parseInt(distance / 100) * 100) + 'm'
+        }
+        // 499m, 498m, 497m
+        else {
+          return parseInt(distance) + 'm'
+        }
       }
     },
 
