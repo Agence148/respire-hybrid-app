@@ -59,7 +59,7 @@
                     this.slides.forEach((el, index) => {
 
                         var timeBetween = moment().diff(el.date, 'minute');
-                        if (timeBetween/60 > 23) {
+                        if (timeBetween/60 > 24) {
                             el._timeAgo = moment().diff(el.date, 'days') + 'j';
                         } else if (timeBetween > 59) {
                             el._timeAgo = moment().diff(el.date, 'hour') + 'h';
@@ -121,6 +121,7 @@
                     margin-bottom: 10px;
                     li {
                         display: inline-block;
+                        margin-right: 5px;
                         svg {
                             height: 25px;
                             fill: #fff;

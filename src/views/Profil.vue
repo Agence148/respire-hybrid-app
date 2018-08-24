@@ -1,15 +1,15 @@
 <template>
 
   <div class="profile">
-    <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1>
+    <!-- <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1> -->
     <div v-if="shared.user.signalements.length > 0">
       <h2>Historique <br/> de signalement</h2>
       <ul class="signalement-container">
         <li v-for="signalement in shared.user.signalements" :key="signalement.id">
           <div class="signalement-infos">
-            <span class="signalement-date" v-html="formatDate(signalement.date)"></span>
+            <span :class="'signalement-date ' + (signalement.symptomes.length > 0 ? 'symptomes' : 'incidents')" v-html="formatDate(signalement.date)"></span>
             <div class="infos-right">
-              <ul class="signalement-icons">
+              <ul :class="'signalement-icons ' + (signalement.symptomes.length > 0 ? 'symptomes' : 'incidents')">
                 <li v-for="incident in signalement.incidents" :key="incident.id" v-html="require('../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
                 <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="require('../assets/images/icons/signalements/' + symptome.icon + '.svg')"></li>
               </ul>
@@ -18,7 +18,7 @@
           </div>
           <div class="collapse">
             <router-link :to="'/signalements/' + signalement.id" v-html="require('../assets/images/icons/map.svg') + ' Voir sur la carte'"></router-link>
-            <button class="btn" v-html="require('../assets/images/icons/close.svg') + ' Supprimer le signalement'" aria-labelledby="Supprimer"></button>
+            <!-- <button class="btn" v-html="require('../assets/images/icons/close.svg') + ' Supprimer le signalement'" aria-labelledby="Supprimer"></button> -->
           </div>
         </li>
       </ul>
@@ -30,13 +30,13 @@
       <!-- <router-link :to="'/signalements/create'" class="create-signalement">Créez un signalement</router-link> -->
     </div>
 
-    <div v-if="shared.user.api_token">
+    <!-- <div v-if="shared.user.api_token">
       <button @click.prevent="logout" >Se déconnecter</button>
     </div>
     <div v-else>
       <router-link to="/login" class="link--login">Se connecter</router-link>
       <router-link to="/register" class="link--register">Créer mon compte</router-link>
-    </div>
+    </div> -->
   </div>
 
 </template>
@@ -60,16 +60,19 @@
       }
     },
     mounted(){
-      var btn = document.querySelector(".open-collapse");
-      var content = document.querySelector(".collapse");
-      btn.addEventListener("click", function() {
-          this.classList.toggle("open");
-          if (content.style.maxHeight){
-              content.style.maxHeight = null;
-          } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-          }
-      });
+
+      let btn = document.querySelectorAll(".open-collapse");
+      let content = document.querySelectorAll(".collapse");
+      for(let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", function() {
+            this.classList.toggle("open");
+            if (content[i].style.maxHeight){
+                content[i].style.maxHeight = null;
+            } else {
+                content[i].style.maxHeight = content[i].scrollHeight + "px";
+            }
+        });
+      }
     }
   }
 
@@ -104,6 +107,10 @@
         text-align: center;
         font-size: 24px;
         color: $violet;
+        & + p {
+          color: $violet;
+          text-align: center;
+        }
       }
     }
 
@@ -113,8 +120,8 @@
         padding: 0;
         margin: 0;
         li {
-          padding-top: 30px;
-          padding-bottom: 29px;
+          padding-top: 10px;
+          padding-bottom: 9px;
           border-bottom: 1px solid $gris-clair;
           line-height: 1;
         }
@@ -126,6 +133,7 @@
             font-size: 14px;
             color: $gris;
             display: block;
+            margin-bottom: 5px;
           }
           .btn{
             padding: 0;
@@ -145,9 +153,35 @@
         flex-direction: row;
         align-items: center;
         .infos-right {
-          .signalement-icons {
-            li svg {
-              width: 24px;
+          display: flex;
+          align-items: center;
+          .signalement-icons {
+            padding: 0;
+            margin-right: 10px;
+            height: 25px;
+            &.symptomes {
+              li {
+                svg {
+                  fill: $symptomes;
+                }
+              }
+            }
+            &.incidents {
+              li {
+                svg {
+                  fill: $incidents;
+                }
+              }
+            }
+            li {
+              padding: 0;
+              border: none;
+              display: inline-block;
+              margin: 0 5px;
+              line-height: 1;
+              svg {
+                height: 25px;
+              }
             }
           }
           .open-collapse {
@@ -159,6 +193,7 @@
             transition: all .3s;
             svg {
               width: 20px;
+              fill: $gris;
             }
             &.open {
                 background: rgba($color: $noir, $alpha: 0.05);
@@ -176,9 +211,29 @@
           height: 10px;
           border-radius: 50px;
           display: inline-block;
-          background: $rouge;
+          background: $violet;
           margin-left: 0;
-          margin-right: 12px;
+          margin-right: 10px;
+        }
+        &.symptomes::before {
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-radius: 50px;
+          display: inline-block;
+          background: $symptomes;
+          margin-left: 0;
+          margin-right: 10px;
+        }
+        &.incidents::before {
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-radius: 50px;
+          display: inline-block;
+          background: $incidents;
+          margin-left: 0;
+          margin-right: 10px;
         }
       }
     }

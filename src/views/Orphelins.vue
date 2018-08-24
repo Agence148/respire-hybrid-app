@@ -1,8 +1,14 @@
 <template>
     <div class="orphelins">
         <div class="text">
-            <h2>Nous avons detecté {{shared.orphelins.length}} signalements</h2>
-            <p>Voulez-vous récupérer vos signalements déjà effectués sur ce telephone ?</p>
+            <div v-if="shared.orphelins.length > 1">
+                <h2>Nous avons detecté <br/>{{shared.orphelins.length}} signalements</h2>
+                <p>Voulez-vous récupérer vos signalements déjà effectués sur ce telephone ?</p>
+            </div>
+            <div v-else>
+                <h2>Nous avons detecté <br/>1 signalement</h2>
+                <p>Voulez-vous récupérer ce signalement déjà effectués sur ce telephone ?</p>
+            </div>
         </div>
         <div class="button-container">
             <button @click="onYes">Oui</button>
@@ -50,16 +56,29 @@ export default {
 
 <style lang="scss">
     .orphelins {
-        padding: 60px 30px;
+        padding: 50px 30px;
+        background: #fff;
+        height: 55vh;
+        position: fixed;
+        bottom: 0;
+        box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
         .text {
             margin-bottom: 30px;
+            color: $noir;
             h2 {
+                color: $violet;
                 margin-bottom: 20px;
+                font-variant: none;
             }
         }
         .button-container {
             display: flex;
             button {
+                background: $violet;
+                color: #fff;
+                border-radius: 8px;
                 margin: 0 15px;
             }
         }

@@ -60,7 +60,7 @@ export default {
 
     updated() {
         var timeBetween = moment().diff(this.signalement.date, 'minute');
-        if (timeBetween/60 > 23) {
+        if (timeBetween/60 > 24) {
             this.timeAgo = moment().diff(this.signalement.date, 'days') + 'j';
         } else if (timeBetween > 59) {
             this.timeAgo = moment().diff(this.signalement.date, 'hour') + 'h';
