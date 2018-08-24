@@ -6,10 +6,10 @@
     <div class="modal-header">
         <router-link to="/signalements/index" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" :aria-labelledby="Retour"></router-link>
 
-        <!-- <ul class="signalement-icons">
-            <li v-for="incidents in signalement.incidents" :key="incidents.id">{{ incidents.id }}</li>
-            <li v-for="symptome in signalement.symptomes" :key="symptome.id">{{ symptome.id }}</li>
-        </ul> -->
+        <ul class="signalement-icons">
+            <li v-for="incident in signalement.incidents" :key="incident.id" v-html="require('../../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
+            <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="require('../../assets/images/icons/signalements/' + symptome.icon + '.svg')"></li>
+        </ul>
     </div>
 
     <div class="modal-container">
@@ -152,6 +152,9 @@ export default {
             display: inline-block;
             li {
                 display: inline-block;
+                svg {
+                    width: 35px;
+                }
             }
         }
     }
