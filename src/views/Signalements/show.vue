@@ -49,6 +49,26 @@
       }
     },
 
+    beforeUpdate() {
+        axios.get(appURL + "/api/v1/signalements/" + this.$route.params.id)
+            .then(response => {
+            this.$parent.liste = [response.data];
+            this.signalement = response.data;
+            E.$emit('map-locate-report', response.data);
+
+            setTimeout(() => {
+                document.querySelector('.view .signalement-details').classList.add('modal-show');
+            }, 100)
+            })
+            .catch(error => {
+                if (error.response) {
+                    if(error.response.status === 401){
+                    this.shared.authenticated = false;
+                    }
+                }
+            });
+    },
+
     updated() {
       var timeBetween = moment().diff(this.signalement.date, 'minute');
       if (timeBetween/60 > 24) {
@@ -58,28 +78,31 @@
       } else {
           this.timeAgo = timeBetween + 'min';
       }
+
+      
+      
     },
 
     mounted(){
       this.$parent.classes="signalements-show";
 
-      axios.get(appURL + "/api/v1/signalements/" + this.$route.params.id)
-        .then(response => {
-          this.$parent.liste = [response.data];
-          this.signalement = response.data;
-          E.$emit('map-locate-report', response.data);
+        axios.get(appURL + "/api/v1/signalements/" + this.$route.params.id)
+            .then(response => {
+            this.$parent.liste = [response.data];
+            this.signalement = response.data;
+            E.$emit('map-locate-report', response.data);
 
-          setTimeout(() => {
-            document.querySelector('.view .signalement-details').classList.add('modal-show');
-          }, 100)
-        })
-        .catch(error => {
-          if (error.response) {
-            if(error.response.status === 401){
-              this.shared.authenticated = false;
+            setTimeout(() => {
+                document.querySelector('.view .signalement-details').classList.add('modal-show');
+            }, 100)
+            })
+            .catch(error => {
+            if (error.response) {
+                if(error.response.status === 401){
+                this.shared.authenticated = false;
+                }
             }
-          }
-        });
+            });
 
       var btn = document.querySelector(".open-details");
       var content = document.querySelector(".details");
