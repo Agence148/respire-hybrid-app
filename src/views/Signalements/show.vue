@@ -150,8 +150,9 @@ export default {
             display: inline-block;
             li {
                 display: inline-block;
+                margin-left: 5px;
                 svg {
-                    width: 35px;
+                    height: 30px;
                 }
             }
         }
@@ -159,6 +160,7 @@ export default {
     .modal-container {
         display: flex;
         flex-direction: row;
+        align-items: center;
         div {
             flex-grow: 1;
             h1 {

@@ -137,8 +137,8 @@
         }
       })
 
-      var switchHeatmap = document.querySelector('#button-locate');
-      switchHeatmap.addEventListener('click', this.centerMap)
+      var btnnLocate = document.querySelector('#button-locate');
+      btnnLocate.addEventListener('click', this.centerMap)
 
     }
   }

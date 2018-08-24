@@ -2,7 +2,7 @@
     <div class="slider-container">
         <h2>Autour de moi...</h2>
         <swiper :options="swiperOption" id="slider-marker">
-            <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type">
+            <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type" @click.prevent="showMarker(signalement.id)">
                 <ul class="icons-list">
                     <li v-for="el in signalement[signalement._type]" :key="el.id" v-html="require('../assets/images/icons/signalements/' + el.icon + '.svg')">
                     </li>
@@ -47,6 +47,11 @@
                 loopFillGroupWithBlank: true,
                 },
                 slides: [],
+            }
+        },
+        methods: {
+            showMarker(id) {
+                this.$router.push({path: '/signalements/' + id})
             }
         },
         mounted() {
