@@ -21,7 +21,7 @@
             <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg') + ' ' + getDistanceFromUser(signalement.lat, signalement.lng)" aria-labelledby="Adresse"></span>
         </div>
 
-        <button class="open-details" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
+        <button class="open-details" @click="openDetails" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
     </div>
 
     <ul class="signalement-details__more">
@@ -42,7 +42,7 @@
     data(){
       return {
         shared: store,
-        signalement: null,
+        signalement: [],
       }
     },
 
@@ -55,54 +55,68 @@
           return moment().diff(this.signalement.date, 'hour') + 'h';
         }
         return timeBetween + 'min';
+      },
+      idSignalement() {
+        return this.$route.params.id;
       }
     },
-
     created() {
-      axios.get(appURL + '/api/v1/signalements/' + this.$route.params.id)
-        .then(response => {
-          this.$parent.liste = [response.data];
-          this.signalement = response.data;
-          E.$emit('map-locate-report', response.data);
 
-          if (this.signalement.symptomes.length > 0) {
-            if (this.signalement.incidents.length > 0) {
-              this.signalement._type = 'both'
-            } else {
-              this.signalement._type = 'symptomes'
-            }
-          } else {
-            this.signalement._type = 'incidents'
-          }
+    },
+    updated() {
 
-          setTimeout(() => {
-            document.querySelector('.view .signalement-details').classList.add('modal-show');
-          }, 100)
+      console.log('up');
 
-          var btn = document.querySelector('.open-details');
-          btn.addEventListener('click', function() {
-            this.classList.toggle('open');
-            var content = document.querySelector('.signalement-details__more');
-            if (content.style.maxHeight){
-              content.style.maxHeight = null;
-            } else {
-              content.style.maxHeight = content.scrollHeight + 'px';
-            }
-          })
-        })
-        .catch(error => {
-          if (error.response) {
-            if(error.response.status === 401){
-              this.shared.authenticated = false;
-            }
-          }
-      });
     },
     mounted() {
+      E.$on('signalement-show-details', (show) => {
+        this.show = show
+      })
       this.$parent.classes="signalements-show";
+      this.updateSignalement(this.idSignalement);
     },
 
     methods: {
+      updateSignalement(id) {
+        axios.get(appURL + '/api/v1/signalements/' + id)
+          .then(response => {
+            this.$parent.liste = [response.data];
+            this.signalement = response.data;
+            E.$emit('map-locate-report', response.data);
+
+            if (this.signalement.symptomes.length > 0) {
+              if (this.signalement.incidents.length > 0) {
+                this.signalement._type = 'both'
+              } else {
+                this.signalement._type = 'symptomes'
+              }
+            } else {
+              this.signalement._type = 'incidents'
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              if(error.response.status === 401){
+                this.shared.authenticated = false;
+              }
+            }
+          });
+
+        setTimeout(() => {
+          document.querySelector('.view .signalement-details').classList.add('modal-show');
+        }, 100)
+      },
+
+      openDetails() {
+        let btn = document.querySelector('.open-details');
+        btn.classList.toggle('open');
+        let content = document.querySelector('.signalement-details__more');
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      },
       symptomeCombinedTitle(symptome) {
         return symptome.symptome_category.title_combined.replace('...', symptome.title_combined)
       },

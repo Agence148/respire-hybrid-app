@@ -61,15 +61,15 @@
     },
     mounted(){
 
-      let btn = document.querySelectorAll(".open-collapse");
-      let content = document.querySelectorAll(".collapse");
+      let btn = document.querySelectorAll('.open-collapse');
+      let content = document.querySelectorAll('.collapse');
       for(let i = 0; i < btn.length; i++) {
-        btn[i].addEventListener("click", function() {
-            this.classList.toggle("open");
+        btn[i].addEventListener('click', function() {
+            this.classList.toggle('open');
             if (content[i].style.maxHeight){
                 content[i].style.maxHeight = null;
             } else {
-                content[i].style.maxHeight = content[i].scrollHeight + "px";
+                content[i].style.maxHeight = content[i].scrollHeight + 'px';
             }
         });
       }
@@ -102,7 +102,7 @@
       display: block;
       font-size: 4em;
       color: $violet;
-      
+
       & + h2 {
         text-align: center;
         font-size: 24px;
