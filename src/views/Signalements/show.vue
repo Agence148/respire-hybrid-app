@@ -1,7 +1,7 @@
 
 <template>
 
-<div class="signalement-details">
+<div class="signalement-details" v-if="signalement">
 
     <div class="modal-header">
         <router-link to="/signalements/index" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" aria-labelledby="Retour"></router-link>
@@ -24,9 +24,9 @@
         <button class="open-details" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
     </div>
 
-    <ul class="details">
-        <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title" class="details-incidents"></li>
-        <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)" class="details-symptomes"></li>
+    <ul class="signalement-details__more">
+        <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title" class="signalement-details__more--indicents"></li>
+        <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)" class="signalement-details__more--symptomes"></li>
     </ul>
 
 </div>
@@ -41,73 +41,54 @@
   export default {
     data(){
       return {
-        shared:store,
-        signalement:{
-          user:{},
-          symptome_category:{}
-        },
-        timeAgo: '',
+        shared: store,
+        signalement: null,
       }
     },
 
-    beforeUpdate() {
-        axios.get(appURL + "/api/v1/signalements/" + this.$route.params.id)
-            .then(response => {
-            this.$parent.liste = [response.data];
-            this.signalement = response.data;
-            E.$emit('map-locate-report', response.data);
-
-            setTimeout(() => {
-                document.querySelector('.view .signalement-details').classList.add('modal-show');
-            }, 100)
-            })
-            .catch(error => {
-                if (error.response) {
-                    if(error.response.status === 401){
-                    this.shared.authenticated = false;
-                    }
-                }
-            });
-    },
-
-    updated() {
-      var timeBetween = moment().diff(this.signalement.date, 'minute');
-      if (timeBetween/60 > 24) {
-          this.timeAgo = moment().diff(this.signalement.date, 'days') + 'j';
-      } else if (timeBetween > 59) {
-          this.timeAgo = moment().diff(this.signalement.date, 'hour') + 'h';
-      } else {
-          this.timeAgo = timeBetween + 'min';
+    computed: {
+      timeAgo() {
+        var timeBetween = moment().diff(this.signalement.date, 'minute');
+        if (timeBetween/60 > 24) {
+          return moment().diff(this.signalement.date, 'days') + 'j';
+        } else if (timeBetween > 59) {
+          return moment().diff(this.signalement.date, 'hour') + 'h';
+        }
+        return timeBetween + 'min';
       }
-
-
-
     },
 
-    mounted(){
-      this.$parent.classes="signalements-show";
-
-      axios.get(appURL + "/api/v1/signalements/" + this.$route.params.id)
+    created() {
+      axios.get(appURL + '/api/v1/signalements/' + this.$route.params.id)
         .then(response => {
           this.$parent.liste = [response.data];
           this.signalement = response.data;
+          E.$emit('map-locate-report', response.data);
 
-          if (signalement.symptomes.length > 0) {
-            if (signalement.incidents.length > 0) {
-              signalement._type = 'both'
+          if (this.signalement.symptomes.length > 0) {
+            if (this.signalement.incidents.length > 0) {
+              this.signalement._type = 'both'
             } else {
-              signalement._type = 'symptomes'
+              this.signalement._type = 'symptomes'
             }
           } else {
-            signalement._type = 'incidents'
+            this.signalement._type = 'incidents'
           }
-
-          E.$emit('map-locate-report', response.data);
 
           setTimeout(() => {
             document.querySelector('.view .signalement-details').classList.add('modal-show');
           }, 100)
 
+          var btn = document.querySelector('.open-details');
+          btn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            var content = document.querySelector('.signalement-details__more');
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          })
         })
         .catch(error => {
           if (error.response) {
@@ -115,18 +96,10 @@
               this.shared.authenticated = false;
             }
           }
-        })
-
-      var btn = document.querySelector(".open-details");
-      var content = document.querySelector(".details");
-      btn.addEventListener("click", function() {
-        this.classList.toggle("open");
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        }
       });
+    },
+    mounted() {
+      this.$parent.classes="signalements-show";
     },
 
     methods: {
@@ -257,7 +230,7 @@
             }
         }
     }
-    .details{
+    &__more{
       max-height: 0;
       overflow: hidden;
       transition: max-height .2s ease-out;
@@ -266,8 +239,8 @@
       margin: 5px 0;
       list-style-type: none;
 
-      &-incidents,
-      &-symptomes {
+      &--incidents,
+      &--symptomes {
         margin: 0;
         font-size: 14px;
         &::before {
