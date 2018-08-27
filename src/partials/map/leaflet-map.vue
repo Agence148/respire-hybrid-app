@@ -42,31 +42,21 @@
 
       createMap () {
 
-        // http://spatialreference.org/ref/epsg/ntf-paris-lambert-zone-ii/
-        // var crs = new L.Proj.CRS('EPSG:27572',
-        //   '+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs', {
-        //     resolutions: [12.5],
-        //     origin: [534892, 2471690],
-        //     zoom: this.zoom
-        //   })
-
         this.layers.base = L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
           maxZoom: 18,
           minZoom: 2,
         });
-        this.layers.heatmap = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
-          maxZoom: 18,
-          minZoom: 2,
-        });
-        // this.layers.heatmap = L.tileLayer.wms('http://magellan.airparif.asso.fr/geoserver/apisHorAir/wms?', {
-        //   service: 'WMS',
-        //   version: 1.3,
-        //   request: 'GetMap',
-        //   layers: 'apisHorAir:indice_api',
-        //   crs: 'EPSG:27572',
-        //   format: 'image/svg',
-        //   authkey: 'f18d13c0-feec-f830-e039-9e397f5aa62b'
-        // })
+
+        this.layers.heatmap = L.tileLayer.wms('http://magellan.airparif.asso.fr/geoserver/apisHorAir/wms?', {
+            service: 'WMS',
+            version: 1.3,
+            request: 'GetMap',
+            layers: 'apisHorAir:indice_api',
+            format: 'image/png',
+            transparent: true,
+            opacity: 0.7,
+            authkey: 'f18d13c0-feec-f830-e039-9e397f5aa62b',
+        })
 
         this.map = L.map('map', {
 
@@ -81,8 +71,6 @@
             [this.shared.user_position[0] + 0.5, this.shared.user_position[1] - 0.5],
             [this.shared.user_position[0] - 0.5, this.shared.user_position[1] + 0.5]
           ],
-
-          // crs: crs,
 
           layers: [
             this.layers.base
