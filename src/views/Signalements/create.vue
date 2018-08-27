@@ -5,8 +5,8 @@
       <create-incident v-if="type == 'incident'"></create-incident>
       <create-symptome v-if="type == 'symptome'"></create-symptome>
 
-      <div class="send-container">
-        <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
+      <div class="send-container" v-show="showCloseModalButton">
+        <button v-if="readyToSend" @click="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
         <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
     </form>
@@ -50,6 +50,7 @@
         time: '',
         pastDate: 0,
         readyToSend: false,
+        showCloseModalButton: true
       }
     },
 
@@ -90,7 +91,6 @@
             console.log(err);
           });
       },
-
       onCloseModal() {
         this.$router.push({path: '/signalements/index'});
       }
@@ -100,9 +100,15 @@
       E.$emit('nav-popup-show', false)
 
       this.$parent.classes="signalements-create";
-
       this.$parent.mapCenter = this.shared.user_position;
       this.$parent.mapZoom = 15;
+
+      E.$on('signalement-show-close-button', (show) => {
+        this.showCloseModalButton = show
+      })
+      E.$on('signalement-can-validate', (validation) => {
+        this.readyToSend = validation
+      })
     }
   }
 
@@ -176,15 +182,36 @@
       }
 
       .button-add {
+        display: block;
         font-size: 12px;
+        margin-top: 1em;
 
         svg {
+          height: 20px;
           width: 20px;
           margin-right: 5px;
           border: 2px solid;
           border-radius: 50%;
           fill: #fff;
           padding: 5px;
+        }
+      }
+
+      .button-close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        margin: 50px auto 0;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        border: 2px solid $principale;
+
+        svg {
+          height: 15px;
+          width: 15px;
+          fill: $principale;
         }
       }
 
@@ -250,6 +277,7 @@
           }
           &.step-disabled {
             opacity: .3;
+            pointer-events: none;
           }
           &.step-done {
             i {
@@ -266,6 +294,7 @@
       .popup {
         position: absolute;
         top: 54px; // <h1> height+margin
+        width: 100%;
         background: #fff;
         border-radius: 8px;
         color: $principale;
@@ -274,6 +303,19 @@
         h3 {
           font-variant: none;
           font-size: 14px;
+        }
+      }
+
+      .resume {
+        opacity: 0.4;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          &::before {
+            content: '-';
+            padding-right: 8px;
+          }
         }
       }
     }

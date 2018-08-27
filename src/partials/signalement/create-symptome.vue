@@ -5,16 +5,20 @@
     <h1>Signaler un symptôme</h1>
 
     <ul class="vertical-step" v-show="showSteps">
-      <li :class="'step-item step-' + steps.symptomes">
-        <i v-if="steps.symptomes == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
+      <li :class="'step-item step-' + steps.symptomes.status">
+        <i v-if="steps.symptomes.status == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
         <i v-else></i>
         <h2>Quels sont les symptomes ?</h2>
+        <ul class="resume">
+          <li v-for="symptome in steps.symptomes.value" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)"></li>
+        </ul>
         <span class="button-add" @click="popupSymptomes(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Ajouter un symptome'"></span>
       </li>
-      <li :class="'step-item step-' + steps.commentaire">
-        <i v-if="steps.commentaire == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
+      <li :class="'step-item step-' + steps.commentaire.status">
+        <i v-if="steps.commentaire.status == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
         <i v-else></i>
         <h2>Commentaire</h2>
+        <span class="resume" v-html="steps.commentaire.value"></span>
         <span class="button-add" @click="popupComment(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Ajouter un commentaire'"></span>
       </li>
     </ul>
@@ -30,17 +34,24 @@
       </ul>
       <ul class="symptomes-icons">
         <li v-for="symptome in shared.symptomes" :key="symptome.id" :data-in-category="symptome.symptome_category.id"  @click="selectSymptome(symptome)">
-          <input :id="'symptome_' + symptome.id" type="checkbox" v-if="symptome.symptome_category.input == 'checkbox'">
-          <input :id="'symptome_' + symptome.id" type="radio" :name="'symptome_category_' + symptome.symptome_category.id" v-else>
+          <input
+            :id="'symptome_' + symptome.id"
+            :type="symptome.symptome_category.input"
+            :name="'symptome_category_' + symptome.symptome_category.id"
+            :data-symptome="symptome.id">
           <label :for="'symptome_' + symptome.id" v-html="require('../../assets/images/icons/signalements/' + symptome.icon + '.svg') + '<span>' + symptome.title + '</span>'"></label>
           <i class="marker-checked" v-html="require('../../assets/images/icons/check.svg')"></i>
         </li>
       </ul>
+
+      <span class="button-close" @click="popupSymptomes(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
     </aside>
 
     <aside class="popup popup--commentaire" v-show="showPopupComment">
-      <h3>Apportez des précisions sur vos symptômes :</h3>
-      <textarea name="commentaire">...</textarea>
+      <h3>Commentaire :</h3>
+      <textarea name="commentaire" placeholder="Apportez des précisions sur vos symptômes…"></textarea>
+
+      <span class="button-close" @click="popupComment(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
     </aside>
 
   </div>
@@ -56,8 +67,14 @@
       return {
         shared: store,
         steps: {
-          symptomes: 'todo',
-          commentaire: 'disabled'
+          symptomes: {
+            status: 'todo',
+            value: []
+          },
+          commentaire: {
+            status: 'disabled',
+            value: ''
+          }
         },
         showSteps: true,
         showPopupComment: false,
@@ -66,32 +83,48 @@
     },
 
     mounted() {
-      // E.$on('symptome-added', (id) => {
-      //   if (this.form.symptomes.indexOf(id) == -1) {
-      //     this.form.symptomes.push(id);
-      //   }
-      // })
-      // E.$on('symptome-removed', (id) => {
-      //   let index = this.form.symptomes.indexOf(id);
-      //   if (index != -1) {
-      //     this.form.symptomes.splice(index, 1);
-      //   }
-      // })
     },
 
     methods: {
       popupComment(show) {
+        E.$emit('signalement-show-close-button', !show)
         this.showSteps = !show
         this.showPopupSymptomes = false
         this.showPopupComment = show
         if (show) {
           document.querySelector('[name="commentaire"]').focus();
+        } else {
+          this.steps.commentaire.value = document.querySelector('[name="commentaire"]').value
+          this.steps.commentaire.status = this.steps.commentaire.value == '' ? 'todo' : 'done'
+          this.checkSteps()
         }
       },
       popupSymptomes(show) {
+        E.$emit('signalement-show-close-button', !show)
         this.showSteps = !show
         this.showPopupComment = false
         this.showPopupSymptomes = show
+        if (!show) {
+          this.steps.symptomes.value = []
+          document.querySelectorAll('[data-in-category]').forEach((el) => {
+            var input = el.querySelector('input')
+            if (input.checked) {
+              this.steps.symptomes.value.push(input.getAttribute('data-symptome'))
+            }
+          })
+          if (this.steps.symptomes.value.length > 0) {
+            this.steps.symptomes.status = 'done'
+            if (this.steps.commentaire.status == 'disabled') {
+              this.steps.commentaire.status = 'todo'
+            }
+          } else {
+            this.steps.symptomes.status = 'todo'
+            if (this.steps.commentaire.status == 'todo') {
+              this.steps.commentaire.status = 'disabled'
+            }
+          }
+          this.checkSteps()
+        }
       },
       selectCategory(category) {
         document.querySelectorAll('[data-category]').forEach((el) => {
@@ -112,6 +145,18 @@
             document.querySelector('[data-category="'+ symptome.symptome_category.id +'"]').classList.add('used')
           }
         })
+      },
+      symptomeCombinedTitle(symptomeId) {
+        var combinedTitle = ''
+        this.shared.symptomes.forEach((el) => {
+          if (el.id == symptomeId) {
+            combinedTitle = el.symptome_category.title_combined.replace('...', el.title_combined)
+          }
+        })
+        return combinedTitle
+      },
+      checkSteps() {
+        E.$emit('signalement-can-validate', this.steps.symptomes.status == 'done' && this.steps.commentaire.status == 'done')
       }
     }
   }
@@ -212,7 +257,8 @@
     textarea {
       margin-top: 1em;
       padding: 1em;
-      height: auto;
+      height: 8em;
+      width: 100%;
       border: 1px solid transparent;
       border-left-color: black;
     }

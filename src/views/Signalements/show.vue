@@ -21,7 +21,7 @@
             <span class="signalement-adresse" v-html="require('../../assets/images/icons/placeholder.svg') + ' ' + getDistanceFromUser(signalement.lat, signalement.lng)" aria-labelledby="Adresse"></span>
         </div>
 
-        <button class="open-details" @click="openDetails" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
+        <button class="open-details" @click="showDetails(true)" v-html="require('../../assets/images/icons/menu.svg')" aria-labelledby="menu"></button>
     </div>
 
     <ul class="signalement-details__more">
@@ -65,7 +65,7 @@
     },
     mounted() {
       E.$on('signalement-show-details', (show) => {
-        this.show = show
+        this.showDetails(show)
       })
       this.$parent.classes="signalements-show";
       this.updateSignalement(this.idSignalement);
@@ -101,16 +101,11 @@
           document.querySelector('.view .signalement-details').classList.add('modal-show');
         }, 100)
       },
-
-      openDetails() {
+      showDetails(show) {
         let btn = document.querySelector('.open-details');
         btn.classList.toggle('open');
         let content = document.querySelector('.signalement-details__more');
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-        }
+        content.style.maxHeight = show ? null : content.scrollHeight + 'px';
       },
       symptomeCombinedTitle(symptome) {
         return symptome.symptome_category.title_combined.replace('...', symptome.title_combined)
