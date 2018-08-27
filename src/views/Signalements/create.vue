@@ -1,35 +1,15 @@
-
 <template>
 
   <div class="create-signalement">
-    <form v-show="show" id="form-signalement" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
-      <signalement-incidents></signalement-incidents>
-
-      <!-- <h1>Signaler un {{ end }}</h1> -->
-
-      <!-- <select class="signal-select" v-model="selected">
-        <option v-for="day in days" :value="day.value" :key="day.value">{{ day.text }}</option>
-      </select>
-
-      <input v-if="selected != '0'" :value="time" type="time" name="signal-time" id="signalement-time" class="signal-time" /> -->
-
-      <!-- <signalement-symptome-form-container
-        v-for="category in shared.symptomes_categories"
-        :category="category"
-        :model="form.symptomes"
-        :key="category.id"/> -->
+    <form v-show="show" class="create-signalement__form" method="POST" action="" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+      <create-incident v-if="type == 'incident'"></create-incident>
+      <create-symptome v-if="type == 'symptome'"></create-symptome>
 
       <div class="send-container">
         <button v-if="readyToSend" @click.prevent="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
         <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
-    </form> 
-
-
-    <!-- <div v-show="sent">
-      <h1>Merci !</h1>
-      <router-link to="/signalements/index" >retour vers la carte</router-link>
-    </div> -->
+    </form>
   </div>
 
 </template>
@@ -40,13 +20,14 @@
   import store from '../../helpers/data/Store.js'
   import moment from 'moment'
 
-  Vue.component('signalement-symptome-form-container',require('../../partials/signalement-symptome-form-container.vue'));
-  Vue.component('signalement-incidents',require('../../partials/signalement-incidents.vue'));
+  Vue.component('create-incident', require('../../partials/signalement/create-incident.vue'))
+  Vue.component('create-symptome', require('../../partials/signalement/create-symptome.vue'))
 
   export default {
     data() {
       return {
-        shared:store,
+        shared: store,
+        type: this.$route.params.type,
         form: new Form({
           symptomes: [],
           lng:0,
@@ -68,7 +49,6 @@
         ],
         time: '',
         pastDate: 0,
-        end: 'symptôme',
         readyToSend: false,
       }
     },
@@ -111,36 +91,18 @@
           });
       },
 
-      onClickCause() {
-
-      },
-
-      onClickSymptome() {
-
-      },
       onCloseModal() {
         this.$router.push({path: '/signalements/index'});
       }
     },
 
-    mounted(){
+    mounted() {
+      E.$emit('nav-popup-show', false)
+
       this.$parent.classes="signalements-create";
-      local.get("symptomes_categories")
 
       this.$parent.mapCenter = this.shared.user_position;
       this.$parent.mapZoom = 15;
-
-      E.$on('symptome-added', (id) => {
-        if (this.form.symptomes.indexOf(id) == -1) {
-          this.form.symptomes.push(id);
-        }
-      })
-      E.$on('symptome-removed', (id) => {
-        let index = this.form.symptomes.indexOf(id);
-        if (index != -1) {
-          this.form.symptomes.splice(index, 1);
-        }
-      })
     }
   }
 
@@ -160,6 +122,161 @@
     z-index: 10001;
     padding: 50px;
     pointer-events: all;
+
+    &__form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        margin-bottom:30px;
+        font-size: 24px;
+        font-variant: none;
+      }
+      .signal {
+        &-time {
+          display: inline-block;
+          font-family: 'HelveticaNeueLT', Arial, sans-serif;
+          font-size: 2rem;
+          color: #fff;
+          border-radius: 0px;
+          border: none;
+          border-bottom: 2px dashed #fff;
+          background: transparent;
+        }
+        &-select {
+          display: inline-block;
+          margin-bottom: 30px;
+          margin-right: 30px;
+          padding: 6px 0;
+          font-family: 'HelveticaNeueLT', Arial, sans-serif;
+          font-size: 2rem;
+          color: #fff;
+          border-radius: 0px;
+          border: none;
+          border-bottom: 2px dashed #fff;
+          background: transparent;
+        }
+      }
+
+      .send-container {
+        display: flex;
+        justify-content: center;
+
+        button {
+          border-radius: 50px;
+          width: 50px;
+          height: 50px;
+          padding: 0;
+          font-size: 0;
+          svg {
+            width: 20px;
+          }
+        }
+      }
+
+      .button-add {
+        font-size: 12px;
+
+        svg {
+          width: 20px;
+          margin-right: 5px;
+          border: 2px solid;
+          border-radius: 50%;
+          fill: #fff;
+          padding: 5px;
+        }
+      }
+
+      .vertical-step {
+        padding: 0;
+        margin: 30px 0;
+        list-style: none;
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .step-item {
+          flex-grow: 1;
+          position: relative;
+          font-size: 14px;
+          padding-left: 50px;
+
+          &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 35px;
+            left: 13px;
+            width: 1px;
+            height: calc(100% - 43px);
+            background-image: linear-gradient(#fff 80%, transparent 0%);
+            background-position: 0 0;
+            background-size: 1px 10px;
+            background-repeat: repeat-y;
+          }
+
+          &:last-child {
+            bottom: 0;
+
+            &::after {
+              content: none;
+            }
+          }
+          i {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 26px;
+            height: 26px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            background-color: transparent;
+
+            svg {
+              height: 12px;
+              width: 12px;
+              margin: 5px;
+              fill: #fff;
+            }
+          }
+          h2 {
+            font-size: 15px;
+            font-variant: none;
+            line-height: 30px;
+          }
+          &.step-disabled {
+            opacity: .3;
+          }
+          &.step-done {
+            i {
+              background: #fff;
+
+              svg {
+                fill: $rouge;
+              }
+            }
+          }
+        }
+      }
+
+      .popup {
+        position: absolute;
+        top: 54px; // <h1> height+margin
+        background: #fff;
+        border-radius: 8px;
+        color: $principale;
+        padding: 32px 43px;
+
+        h3 {
+          font-variant: none;
+          font-size: 14px;
+        }
+      }
+    }
   }
 
   .close-modal {
@@ -171,59 +288,9 @@
     padding: 0;
     font-size: 0;
     align-self: center;
+
     svg {
       width: 16px;
-    }
-  }
-
-  #form-signalement {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    h1 {
-      margin-bottom:30px;
-      font-size: 24px;
-      font-variant: none;
-    }
-    .signal {
-      &-time {
-        display: inline-block;
-        font-family: 'HelveticaNeueLT', Arial, sans-serif;
-        font-size: 2rem;
-        color: #fff;
-        border-radius: 0px;
-        border: none;
-        border-bottom: 2px dashed #fff;
-        background: transparent;
-      }
-      &-select {
-        display: inline-block;
-        margin-bottom: 30px;
-        margin-right: 30px;
-        padding: 6px 0;
-        font-family: 'HelveticaNeueLT', Arial, sans-serif;
-        font-size: 2rem;
-        color: #fff;
-        border-radius: 0px;
-        border: none;
-        border-bottom: 2px dashed #fff;
-        background: transparent;
-      }
-    }
-
-    .send-container {
-      display: flex;
-      justify-content: center;
-      button {
-        border-radius: 50px;
-        width: 50px;
-        height: 50px;
-        padding: 0;
-        font-size: 0;
-        svg {
-          width: 20px;
-        }
-      }
     }
   }
 

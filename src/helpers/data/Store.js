@@ -21,7 +21,7 @@ let store = {
   orphelins: [],
   incidents: [],
   signalements: [],
-  symptomes_categories: [] // TODO: delete ?
+  symptomes_categories: []
 
 }
 

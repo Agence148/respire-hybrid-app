@@ -68,6 +68,12 @@ new Vue({
         store.incidents = response.data
       })
 
+    // Get symptomes categories
+    axios.get(appURL + '/api/v1/symptomes/categories')
+      .then(response => {
+        store.symptomes_categories = response.data
+      })
+
     // Get symptomes
     axios.get(appURL + '/api/v1/symptomes')
       .then(response => {

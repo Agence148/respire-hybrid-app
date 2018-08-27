@@ -55,7 +55,7 @@ const routes = [
         component: require('./views/Signalements/Index.vue')
       },
       {
-        path: 'create',
+        path: 'create/:type',
         component: require('./views/Signalements/Create.vue')
       },
       {
