@@ -83,7 +83,10 @@
   .profile {
     padding: 50px 30px;
     background: #fff;
-    transform: translateY(7%);
+    bottom: 0;
+    height: 92vh;
+    width: 100%;
+    position: fixed;
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -119,11 +122,15 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        margin-bottom: 10px;
         li {
           padding-top: 10px;
           padding-bottom: 9px;
           border-bottom: 1px solid $gris-clair;
           line-height: 1;
+          &:last-child {
+            border: none;
+          }
         }
         .collapse {
           max-height: 0;

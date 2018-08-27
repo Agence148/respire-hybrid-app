@@ -79,6 +79,14 @@ const routes = [
       requiresAuth: true,
       showMainNav: false
     }
+  },
+  {
+    path: '/mentions-legales',
+    component: require('./views/MentionsLegales.vue'),
+    meta: {
+      requiresAuth: false,
+      showMainNav: true
+    }
   }
 
 ]

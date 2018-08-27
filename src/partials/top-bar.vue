@@ -8,7 +8,7 @@
       <button class="btn" id="switch-heatmap" v-html="require('../assets/images/icons/layers.svg')" aria-labelledby="Heat map"></button>
     </div>
     <div class="top-bar-right">
-      <button class="btn" v-html="require('../assets/images/icons/info.svg')" aria-labelledby="Informations"></button>
+      <button @click="goToMentionLegales" class="btn" v-html="require('../assets/images/icons/info.svg')" aria-labelledby="Informations"></button>
     </div>
   </div>
 
@@ -16,7 +16,18 @@
 
 <script>
 
-  export default {}
+  export default {
+    data() {
+      return {
+        shared: store
+      }
+    },
+    methods : {
+      goToMentionLegales() {
+        this.$router.push({path: '/mentions-legales'});
+      }
+    },
+  }
 
 </script>
 
