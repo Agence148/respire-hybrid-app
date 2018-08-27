@@ -136,7 +136,7 @@
       .signal {
         &-time {
           display: inline-block;
-          font-family: 'HelveticaNeueLT', Arial, sans-serif;
+          font-family: 'Lato', Arial, sans-serif;
           font-size: 2rem;
           color: #fff;
           border-radius: 0px;
@@ -149,7 +149,7 @@
           margin-bottom: 30px;
           margin-right: 30px;
           padding: 6px 0;
-          font-family: 'HelveticaNeueLT', Arial, sans-serif;
+          font-family: 'Lato', Arial, sans-serif;
           font-size: 2rem;
           color: #fff;
           border-radius: 0px;
