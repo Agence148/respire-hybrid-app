@@ -60,19 +60,8 @@
         return this.$route.params.id;
       }
     },
-    created() {
-    },
-    updated() {
-
-      console.log('up');
-
-    },
     beforeRouteUpdate (to) {
       this.updateSignalement(to.params.id);
-    },
-    watch: {
-      // call again the method if the route changes
-      '$route': 'updateSignalement'
     },
     mounted() {
       E.$on('signalement-show-details', (show) => {
