@@ -10,11 +10,6 @@
 import './assets/scss/main.scss'
 
 /**
- * Load config
- */
-import './config.js'
-
-/**
  * Load our bootstrap
  */
 import './bootstrap.js'
@@ -46,42 +41,48 @@ new Vue({
     cordova: Vue.cordova
   },
 
-  computed: {
+  created() {
+    console.log(process.env)
+    store.api_root = process.env.API_ROOT + process.env.API_VERSION
+    store.debug = process.env.DEBUG
+
+    if (process.env.NODE_ENV === 'development') {
+      store.uuid = 'dev-test'
+    } else {
+      store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
+    }
   },
 
   mounted() {
-    // store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
-    store.uuid = 'dev-test'
-
     router.push({path: '/'})
     this.checkUser()
 
     // Get signalements
-    axios.get(appURL + '/api/v1/signalements')
+    axios.get(store.api_root + '/signalements')
       .then(response => {
         store.signalements = response.data
       })
 
     // Get incidents
-    axios.get(appURL + '/api/v1/incidents')
+    axios.get(store.api_root + '/incidents')
       .then(response => {
         store.incidents = response.data
       })
 
     // Get symptomes categories
-    axios.get(appURL + '/api/v1/symptomes/categories')
+    axios.get(store.api_root + '/symptomes/categories')
       .then(response => {
         store.symptomes_categories = response.data
       })
 
     // Get symptomes
-    axios.get(appURL + '/api/v1/symptomes')
+    axios.get(store.api_root + '/symptomes')
       .then(response => {
         store.symptomes = response.data
       })
 
     // Get orphans
-    axios.get(appURL + '/api/v1/signalements/' + store.uuid + '/orphelins')
+    axios.get(store.api_root + '/signalements/' + store.uuid + '/orphelins')
       .then(response => {
         store.orphelins = response.data
         if (!store.authenticated) {
@@ -122,7 +123,7 @@ new Vue({
         })
     },
     getUser () {
-      const url = appURL + '/api/v1/users/' + store.user.id
+      const url = store.api_root + '/users/' + store.user.id
       const AuthStr = 'Bearer '.concat(store.user.api_token)
       axios.get(url, {headers: {Authorization: AuthStr}})
         .then(response => {

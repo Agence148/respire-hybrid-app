@@ -1,4 +1,4 @@
-if (window.debug) {
+if (process.env.DEBUG) {
 
   document.addEventListener('deviceready', showDeviceProperties, false)
 

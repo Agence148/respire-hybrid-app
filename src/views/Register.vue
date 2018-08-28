@@ -46,10 +46,10 @@
     },
     methods: {
       onSubmit() {
-        this.form.post(appURL + '/api/v1/users')
+        this.form.post(store.api_root + '/users')
           .then((response) => {
             for(let field in response){
-              this.shared[field] = response[field];
+              store[field] = response[field];
             }
             local.save();
           })

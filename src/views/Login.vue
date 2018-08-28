@@ -42,7 +42,7 @@
     },
     methods: {
       onSubmit() {
-        this.form.post(appURL + '/api/v1/login')
+        this.form.post(store.api_root + '/login')
           .then((response) => {
             for (let field in response){
               this.shared[field] = response[field];

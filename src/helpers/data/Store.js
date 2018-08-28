@@ -14,6 +14,9 @@ let store = {
   user_position: [48.86, 2.34],
   uuid: '',
 
+  api_root: '',
+  debug: false,
+
   geolocalised: false,
   authenticated: undefined,
 

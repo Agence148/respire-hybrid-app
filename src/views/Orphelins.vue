@@ -28,9 +28,9 @@ export default {
     methods: {
         onYes() {
             const AuthStr = 'Bearer '.concat(store.user.api_token),
-                url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/lier';
+                url = store.api_root + '/signalements/' + store.uuid + '/lier';
 
-            axios.post(url, this.shared.user.signalements, {headers: {Authorization: AuthStr}})
+            axios.post(url, store.user.signalements, {headers: {Authorization: AuthStr}})
                 .then(response => {
                   this.$router.push({path: '/signalements/index'});
                 })
@@ -40,9 +40,9 @@ export default {
         },
         onNo() {
             const AuthStr = 'Bearer '.concat(store.user.api_token),
-                url = appURL + '/api/v1/signalements/' + this.shared.uuid + '/anonymiser';
+                url = store.api_root + '/signalements/' + store.uuid + '/anonymiser';
 
-            axios.post(url, this.shared.user.signalements, {headers: {Authorization: AuthStr}})
+            axios.post(url, store.user.signalements, {headers: {Authorization: AuthStr}})
                 .then(response => {
                   this.$router.push({path: '/signalements/index'});
                 })

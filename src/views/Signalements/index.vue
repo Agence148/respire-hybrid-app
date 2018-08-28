@@ -3,9 +3,15 @@
 <script>
 
   export default {
+    data() {
+      return {
+        shared: store
+      }
+    },
+
     methods: {
       getLatestSignalements() {
-        const url = appURL + "/api/v1/signalements";
+        const url = store.api_root + '/signalements';
         axios.get(url)
           .then(response => {
             this.$parent.liste = response.data;

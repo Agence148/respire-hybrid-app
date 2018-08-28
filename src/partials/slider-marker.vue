@@ -60,10 +60,10 @@
       },
       getDistanceFromUser(lat, lng) {
         const earthRadiusKm = 6371
-        var dLat = this.degreesToRadians(this.shared.user_position[0] - lat)
-        var dLon = this.degreesToRadians(this.shared.user_position[1] - lng)
+        var dLat = this.degreesToRadians(store.user_position[0] - lat)
+        var dLon = this.degreesToRadians(store.user_position[1] - lng)
 
-        var lat1 = this.degreesToRadians(this.shared.user_position[0])
+        var lat1 = this.degreesToRadians(store.user_position[0])
         var lat2 = this.degreesToRadians(lat)
 
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -91,8 +91,8 @@
     },
 
     mounted() {
-      const url = appURL + '/api/v1/signalements/rayon',
-            data = {"lat":this.shared.user_position[0],"lng":this.shared.user_position[0],"radius": 10};
+      const url = store.api_root + '/signalements/rayon',
+            data = {"lat":store.user_position[0],"lng":store.user_position[0],"radius": 10};
 
       axios.post(url, data)
         .then(response => {

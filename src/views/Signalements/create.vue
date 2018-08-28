@@ -81,7 +81,7 @@
         let s = (store.signalements.push(this.form.data()))-1;
         local.save("signalements");
 
-        this.form.submit('post',appURL + '/api/v1/signalements')
+        this.form.submit('post', store.api_root + '/signalements')
           .then((response) => {
             this.sent = true;
             store.signalements[s].id=response.id;

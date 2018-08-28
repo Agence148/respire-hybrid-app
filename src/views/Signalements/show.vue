@@ -73,7 +73,7 @@
 
     methods: {
       updateSignalement(id) {
-        axios.get(appURL + '/api/v1/signalements/' + id)
+        axios.get(store.api_root + '/signalements/' + id)
           .then(response => {
             this.$parent.liste = [response.data];
             this.signalement = response.data;
