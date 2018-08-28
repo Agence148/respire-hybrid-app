@@ -169,6 +169,21 @@
         display: flex;
         justify-content: center;
 
+        .close-modal {
+          background: #fff;
+          text-align: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+          padding: 0;
+          font-size: 0;
+          align-self: center;
+
+          svg {
+            width: 16px;
+          }
+        }
+
         button {
           border-radius: 50px;
           width: 50px;
@@ -318,21 +333,6 @@
           }
         }
       }
-    }
-  }
-
-  .close-modal {
-    background: #fff;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    padding: 0;
-    font-size: 0;
-    align-self: center;
-
-    svg {
-      width: 16px;
     }
   }
 
