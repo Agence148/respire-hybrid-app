@@ -42,7 +42,6 @@ new Vue({
   },
 
   created() {
-    console.log(process.env)
     store.api_root = process.env.API_ROOT + process.env.API_VERSION
     store.debug = process.env.DEBUG
 

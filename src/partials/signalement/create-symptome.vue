@@ -184,6 +184,9 @@
 
         .marker-checked {
           display: none;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
           position: absolute;
           top: 0;
           right: 0;
@@ -231,7 +234,7 @@
       [data-category] {
         &.used {
           .marker-checked {
-            display: block;
+            display: flex;
           }
         }
       }
@@ -247,7 +250,7 @@
         [type="checkbox"] {
           &:checked {
             ~ .marker-checked {
-              display: block;
+                display: flex;
             }
           }
         }
@@ -256,6 +259,7 @@
 
     textarea {
       margin-top: 1em;
+      font-size: 12px;
       padding: 1em;
       height: 8em;
       width: 100%;

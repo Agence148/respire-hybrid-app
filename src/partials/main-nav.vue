@@ -89,6 +89,7 @@
         color: $noir;
         padding: 1em;
         text-align: center;
+        font-size: 14px;
 
         svg  {
           width: 24px;
