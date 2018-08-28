@@ -105,7 +105,7 @@
 
       E.$on('route-change', (route) => {
         this.resizeCpt = 0
-        requestAnimationFrame(this.resizeMap)
+        // requestAnimationFrame(this.resizeMap)
       })
       E.$on('map-locate-user', () => {
         this.map.setView(store.user_position, 16)

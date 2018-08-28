@@ -58,16 +58,15 @@
       },
       idSignalement() {
         return this.$route.params.id;
-      }
+      },
     },
+
     beforeRouteUpdate (to, from, next) {
       this.updateSignalement(to.params.id)
       next()
     },
-    mounted() {
-      E.$on('signalement-show-details', (show) => {
 
-      })
+    mounted() {
       this.$parent.classes="signalements-show";
       this.updateSignalement(this.idSignalement);
     },
@@ -97,7 +96,6 @@
               }
             }
           });
-
         setTimeout(() => {
           document.querySelector('.view .signalement-details').classList.add('modal-show');
         }, 100)
@@ -257,6 +255,15 @@
       h3{
         color: $noir;
         margin-bottom:10px;
+      }
+    }
+  }
+
+  .popup-visible + .signalements-show {
+    .signalement-details {
+      transition-delay: 0;
+      &.modal-show {
+        transform: translateY(-100%);
       }
     }
   }

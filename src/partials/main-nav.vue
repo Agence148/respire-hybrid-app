@@ -49,7 +49,6 @@
       })
       document.querySelector('#link-signalement').addEventListener('click', (e) => {
         e.preventDefault();
-        E.$emit('signalement-show-details', false)
         E.$emit('nav-popup-show', !this.showPopupSignalement)
       })
     }
