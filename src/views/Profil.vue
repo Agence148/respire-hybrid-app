@@ -68,7 +68,7 @@
       let content = document.querySelectorAll('.collapse');
       for(let i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', function() {
-            this.classList.toggle('open');
+            btn[i].classList.toggle('open');
             if (content[i].style.maxHeight){
                 content[i].style.maxHeight = null;
             } else {
