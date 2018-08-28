@@ -2,7 +2,7 @@
 
   <div class="profile">
     <!-- <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1> -->
-    <div v-if="shared.user.signalements.length > 0">
+    <div v-if="shared.user.signalements && shared.user.signalements.length > 0">
       <h2>Historique <br/> de signalement</h2>
       <ul class="signalement-container">
         <li v-for="signalement in shared.user.signalements" :key="signalement.id">

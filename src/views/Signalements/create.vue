@@ -75,11 +75,11 @@
       },
       onSubmit() {
         this.form.created_at = moment().format('YYYY-MM-DD HH:mm:ss');
-        this.form.lat = this.shared.user_position[0];
-        this.form.lng = this.shared.user_position[1];
+        this.form.lat = store.user_position[0];
+        this.form.lng = store.user_position[1];
         this.form.date = this.form.live ? this.form.created_at : this.pastDate;
         this.form.live = this.selected == '0' ;
-        this.form.uuid = this.shared.uuid;
+        this.form.uuid = store.uuid;
         this.steps.incidents ? this.form.incidents = this.steps.incidents.value : [];
         this.steps.symptomes ? this.form.symptomes = this.steps.symptomes.value : [];
         this.form.comment = this.steps.commentaire.value;
@@ -106,7 +106,7 @@
       E.$emit('nav-popup-show', false)
 
       this.$parent.classes="signalements-create";
-      this.$parent.mapCenter = this.shared.user_position;
+      this.$parent.mapCenter = store.user_position;
       this.$parent.mapZoom = 15;
 
       E.$on('signalement-show-close-button', (show) => {

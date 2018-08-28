@@ -48,7 +48,7 @@ new Vue({
     if (process.env.NODE_ENV === 'development') {
       store.uuid = 'dev-test'
     } else {
-      store.uuid = !device === 'undefined' || device.platform === 'browser' ? 'dev-test' : device.uuid
+      store.uuid = (typeof device === 'undefined' || device.platform === 'browser' || device.uuid === '') ? 'dev-test' : device.uuid
     }
   },
 
