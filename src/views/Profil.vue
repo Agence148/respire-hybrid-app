@@ -60,6 +60,9 @@
       }
     },
     mounted(){
+      setTimeout(() => {
+        document.querySelector('.profile').classList.add('show')
+      }, 20)
 
       let btn = document.querySelectorAll('.open-collapse');
       let content = document.querySelectorAll('.collapse');
@@ -81,6 +84,8 @@
 <style lang="scss">
 
   .profile {
+    transform: translateY(100%);
+    transition: .3s;
     padding: 50px 30px;
     background: #fff;
     bottom: 0;
@@ -90,6 +95,9 @@
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    &.show {
+      transform: translateY(0%);
+    }
     h1 {
       font-size: 26px;
       color: $violet;

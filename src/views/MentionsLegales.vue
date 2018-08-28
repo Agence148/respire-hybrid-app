@@ -29,11 +29,19 @@
 <script>
 export default {
 
+  mounted() {
+    setTimeout(() => {
+        document.querySelector('.mentions-legales').classList.add('show')
+      }, 20)
+  }
+
 }
 </script>
 
 <style lang="scss">
   .mentions-legales {
+    transform: translateY(100%);
+    transition: .3s;
     padding: 50px 30px;
     background: #fff;
     bottom: 0;
@@ -43,6 +51,9 @@ export default {
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    &.show {
+      transform: translateY(0%);
+    }
     &--title {
       color: $violet;
       font-variant: none;
