@@ -60,8 +60,9 @@
         return this.$route.params.id;
       }
     },
-    beforeRouteUpdate (to) {
-      this.updateSignalement(to.params.id);
+    beforeRouteUpdate (to, from, next) {
+      this.updateSignalement(to.params.id)
+      next()
     },
     mounted() {
       E.$on('signalement-show-details', (show) => {
