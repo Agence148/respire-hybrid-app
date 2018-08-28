@@ -25,7 +25,7 @@
     </div>
 
     <ul class="signalement-details__more">
-        <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title" class="signalement-details__more--indicents"></li>
+        <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title_combined" class="signalement-details__more--incidents"></li>
         <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)" class="signalement-details__more--symptomes"></li>
     </ul>
 
