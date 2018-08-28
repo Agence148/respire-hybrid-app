@@ -65,7 +65,7 @@
     },
     mounted() {
       E.$on('signalement-show-details', (show) => {
-        this.showDetails(show)
+
       })
       this.$parent.classes="signalements-show";
       this.updateSignalement(this.idSignalement);
@@ -101,11 +101,11 @@
           document.querySelector('.view .signalement-details').classList.add('modal-show');
         }, 100)
       },
-      showDetails(show) {
+      showDetails() {
         let btn = document.querySelector('.open-details');
         btn.classList.toggle('open');
         let content = document.querySelector('.signalement-details__more');
-        content.style.maxHeight = show ? null : content.scrollHeight + 'px';
+        content.style.maxHeight ? content.style.maxHeight = null : content.style.maxHeight = content.scrollHeight + 'px';
       },
       symptomeCombinedTitle(symptome) {
         return symptome.symptome_category.title_combined.replace('...', symptome.title_combined)

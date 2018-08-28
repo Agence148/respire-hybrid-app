@@ -6,7 +6,7 @@
       <create-symptome v-if="type == 'symptome'"></create-symptome>
 
       <div class="send-container" v-show="showCloseModalButton">
-        <button v-if="readyToSend" @click="onSubmit" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
+        <button type="submit" v-if="readyToSend" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
         <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
     </form>
@@ -30,6 +30,8 @@
         type: this.$route.params.type,
         form: new Form({
           symptomes: [],
+          incidents: [],
+          comment: '',
           lng:0,
           lat:0,
           created_at:0,
@@ -50,7 +52,8 @@
         time: '',
         pastDate: 0,
         readyToSend: false,
-        showCloseModalButton: true
+        showCloseModalButton: true,
+        steps: {}
       }
     },
 
@@ -76,7 +79,10 @@
         this.form.lng = this.shared.user_position[1];
         this.form.date = this.form.live ? this.form.created_at : this.pastDate;
         this.form.live = this.selected == '0' ;
-        this.form.uuid = this.uuid;
+        this.form.uuid = this.shared.uuid;
+        this.steps.incidents ? this.form.incidents = this.steps.incidents.value : [];
+        this.steps.symptomes ? this.form.symptomes = this.steps.symptomes.value : [];
+        this.form.comment = this.steps.commentaire.value;
 
         let s = (store.signalements.push(this.form.data()))-1;
         local.save("signalements");
@@ -108,6 +114,9 @@
       })
       E.$on('signalement-can-validate', (validation) => {
         this.readyToSend = validation
+      })
+      E.$on('signalement-data', (steps) => {
+        this.steps = steps
       })
     }
   }

@@ -24,7 +24,7 @@
     </ul>
 
     <aside class="popup popup--incidents" v-show="showPopupIncidents">
-      <h3>Quelle est l'incident ?</h3>
+      <h3>Quel est l'incident ?</h3>
       <ul class="incidents-icons">
         <li v-for="incident in shared.incidents" :key="incident.id" @click="selectIncident(incident)">
           <input
@@ -129,13 +129,14 @@
         var combinedTitle = ''
         this.shared.incidents.forEach((el) => {
           if (el.id == incidentId) {
-            combinedTitle = el.title_combined.replace('...', el.title_combined)
+            combinedTitle = el.title_combined
           }
         })
         return combinedTitle
       },
       checkSteps() {
         E.$emit('signalement-can-validate', this.steps.incidents.status == 'done' && this.steps.commentaire.status == 'done')
+        E.$emit('signalement-data', this.steps)
       }
     }
   }
