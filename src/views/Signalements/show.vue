@@ -71,6 +71,7 @@
     mounted() {
       this.$parent.classes="signalements-show";
       this.updateSignalement(this.idSignalement);
+      this.hideModal();
     },
 
     methods: {
@@ -143,6 +144,12 @@
         else {
           return parseInt(distance) + 'm'
         }
+      },
+      hideModal() {
+        var overlay = document.querySelector('.signalement-details + .overlay');
+        overlay.addEventListener('click', () => {
+          this.$router.push({path: '/signalements/index'});
+        })
       }
     }
   }

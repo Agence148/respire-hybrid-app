@@ -2,6 +2,7 @@
     <div :class="classes">
         <leaflet-map locate="true" :markers="liste" :center="mapCenter" :zoom="mapZoom"></leaflet-map>
         <router-view class="signalement-content"></router-view>
+        <div class="overlay"></div>
     </div>
 </template>
 
@@ -60,9 +61,20 @@
   }
 
   .signalements-create, .signalements-show {
-    
+
     .signalement-content {
-      
+
+    }
+
+    .modal-show {
+      & + .overlay {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
     }
   }
 
