@@ -67,10 +67,6 @@
     },
 
     computed: {
-      lastSignalementId() {
-        var lastId = this.shared.signalements.pop();
-        return lastId.id;
-      }
     },
 
     methods: {
@@ -88,25 +84,25 @@
         this.steps.symptomes ? this.form.symptomes = this.steps.symptomes.value : [];
         this.form.comment = this.steps.commentaire.value;
 
-        let s = (store.signalements.push(this.form.data()))-1;
+        let newSignalementIndex = (store.signalements.push(this.form.data()))-1;
         local.save("signalements");
 
         this.form.submit('post', store.api_root + '/signalements')
           .then((response) => {
             this.sent = true;
-            store.signalements[s].id=response.id;
+            store.signalements[newSignalementIndex].id=response.id;
             local.save("signalements");
+            setTimeout(() => {
+              this.$router.push({path: '/signalements/index'})
+              setTimeout(() => {
+                this.$router.push({path: '/signalements/' + response.id})
+              }, 10);
+            }, 500);
           })
           .catch((err) => {
             console.log(err);
           });
 
-          setTimeout(() => {
-            setTimeout(() => {
-              this.$router.push({path: '/signalements/' + this.lastSignalementId})
-            }, 100);
-            this.$router.push({path: '/signalements/index'})
-          }, 300);
       },
       onCloseModal() {
         this.$router.push({path: '/signalements/index'});
