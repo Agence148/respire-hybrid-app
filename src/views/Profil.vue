@@ -89,12 +89,9 @@
     padding: 50px 30px;
     background: #fff;
     bottom: 0;
-    height: 92vh;
     width: 100%;
     position: fixed;
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     &.show {
       transform: translateY(0%);
     }
