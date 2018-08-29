@@ -48,11 +48,9 @@
       return {
         shared: store,
         swiperOption: {
-          slidesPerView: 2,
+          slidesPerView: 'auto',
           spaceBetween: 15,
           slidesPerGroup: 1,
-          loop: true,
-          loopFillGroupWithBlank: true,
         },
         slides: [],
         radius: 1000
@@ -155,12 +153,13 @@
     &__header {
       display: flex;
       justify-content: space-between;
-      padding: 0 30px 5px;
+      padding: 0 30px 10px;
 
       h2 {
         font-size: 18px;
         font-variant: none;
         color: $noir;
+        line-height: normal;
       }
       select {
         background: #fff;
