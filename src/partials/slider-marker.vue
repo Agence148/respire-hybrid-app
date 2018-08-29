@@ -51,6 +51,9 @@
           slidesPerView: 'auto',
           spaceBetween: 15,
           slidesPerGroup: 1,
+          slidesOffsetBefore: 30,
+          slidesOffsetAfter: 30,
+          initialSlide: 0
         },
         slides: [],
         radius: 1000
@@ -168,6 +171,8 @@
 
     #slider-marker {
       height: 150px;
+      // width: calc(100% - 60px);
+      // overflow: visible;
 
       .swiper-slide {
         padding: 25px;
