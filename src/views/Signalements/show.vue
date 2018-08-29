@@ -7,8 +7,8 @@
         <router-link to="/signalements/index" class="back-arrow" v-html="require('../../assets/images/icons/back.svg')" aria-labelledby="Retour"></router-link>
 
         <ul class="signalement-icons">
-            <li v-for="incident in signalement.incidents" :key="incident.id" v-html="require('../../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
-            <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="require('../../assets/images/icons/signalements/' + symptome.icon + '.svg')"></li>
+            <li v-for="incident in signalement.incidents" :key="incident.id" :class="signalement._type" v-html="require('../../assets/images/icons/signalements/' + incident.icon + '.svg')"></li>
+            <li v-for="symptome in signalement.symptomes" :key="symptome.id" :class="signalement._type" v-html="require('../../assets/images/icons/signalements/' + symptome.icon + '.svg')"></li>
         </ul>
     </div>
 
@@ -191,6 +191,16 @@
                 margin-left: 5px;
                 svg {
                     height: 30px;
+                }
+                &.symptomes{
+                  svg {
+                    fill: $symptomes;
+                  }
+                }
+                &.incidents{
+                  svg {
+                    fill: $incidents;
+                  }
                 }
             }
         }
