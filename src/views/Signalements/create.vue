@@ -7,7 +7,7 @@
 
       <div class="send-container" v-show="showCloseModalButton">
         <button type="submit" v-if="readyToSend" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
-        <button v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
+        <button type="button" v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
       </div>
     </form>
   </div>
