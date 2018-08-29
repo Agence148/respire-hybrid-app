@@ -53,6 +53,8 @@
           return moment().diff(this.signalement.date, 'days') + 'j';
         } else if (timeBetween > 59) {
           return moment().diff(this.signalement.date, 'hour') + 'h';
+        } else if (timeBetween == 0) {
+          return moment().diff(this.signalement.date, 'seconds') + 'sec';
         }
         return timeBetween + 'min';
       },

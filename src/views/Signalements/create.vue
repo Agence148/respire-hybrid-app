@@ -67,6 +67,10 @@
     },
 
     computed: {
+      lastSignalementId() {
+        var lastId = this.shared.signalements.pop();
+        return lastId.id;
+      }
     },
 
     methods: {
@@ -96,6 +100,13 @@
           .catch((err) => {
             console.log(err);
           });
+
+          setTimeout(() => {
+            setTimeout(() => {
+              this.$router.push({path: '/signalements/' + this.lastSignalementId})
+            }, 100);
+            this.$router.push({path: '/signalements/index'})
+          }, 300);
       },
       onCloseModal() {
         this.$router.push({path: '/signalements/index'});
