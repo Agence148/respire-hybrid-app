@@ -137,8 +137,7 @@
 
     mounted() {
       this.refreshAround()
-
-
+      E.$on('user-location-updated', this.refreshAround)
     }
   }
 

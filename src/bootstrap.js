@@ -18,6 +18,13 @@ import Vue from 'vue'
 window.Vue = Vue
 
 /**
+ * Load Vue Cordova
+ */
+import VueCordova from 'vue-cordova'
+
+Vue.use(VueCordova)
+
+/**
  * Load localforage
  * localforage is a crossbrowser localstorage wrapper
  *

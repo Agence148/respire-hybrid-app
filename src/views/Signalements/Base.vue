@@ -16,25 +16,20 @@
         shared: store,
         liste: [],
         mapCenter: store.user_position,
+        initialMapCenter: store.user_position,
         mapZoom: 12,
         classes: 'signalements',
         geolocated: false,
       }
     },
-    methods: {
-      userPosition (position) {
-
-        this.geolocated = true
-        this.shared.user_position = [position.coords.latitude, position.coords.longitude]
-
-        this.mapCenter = [position.coords.latitude, position.coords.longitude]
-        this.mapZoom = 15
-      }
-    },
     mounted () {
-      if (navigator.geolocation && this.geolocated == false) {
-        navigator.geolocation.getCurrentPosition(this.userPosition)
-      }
+      E.$on('user-location-updated', () => {
+        if (!this.geolocated && this.mapCenter == this.initialMapCenter) {
+          this.geolocated = true;
+          this.mapCenter = store.user_position,
+          this.mapZoom = 15
+        }
+      })
     }
   }
 

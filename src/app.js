@@ -14,8 +14,6 @@ import './assets/scss/main.scss'
  */
 import './bootstrap.js'
 
-import VueCordova from 'vue-cordova'
-
 /**
  * Load our router to plug it in our Vue instance later
  */
@@ -23,8 +21,6 @@ import router from './routes.js'
 
 import TopBar from './partials/top-bar.vue'
 import MainNav from './partials/main-nav.vue'
-
-Vue.use(VueCordova)
 
 /**
  * Let's create our Vue instance
@@ -55,6 +51,7 @@ new Vue({
   mounted() {
     router.push({path: '/'})
     this.checkUser()
+    this.checkUserLocation()
 
     // Get signalements
     axios.get(store.api_root + '/signalements')
@@ -120,6 +117,17 @@ new Vue({
         .catch(() => {
           store.authenticated = false
         })
+    },
+    checkUserLocation () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          if (position.coords.latitude !== this.shared.user_position[0] || position.coords.longitude !== this.shared.user_position[1]) {
+            this.shared.user_position = [position.coords.latitude, position.coords.longitude]
+            E.$emit('user-location-updated')
+          }
+        })
+        setTimeout(this.checkUserLocation, 30 * 1000)
+      }
     },
     getUser () {
       const url = store.api_root + '/users/' + store.user.id
