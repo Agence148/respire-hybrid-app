@@ -1,7 +1,14 @@
 <template>
 
   <div class="slider-container">
-    <h2>Autour de moi...</h2>
+    <div class="slider-container__header">
+      <h2>Autour de moi...</h2>
+      <select id="radius-selector" v-model="radius" @change="refreshAround">
+        <option value="500">500m</option>
+        <option value="1000">1km</option>
+        <option value="2000">2km</option>
+      </select>
+    </div>
     <swiper :options="swiperOption" id="slider-marker">
       <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type" @click.native="showMarker(signalement.id)">
         <ul class="icons-list">
@@ -48,6 +55,7 @@
           loopFillGroupWithBlank: true,
         },
         slides: [],
+        radius: 1000
       }
     },
 
@@ -87,41 +95,50 @@
         else {
           return parseInt(distance) + 'm'
         }
+      },
+      refreshAround() {
+        var data = {
+          'lat': store.user_position[0],
+          'lng': store.user_position[1],
+          'radius': this.radius
+        };
+
+        axios.post(store.api_root + '/signalements/rayon', data).then(response => {
+            this.slides = response.data;
+            this.slides.forEach((el, index) => {
+              var timeBetween = moment().diff(el.date, 'minute');
+              if (timeBetween/60 > 24) {
+                el._timeAgo = moment().diff(el.date, 'days') + 'j';
+              } else if (timeBetween > 59) {
+                el._timeAgo = moment().diff(el.date, 'hour') + 'h';
+              } else if (timeBetween == 0) {
+                el._timeAgo = moment().diff(el.date, 'seconds') + 'sec';
+              } else {
+                el._timeAgo = timeBetween + 'min';
+              }
+
+              if (el.symptomes.length > 0) {
+                if (el.incidents.length > 0) {
+                  el._type = 'both'
+                } else {
+                  el._type = 'symptomes'
+                }
+              } else {
+                el._type = 'incidents'
+              }
+            });
+          })
+          .catch(error => {
+            console.log('error: ', error.response.data);
+          })
       }
     },
 
     mounted() {
-      const url = store.api_root + '/signalements/rayon',
-            data = {"lat":store.user_position[0],"lng":store.user_position[0],"radius": 10};
+      this.refreshAround()
 
-      axios.post(url, data)
-        .then(response => {
-          this.slides = response.data;
-          this.slides.forEach((el, index) => {
-            var timeBetween = moment().diff(el.date, 'minute');
-            if (timeBetween/60 > 24) {
-              el._timeAgo = moment().diff(el.date, 'days') + 'j';
-            } else if (timeBetween > 59) {
-              el._timeAgo = moment().diff(el.date, 'hour') + 'h';
-            } else {
-              el._timeAgo = timeBetween + 'min';
-            }
 
-            if (el.symptomes.length > 0) {
-              if (el.incidents.length > 0) {
-                el._type = 'both'
-              } else {
-                el._type = 'symptomes'
-              }
-            } else {
-              el._type = 'incidents'
-            }
-          });
-        })
-        .catch(error => {
-          console.log('error: ', error.response.data);
-        })
-      }
+    }
   }
 
 </script>
@@ -135,12 +152,19 @@
     left: 0;
     width: 100%;
 
-    h2 {
-      font-size: 18px;
-      font-variant: none;
-      color: $noir;
-      margin-left: 30px;
-      margin-bottom: 5px;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px 5px;
+
+      h2 {
+        font-size: 18px;
+        font-variant: none;
+        color: $noir;
+      }
+      select {
+        background: #fff;
+      }
     }
 
     #slider-marker {
