@@ -197,6 +197,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
     padding: 30px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
