@@ -12,6 +12,7 @@ let store = {
     api_token: undefined
   },
   user_position: [48.86, 2.34],
+  offline: true,
   uuid: '',
 
   api_root: '',

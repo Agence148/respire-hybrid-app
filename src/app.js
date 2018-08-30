@@ -118,16 +118,30 @@ new Vue({
           store.authenticated = false
         })
     },
+    // checkUserLocation () {
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition((position) => {
+    //       if (position.coords.latitude !== this.shared.user_position[0] || position.coords.longitude !== this.shared.user_position[1]) {
+    //         this.shared.user_position = [position.coords.latitude, position.coords.longitude]
+    //         E.$emit('user-location-updated')
+    //       }
+    //     })
+    //     setTimeout(this.checkUserLocation, 30 * 1000)
+    //   }
+    // },
     checkUserLocation () {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          if (position.coords.latitude !== this.shared.user_position[0] || position.coords.longitude !== this.shared.user_position[1]) {
-            this.shared.user_position = [position.coords.latitude, position.coords.longitude]
-            E.$emit('user-location-updated')
-          }
-        })
-        setTimeout(this.checkUserLocation, 30 * 1000)
+        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
       }
+    },
+    onSuccess (position) {
+      this.shared.user_position = [position.coords.latitude, position.coords.longitude]
+      this.shared.offline = false
+      E.$emit('user-location-updated', this.shared.offline)
+    },
+    onError (error) {
+      console.log('code: ' + error.code + '\n' +
+            'message: ' + error.message + '\n')
     },
     getUser () {
       const url = store.api_root + '/users/' + store.user.id

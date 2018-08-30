@@ -16,6 +16,11 @@
         <router-link to="/signalements/create/symptome" v-html="require('../assets/images/icons/lifeline.svg') + 'Signaler un symptôme'"></router-link>
       </div>
     </div>
+
+    <div class="popup-error">
+      <h2>Aucune connexion</h2>
+      <p>Vous ne pouvez pas créer de signalement</p>
+    </div>
   </aside>
 
 </template>
@@ -37,10 +42,33 @@
         navItems: navItems,
         showPopupSignalement: false,
         show: true,
+        unclickable: true,
+      }
+    },
+
+    methods: {
+      unclickableButton () {
+        if(this.unclickable == true) {
+          var btnPlus = document.querySelector('.plus').parentElement,
+              popupError = document.querySelector('.popup-error')
+          btnPlus.classList.add('unclickable')
+          btnPlus.addEventListener('click', () => {
+            popupError.classList.toggle('show-error')
+            setTimeout(() => {
+              popupError.classList.toggle('show-error')
+            }, 2000);
+            this.showPopupSignalement = false;
+          })
+        } else {
+          document.querySelector('.plus').parentElement.classList.remove('unclickable')
+        }
       }
     },
 
     mounted () {
+      E.$on('user-location-updated', (offline) => {
+        this.unclickable = offline
+      })
       E.$on('nav-show', (show) => {
         this.show = show
       })
@@ -51,6 +79,7 @@
         e.preventDefault();
         E.$emit('nav-popup-show', !this.showPopupSignalement)
       })
+      this.unclickableButton()
     }
   }
 </script>
@@ -141,6 +170,9 @@
           transform: translateX(-50%);
           position: absolute;
           box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
+          &.unclickable {
+            background: #777;
+          }
         }
         a {
           display: inline-block;
@@ -163,6 +195,25 @@
         margin: 0 auto 8px;
         font-size: 220%;
       }
+    }
+  }
+
+  .popup-error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 3000;
+    background: #aaaaaa;
+    transform: translateY(-100%);
+    transition: all 0.3s;
+    h2, p {
+      font-variant: none;
+    }
+    &.show-error {
+      transform: translateY(0%);
     }
   }
 
