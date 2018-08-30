@@ -3,8 +3,14 @@
   <aside id="main-nav-wrapper" :class="showPopupSignalement ? ' popup-visible' : ''" v-show="show">
     <nav class="main-nav bottom-nav">
       <ul class="nav-items">
-        <li v-for="(item, index) in navItems" :key="index">
-          <router-link :to="item.url" :class="item.icon" :id="'link-' + item.name" v-html="item.image" :aria-labelledby="item.name"></router-link>
+        <li>
+          <router-link to="/signalements/index" class="map" id="link-carte" v-html="require('../assets/images/icons/map.svg')" aria-labelledby="carte"></router-link>
+        </li>
+        <li :class="unclickable ? 'unclickable' : ''">
+          <router-link to="#" class="plus" id="link-signalement" v-html="require('../assets/images/icons/plus.svg')" aria-labelledby="signalement"></router-link>
+        </li>
+        <li>
+          <router-link to="/profil" class="avatar" id="link-profil" v-html="require('../assets/images/icons/avatar.svg')" aria-labelledby="profil"></router-link>
         </li>
       </ul>
     </nav>
@@ -17,7 +23,7 @@
       </div>
     </div>
 
-    <div class="popup-error">
+    <div v-if="unclickable" class="popup-error">
       <h2>Aucune connexion</h2>
       <p>Vous ne pouvez pas créer de signalement</p>
     </div>
@@ -29,57 +35,45 @@
 
   export default {
     data () {
-      var navItems = [
-        { name: 'carte', url: '/signalements/index', icon: 'map' },
-        { name: 'signalement', url: '#', icon: 'plus' },
-        { name: 'profil', url: '/profil', icon: 'avatar' }
-      ]
-      navItems.forEach(el => {
-        el.image = require('../assets/images/icons/' + el.icon + '.svg');
-      });
-
       return {
-        navItems: navItems,
         showPopupSignalement: false,
         show: true,
+        unclickable: false,
       }
     },
 
     methods: {
-      unclickableButton (unclickable) {
-        if(unclickable) {
-          var btnPlus = document.querySelector('.plus').parentElement,
-              popupError = document.querySelector('.popup-error')
-          btnPlus.classList.add('unclickable')
-          btnPlus.addEventListener('click', () => {
-            popupError.classList.add('show-error')
-            setTimeout(() => {
-              popupError.classList.remove('show-error')
-            }, 2000);
-            this.showPopupSignalement = false;
-          })
-        } else {
-          document.querySelector('.plus').parentElement.classList.remove('unclickable')
-        }
+      showPopupError () {
+        document.querySelector('#link-signalement').addEventListener('click', (e) => {
+          var popupError = document.querySelector('.popup-error')
+              popupError.classList.add('show-error')
+              setTimeout(() => {
+                popupError.classList.remove('show-error')
+              }, 2000);
+        })
+      },
+      showPopupSignalements() {
+        document.querySelector('#link-signalement').addEventListener('click', (e) => {
+          e.preventDefault();
+          E.$emit('nav-popup-show', !this.showPopupSignalement)
+        })
       }
     },
 
     mounted () {
       E.$on('user-location-unavailable', (offline) => {
-        this.unclickableButton(offline)
+        this.unclickable = offline
+        this.showPopupError()
       })
       E.$on('user-location-updated', (offline) => {
-        this.unclickableButton(offline)
+        this.unclickable = offline
+        this.showPopupSignalements()
       })
       E.$on('nav-show', (show) => {
         this.show = show
       })
       E.$on('nav-popup-show', (show) => {
         this.showPopupSignalement = show
-      })
-      document.querySelector('#link-signalement').addEventListener('click', (e) => {
-        e.preventDefault();
-        E.$emit('nav-popup-show', !this.showPopupSignalement)
       })
     }
   }

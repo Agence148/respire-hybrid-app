@@ -9,7 +9,7 @@
         <option value="2000">2km</option>
       </select>
     </div>
-    <swiper :options="swiperOption" id="slider-marker">
+    <swiper v-if="slides.length > 0" :options="swiperOption" id="slider-marker">
       <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type" @click.native="showMarker(signalement.id)">
         <ul class="icons-list">
           <li v-for="el in signalement[signalement._type]" :key="el.id" v-html="require('../assets/images/icons/signalements/' + el.icon + '.svg')"></li>
@@ -27,6 +27,10 @@
         </div>
       </swiper-slide>
     </swiper>
+    <div v-else class="slider-container__empty">
+      <h2>Désolé</h2>
+      <p>Il n'y a rien aux alentours...</p>
+    </div>
   </div>
 
 </template>
@@ -165,6 +169,25 @@
       }
       select {
         background: #fff;
+      }
+    }
+
+    &__empty {
+      margin: 0 30px;
+      margin-bottom: 25px;
+      padding: 25px;
+      height: 125px;
+      background: $offline;
+      border-radius: 8px;
+      box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.15);
+      h2, p {
+        font-variant: none;
+      }
+      h2 {
+        margin-bottom: 0;
+      }
+      p {
+        margin: 0;
       }
     }
 
