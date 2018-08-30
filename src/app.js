@@ -130,18 +130,18 @@ new Vue({
     //   }
     // },
     checkUserLocation () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
-      }
+      navigator.geolocation.watchPosition(this.geolocationSuccess, this.geolocationError, { timeout: 30000 })
     },
-    onSuccess (position) {
+    geolocationSuccess (position) {
       this.shared.user_position = [position.coords.latitude, position.coords.longitude]
       this.shared.offline = false
       E.$emit('user-location-updated', this.shared.offline)
     },
-    onError (error) {
+    geolocationError (error) {
       console.log('code: ' + error.code + '\n' +
             'message: ' + error.message + '\n')
+      this.shared.offline = true
+      E.$emit('user-location-unavailable', this.shared.offline)
     },
     getUser () {
       const url = store.api_root + '/users/' + store.user.id

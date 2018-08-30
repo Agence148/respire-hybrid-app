@@ -42,20 +42,19 @@
         navItems: navItems,
         showPopupSignalement: false,
         show: true,
-        unclickable: true,
       }
     },
 
     methods: {
-      unclickableButton () {
-        if(this.unclickable == true) {
+      unclickableButton (unclickable) {
+        if(unclickable) {
           var btnPlus = document.querySelector('.plus').parentElement,
               popupError = document.querySelector('.popup-error')
           btnPlus.classList.add('unclickable')
           btnPlus.addEventListener('click', () => {
-            popupError.classList.toggle('show-error')
+            popupError.classList.add('show-error')
             setTimeout(() => {
-              popupError.classList.toggle('show-error')
+              popupError.classList.remove('show-error')
             }, 2000);
             this.showPopupSignalement = false;
           })
@@ -66,8 +65,11 @@
     },
 
     mounted () {
+      E.$on('user-location-unavailable', (offline) => {
+        this.unclickableButton(offline)
+      })
       E.$on('user-location-updated', (offline) => {
-        this.unclickable = offline
+        this.unclickableButton(offline)
       })
       E.$on('nav-show', (show) => {
         this.show = show
@@ -79,7 +81,6 @@
         e.preventDefault();
         E.$emit('nav-popup-show', !this.showPopupSignalement)
       })
-      this.unclickableButton()
     }
   }
 </script>
@@ -171,7 +172,7 @@
           position: absolute;
           box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
           &.unclickable {
-            background: #777;
+            background: $offline;
           }
         }
         a {
@@ -206,7 +207,8 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     z-index: 3000;
-    background: #aaaaaa;
+    background: $offline;
+    box-shadow: 10px 10px 20px 0 rgba(0,0,0,0.15);
     transform: translateY(-100%);
     transition: all 0.3s;
     h2, p {

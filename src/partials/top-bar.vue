@@ -2,7 +2,7 @@
 
   <div class="top-bar">
     <div class="top-bar-left">
-      <button class="btn" id="button-locate" v-html="require('../assets/images/icons/gps.svg')" aria-labelledby="Geolocalisation"></button>
+      <button class="btn" :class="disable ? 'disable' : ''" id="button-locate" v-html="require('../assets/images/icons/gps.svg')" aria-labelledby="Geolocalisation"></button>
     </div>
     <div class="top-bar-center">
       <button class="btn" id="switch-heatmap" v-html="require('../assets/images/icons/layers.svg')" aria-labelledby="Heat map"></button>
@@ -19,7 +19,8 @@
   export default {
     data() {
       return {
-        shared: store
+        shared: store,
+        disable: false,
       }
     },
     methods : {
@@ -27,6 +28,14 @@
         this.$router.push({path: '/mentions-legales'});
       }
     },
+    mounted() {
+      E.$on('user-location-unavailable', (offline) => {
+        this.disable = offline
+      })
+      E.$on('user-location-updated', (offline) => {
+        this.disable = offline
+      })
+    }
   }
 
 </script>
@@ -57,6 +66,13 @@
         height: 50px;
         border-radius: 50px;
         box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
+        &.disable {
+          pointer-events: none;
+          background: $offline;
+          svg {
+            fill: #fff;
+          }
+        }
 
         svg {
           width: 22px;

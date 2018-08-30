@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
-    <title>gps</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="HOME" transform="translate(-39.000000, -41.000000)" fill="#321F40" fill-rule="nonzero">
+<svg fill="#321F40" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g id="HOME" transform="translate(-39.000000, -41.000000)" fill-rule="nonzero">
             <g id="//-LOCATE" transform="translate(29.000000, 31.000000)">
                 <g id="gps" transform="translate(10.000000, 10.000000)">
                     <path d="M15,10.6451613 C12.5992396,10.6451613 10.6451613,12.5986175 10.6451613,15 C10.6451613,17.4013825 12.5992396,19.3548387 15,19.3548387 C17.4007604,19.3548387 19.3548387,17.4013825 19.3548387,15 C19.3548387,12.5986175 17.4007604,10.6451613 15,10.6451613 Z M15,16.8663594 C13.9710138,16.8663594 13.1336406,16.0289862 13.1336406,15 C13.1336406,13.9710138 13.9710138,13.1336406 15,13.1336406 C16.0289862,13.1336406 16.8663594,13.9710138 16.8663594,15 C16.8663594,16.0289862 16.0289862,16.8663594 15,16.8663594 Z" id="Shape"></path>
