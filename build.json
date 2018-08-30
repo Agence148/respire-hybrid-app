@@ -1,7 +1,7 @@
 {
   "android": {
     "release": {
-        "keystore": "/Users/samuel/Documents/148/Android/respire.keystore",
+        "keystore": "~/.respire.keystore",
         "storePassword": "148likeandroid",
         "alias": "Respire",
         "password" : "148likeandroid",
