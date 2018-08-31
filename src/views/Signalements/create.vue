@@ -140,7 +140,7 @@
     width: 100%;
     height: 100%;
     background: rgba($color: #321f40, $alpha: 0.9);
-    z-index: 10001;
+    z-index: 11001;
     padding: 50px;
     pointer-events: all;
 
