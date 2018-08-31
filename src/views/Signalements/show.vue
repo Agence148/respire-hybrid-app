@@ -27,6 +27,7 @@
     <ul class="signalement-details__more">
         <li v-for="incident in signalement.incidents" :key="incident.id" v-html="incident.title_combined" class="signalement-details__more--incidents"></li>
         <li v-for="symptome in signalement.symptomes" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)" class="signalement-details__more--symptomes"></li>
+        <li v-html="signalement.comment" class="signalement-details__more--comment"></li>
     </ul>
 
 </div>
@@ -270,6 +271,15 @@
           padding-right: 8px;
           color: $violet;
         }
+      }
+      &--comment {
+        margin: 0;
+        margin-top: 10px;
+        font-size: 14px;
+        color: $gris;
+        font-style: italic;
+        border-left: 3px solid $gris;
+        padding-left: 8px;
       }
       h3{
         color: $noir;
