@@ -358,4 +358,27 @@
     }
   }
 
+  @media screen and (max-width: 360px) {
+    .create-signalement {
+      padding: 40px;
+      &__form {
+        .vertical-step {
+          margin: 15px 0;
+        }
+        .popup {
+          padding: 30px;
+        }
+        .button-close {
+          margin: 20px auto 0;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    .create-signalement {
+      padding: 30px;
+    }
+  }
+
 </style>
