@@ -225,7 +225,6 @@
                 font-variant: inherit;
             }
             span {
-                color: $noir;
                 font-style: italic;
                 font-size: 12px;
                 color: $gris;
