@@ -165,6 +165,9 @@
           transform: translateX(-50%);
           position: absolute;
           box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
+          #link-signalement {
+            opacity: 1;
+          }
           &.unclickable {
             background: $offline;
           }
@@ -174,9 +177,24 @@
           vertical-align: top;
           padding: 13px 10px;
           line-height: 1;
+          position: relative;
+          transition: all .3s;
+          opacity: 0.3;
+          overflow: hidden;
 
           &.router-link-active {
-            color: $principale;
+            opacity: 1;
+            &::before {
+              content: '';
+              position: absolute;
+              top: -5px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 10px;
+              height: 10px;
+              background: $principale;
+              border-radius: 50px;
+            }
           }
           svg {
             width: 24px;
