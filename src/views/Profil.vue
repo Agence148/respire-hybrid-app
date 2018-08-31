@@ -260,4 +260,32 @@
     }
   }
 
+  @media screen and (max-width: 350px) {
+    .profile {
+        .signalement {
+          &-infos {
+            .infos-right {
+              .open-collapse {
+                width: 40px;
+                height: 40px;
+                svg {
+                  width: 16px;
+                  height: 5px;
+                }
+              }
+              .signalement-icons {
+                margin-right: 5px;
+                li {
+                  margin: 0 2px;
+                  svg {
+                    height: 20px;
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+  }
+
 </style>
