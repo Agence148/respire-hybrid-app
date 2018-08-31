@@ -169,8 +169,9 @@
     z-index: 2002;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, 0.15);
     padding: 30px;
-    transform: translateY(-100%);
+    transform: translateY(-115%);
     transition: all .3s;
     transition-delay: .5s;
     &.modal-show {
@@ -291,7 +292,7 @@
     .signalement-details {
       transition-delay: 0;
       &.modal-show {
-        transform: translateY(-100%);
+        transform: translateY(-115%);
       }
     }
   }
