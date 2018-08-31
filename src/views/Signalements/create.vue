@@ -5,9 +5,9 @@
       <create-incident v-if="type == 'incident'"></create-incident>
       <create-symptome v-if="type == 'symptome'"></create-symptome>
 
-      <div class="send-container" v-show="showCloseModalButton">
-        <button type="submit" v-if="readyToSend" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
-        <button type="button" v-else class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
+      <div class="send-container">
+        <button type="button" class="close-modal" @click="onCloseModal" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Fermer"></button>
+        <button type="submit" class="submit-btn" :class="readyToSend ? 'ready' : ''" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Envoyer"></button>
       </div>
     </form>
   </div>
@@ -52,7 +52,6 @@
         time: '',
         pastDate: 0,
         readyToSend: false,
-        showCloseModalButton: true,
         steps: {}
       }
     },
@@ -183,7 +182,25 @@
 
       .send-container {
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
+
+        .submit-btn {
+          border-radius: 50px;
+          width: 50px;
+          height: 50px;
+          padding: 0;
+          font-size: 0;
+          background: rgba(255, 255, 255, .4);
+          transition: all .4s;
+          pointer-events: none;
+          &.ready {
+            background: #fff;
+            pointer-events: initial;
+          }
+          svg {
+            width: 20px;
+          }
+        }
 
         .close-modal {
           background: #fff;
@@ -197,17 +214,6 @@
 
           svg {
             width: 16px;
-          }
-        }
-
-        button {
-          border-radius: 50px;
-          width: 50px;
-          height: 50px;
-          padding: 0;
-          font-size: 0;
-          svg {
-            width: 20px;
           }
         }
       }

@@ -147,7 +147,6 @@
 
 .create-signalement__form--incident {
     position: relative;
-    margin-bottom: auto;
 
     .incidents-icons {
       display: flex;

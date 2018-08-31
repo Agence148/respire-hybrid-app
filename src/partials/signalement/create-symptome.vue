@@ -168,7 +168,6 @@
 
   .create-signalement__form--symptome {
     position: relative;
-    margin-bottom: auto;
 
     .categories-icons,
     .symptomes-icons {
