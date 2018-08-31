@@ -1,5 +1,6 @@
 <template>
   <div class="mentions-legales">
+    <router-link to="/signalements/index" class="back-arrow" v-html="require('../assets/images/icons/back.svg')" aria-labelledby="Retour"></router-link>
     <h1 class="mentions-legales--title">Mentions Legales</h1>
     <p class="mentions-legales--text">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -61,6 +62,13 @@ export default {
       font-variant: none;
       font-size: 16px;
       margin-bottom: 30px;
+    }
+    .back-arrow {
+        display: inline-block;
+        margin-bottom: 10px;
+        svg {
+          width: 20px;
+        }
     }
   }
 </style>

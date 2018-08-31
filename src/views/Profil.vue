@@ -2,6 +2,7 @@
 
   <div class="profile">
     <!-- <h1 v-if="shared.user.api_token">Bonjour <span>{{ shared.user.name }}</span> !</h1> -->
+    <router-link to="/signalements/index" class="back-arrow" v-html="require('../assets/images/icons/back.svg')" aria-labelledby="Retour"></router-link>
     <div v-if="shared.user.signalements && shared.user.signalements.length > 0">
       <h2>Historique <br/> de signalement</h2>
       <ul class="signalement-container">
@@ -103,6 +104,14 @@
       font-size: 24px;
       color: $violet;
       font-variant: none;
+    }
+
+    .back-arrow {
+        display: inline-block;
+        margin-bottom: 10px;
+        svg {
+          width: 20px;
+        }
     }
 
     .cross-icon {
