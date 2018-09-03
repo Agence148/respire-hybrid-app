@@ -7,7 +7,7 @@
           <router-link to="/signalements/index" class="map" id="link-carte" v-html="require('../assets/images/icons/map.svg')" aria-labelledby="carte"></router-link>
         </li>
         <li :class="unclickable ? 'unclickable' : ''">
-          <router-link to="#" class="plus" id="link-signalement" v-html="require('../assets/images/icons/plus.svg')" aria-labelledby="signalement"></router-link>
+          <button class="plus" id="link-signalement" @click="showPopups" v-html="require('../assets/images/icons/plus.svg')" aria-labelledby="signalement"></button>
         </li>
         <li>
           <router-link to="/profil" class="avatar" id="link-profil" v-html="require('../assets/images/icons/avatar.svg')" aria-labelledby="profil"></router-link>
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div v-if="unclickable" class="popup-error">
+    <div v-if="unclickable" class="popup-error" ref="popupError">
       <h2>Aucune connexion</h2>
       <p>Vous ne pouvez pas créer de signalement</p>
     </div>
@@ -44,30 +44,25 @@
 
     methods: {
       showPopupError () {
-        document.querySelector('#link-signalement').addEventListener('click', (e) => {
-          var popupError = document.querySelector('.popup-error')
-              popupError.classList.add('show-error')
-              setTimeout(() => {
-                popupError.classList.remove('show-error')
-              }, 2000);
-        })
+        this.$refs.popupError.classList.add('show-error')
+        setTimeout(() => {
+          this.$refs.popupError.classList.remove('show-error')
+        }, 2000);
       },
       showPopupSignalements() {
-        document.querySelector('#link-signalement').addEventListener('click', (e) => {
-          e.preventDefault();
-          E.$emit('nav-popup-show', !this.showPopupSignalement)
-        })
+        E.$emit('nav-popup-show', !this.showPopupSignalement)
+      },
+      showPopups() {
+        this.unclickable ? this.showPopupError() : this.showPopupSignalements()
       }
     },
 
     mounted () {
       E.$on('user-location-unavailable', (offline) => {
         this.unclickable = offline
-        this.showPopupError()
       })
       E.$on('user-location-updated', (offline) => {
         this.unclickable = offline
-        this.showPopupSignalements()
       })
       E.$on('nav-show', (show) => {
         this.show = show
@@ -166,7 +161,12 @@
           position: absolute;
           box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
           #link-signalement {
-            opacity: 1;
+            padding: 13px 10px;
+            background: none;
+            svg {
+              width: 24px;
+              height: 24px;
+            }
           }
           &.unclickable {
             background: $offline;
