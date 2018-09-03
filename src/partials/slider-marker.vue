@@ -3,11 +3,14 @@
   <div class="slider-container">
     <div class="slider-container__header">
       <h2>Autour de moi...</h2>
-      <select id="radius-selector" v-model="radius" @change="refreshAround">
-        <option value="500">500m</option>
-        <option value="1000">1km</option>
-        <option value="2000">2km</option>
-      </select>
+      <div class="radius-selector">
+        <select v-model="radius" @change="refreshAround">
+          <option value="500">500m</option>
+          <option value="1000">1km</option>
+          <option value="2000">2km</option>
+        </select>
+        <span v-html="require('../assets/images/icons/dropdown.svg')"></span>
+      </div>
     </div>
     <swiper v-if="slides.length > 0" :options="swiperOption" id="slider-marker">
       <swiper-slide v-for="signalement in slides" :key="signalement.id" :class="signalement._type" @click.native="showMarker(signalement.id)">
@@ -159,6 +162,7 @@
     &__header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 0 30px 10px;
 
       h2 {
@@ -167,8 +171,26 @@
         color: $noir;
         line-height: normal;
       }
-      select {
-        background: #fff;
+      .radius-selector {
+        display: flex;
+        width: 45px;
+        select {
+          background: none;
+          border: none;
+          border-radius: 0;
+          appearance: none;
+          font-size: 14px;
+          color: $principale;
+          padding-right: 5px;
+        }
+        span {
+          line-height: normal;
+          margin-left: -5px;
+          z-index: -1;
+          svg {
+            height: 8px;
+          }
+        }
       }
     }
 
