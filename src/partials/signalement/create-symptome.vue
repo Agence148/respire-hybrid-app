@@ -45,7 +45,7 @@
       </ul>
 
       <div class="button-container">
-        <span class="button-close" @click="resetSymptomes" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Valider"></span>
+        <span class="button-close" @click="resetSymptomes" v-html="require('../../assets/images/icons/round-delete.svg')" aria-labelledby="Fermer"></span>
         <span class="button-validate" @click="popupSymptomes(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
       </div>
     </aside>
@@ -54,7 +54,7 @@
       <h3>Commentaire :</h3>
       <textarea name="commentaire" placeholder="Apportez des précisions sur vos symptômes…"></textarea>
 
-      <span class="button-close" @click="popupComment(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
+      <span class="button-validate" @click="popupComment(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
     </aside>
 
   </div>

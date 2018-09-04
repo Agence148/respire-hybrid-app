@@ -233,6 +233,23 @@
           padding: 5px;
         }
       }
+      .button-validate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        margin: 50px auto 0;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        border: 2px solid $principale;
+
+        svg {
+          height: 15px;
+          width: 15px;
+          fill: $principale;
+        }
+      }
       .button-container {
         display: flex;
 
@@ -244,12 +261,22 @@
           margin: 50px auto 0;
           height: 30px;
           width: 30px;
+        }
+
+        .button-validate {
           border-radius: 50%;
           border: 2px solid $principale;
-
           svg {
             height: 15px;
             width: 15px;
+            fill: $principale;
+          }
+        }
+
+        .button-close {
+          svg {
+            height: 30px;
+            width: 30px;
             fill: $principale;
           }
         }
