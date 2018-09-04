@@ -136,7 +136,9 @@
       })
 
       var btnnLocate = document.querySelector('#button-locate');
-      btnnLocate.addEventListener('click', this.centerMap)
+      btnnLocate.addEventListener('click', () => {
+        this.map.setView(this.center, this.zoom)
+      })
 
     }
   }
