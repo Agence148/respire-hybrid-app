@@ -145,7 +145,7 @@
         return combinedTitle
       },
       checkSteps() {
-        E.$emit('signalement-can-validate', this.steps.incidents.status == 'done' && this.steps.commentaire.status == 'done')
+        E.$emit('signalement-can-validate', this.steps.incidents.status == 'done')
         E.$emit('signalement-data', this.steps)
       }
     }
