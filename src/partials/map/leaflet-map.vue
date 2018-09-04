@@ -115,6 +115,11 @@
       })
 
       var switchHeatmap = document.querySelector('#switch-heatmap');
+
+      // Init AirParif
+      this.map.addLayer(this.layers.heatmap);
+      switchHeatmap.classList.add('btn-active');
+
       switchHeatmap.addEventListener('click', (e) => {
         if(this.map.hasLayer(this.layers.heatmap)) {
           switchHeatmap.classList.remove('btn-active');
