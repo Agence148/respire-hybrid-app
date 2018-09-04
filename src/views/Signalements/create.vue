@@ -220,7 +220,7 @@
 
       .button-add {
         display: block;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 1em;
 
         svg {
@@ -308,9 +308,9 @@
             }
           }
           h2 {
-            font-size: 15px;
+            font-size: 16px;
             font-variant: none;
-            line-height: 30px;
+            line-height: 26px;
           }
           &.step-disabled {
             opacity: .3;
