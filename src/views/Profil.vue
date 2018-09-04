@@ -85,7 +85,7 @@
 <style lang="scss">
 
   .profile {
-    transform: translateY(100%);
+    transform: translateX(100%);
     transition: .3s;
     padding: 50px 30px;
     background: #fff;
@@ -94,7 +94,7 @@
     position: fixed;
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, .15);
     &.show {
-      transform: translateY(0%);
+      transform: translateX(0%);
     }
     h1 {
       font-size: 26px;
