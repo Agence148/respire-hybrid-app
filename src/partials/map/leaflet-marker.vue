@@ -60,10 +60,10 @@
   @import "../../assets/scss/_vars.scss";
 
   .map-marker {
-    top: -5px;
-    left: -5px;
-    width: 10px;
-    height: 10px;
+    top: -7px;
+    left: -7px;
+    width: 14px;
+    height: 14px;
     background: $undefined;
     border-radius: 50px;
     box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, .15);
