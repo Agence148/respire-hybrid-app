@@ -40,6 +40,12 @@
 
     methods: {
 
+      initHeatMap() {
+        var switchHeatmap = document.querySelector('#switch-heatmap');
+        this.map.addLayer(this.layers.heatmap);
+        switchHeatmap.classList.add('btn-active');
+      },
+
       createMap () {
 
         this.layers.base = L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
@@ -108,7 +114,7 @@
         // requestAnimationFrame(this.resizeMap)
       })
       E.$on('map-locate-user', () => {
-        this.map.setView(store.user_position, 16)
+        this.map.setView(store.user_position, 12)
       })
       E.$on('map-locate-report', (report) => {
         this.map.setView(new L.LatLng(report.lat, report.lng), 16)
@@ -117,8 +123,7 @@
       var switchHeatmap = document.querySelector('#switch-heatmap');
 
       // Init AirParif
-      this.map.addLayer(this.layers.heatmap);
-      switchHeatmap.classList.add('btn-active');
+      this.initHeatMap()
 
       switchHeatmap.addEventListener('click', (e) => {
         if(this.map.hasLayer(this.layers.heatmap)) {
