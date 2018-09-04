@@ -246,9 +246,16 @@
       [data-in-category] {
         display: none;
 
+        label {
+          opacity: 0.3;
+        }
+
         [type="radio"],
         [type="checkbox"] {
           &:checked {
+            ~ label {
+              opacity: 1;
+            }
             ~ .marker-checked {
                 display: flex;
             }
