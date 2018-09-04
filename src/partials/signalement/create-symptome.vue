@@ -44,7 +44,10 @@
         </li>
       </ul>
 
-      <span class="button-close" @click="popupSymptomes(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
+      <div class="button-container">
+        <span class="button-close" @click="resetSymptomes" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Valider"></span>
+        <span class="button-validate" @click="popupSymptomes(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
+      </div>
     </aside>
 
     <aside class="popup popup--commentaire" v-show="showPopupComment">
@@ -83,6 +86,7 @@
     },
 
     mounted() {
+      this.popupSymptomes(true)
     },
 
     methods: {
@@ -145,6 +149,19 @@
             document.querySelector('[data-category="'+ symptome.symptome_category.id +'"]').classList.add('used')
           }
         })
+      },
+      resetSymptomes() {
+        document.querySelectorAll('[data-category]').forEach((el) => {
+          el.classList.remove('used')
+          el.classList.remove('disabled')
+        })
+        document.querySelectorAll('[data-in-category]').forEach((el) => {
+          el.style.display = null;
+        })
+        document.querySelectorAll('[data-symptome]').forEach((el) => {
+          el.checked = false;
+        })
+        this.popupSymptomes(false);
       },
       symptomeCombinedTitle(symptomeId) {
         var combinedTitle = ''

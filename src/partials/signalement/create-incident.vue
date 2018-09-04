@@ -37,7 +37,10 @@
         </li>
       </ul>
 
-      <span class="button-close" @click="popupIncidents(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
+      <div class="button-container">
+        <span class="button-close" @click="resetIncidents" v-html="require('../../assets/images/icons/close.svg')" aria-labelledby="Valider"></span>
+        <span class="button-validate" @click="popupIncidents(false)" v-html="require('../../assets/images/icons/check.svg')" aria-labelledby="Valider"></span>
+      </div>
     </aside>
 
     <aside class="popup popup--commentaire" v-show="showPopupComment">
@@ -76,6 +79,7 @@
     },
 
     mounted() {
+      this.popupIncidents(true)
     },
 
     methods: {
@@ -124,6 +128,12 @@
             el.classList.add('used')
           }
         })
+      },
+      resetIncidents() {
+        document.querySelectorAll('[data-incident]').forEach((el) => {
+          el.checked = false;
+        })
+        this.popupIncidents(false);
       },
       incidentCombinedTitle(incidentId) {
         var combinedTitle = ''
