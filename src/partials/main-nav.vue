@@ -152,7 +152,7 @@
         justify-content: center;
 
         &:nth-child(2) {
-          background: $violet;
+          background: $rouge;
           border-radius: 50px;
           width: 75px;
           height: 75px;
