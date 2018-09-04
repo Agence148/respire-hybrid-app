@@ -198,7 +198,7 @@
               padding: 0;
               border: none;
               display: inline-block;
-              margin: 0 5px;
+              margin-right: 5px;
               line-height: 1;
               svg {
                 height: 25px;
