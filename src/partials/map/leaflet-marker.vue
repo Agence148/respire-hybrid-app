@@ -9,7 +9,8 @@
 
     data () {
       return {
-        marker: false
+        marker: false,
+        uuid: store.uuid,
       }
     },
 
@@ -23,6 +24,9 @@
         }
       } else {
         markerClass += 'map-marker-incidents ';
+      }
+      if (this.data.uuid == this.uuid && (this.data.anonymous == 0)) {
+        markerClass += 'map-marker-owner ';
       }
       var icon = L.divIcon({
         className: markerClass,
@@ -70,9 +74,17 @@
 
     &-symptomes {
       background: $symptomes;
+      &.map-marker-owner {
+        background: transparent;
+        border: 2px solid $symptomes;
+      }
     }
     &-incidents {
       background: $incidents;
+      &.map-marker-owner {
+        background: transparent;
+        border: 2px solid $incidents;
+      }
     }
 
     &.click {
