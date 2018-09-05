@@ -8,11 +8,11 @@
       <li :class="'step-item step-' + steps.incidents.status">
         <i v-if="steps.incidents.status == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
         <i v-else></i>
-        <h2>Quels sont les incidents ?</h2>
+        <h2>Nature de l'incident ?</h2>
         <ul class="resume">
           <li v-for="incident in steps.incidents.value" :key="incident.id" v-html="incidentCombinedTitle(incident)"></li>
         </ul>
-        <span class="button-add" @click="popupIncidents(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Ajouter un incident'"></span>
+        <span class="button-add" @click="popupIncidents(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Modifier un incident'"></span>
       </li>
       <li :class="'step-item step-' + steps.commentaire.status">
         <i v-if="steps.commentaire.status == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>

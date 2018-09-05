@@ -12,7 +12,7 @@
         <ul class="resume">
           <li v-for="symptome in steps.symptomes.value" :key="symptome.id" v-html="symptomeCombinedTitle(symptome)"></li>
         </ul>
-        <span class="button-add" @click="popupSymptomes(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Ajouter un symptome'"></span>
+        <span class="button-add" @click="popupSymptomes(true)" v-html="require('../../assets/images/icons/plus.svg') + ' Modifier un symptome'"></span>
       </li>
       <li :class="'step-item step-' + steps.commentaire.status">
         <i v-if="steps.commentaire.status == 'done'" v-html="require('../../assets/images/icons/check.svg')"></i>
