@@ -19,7 +19,7 @@
           </div>
           <div class="collapse">
             <router-link :to="'/signalements/' + signalement.id" v-html="require('../assets/images/icons/map.svg') + ' Voir sur la carte'"></router-link>
-            <!-- <button class="btn" v-html="require('../assets/images/icons/close.svg') + ' Supprimer le signalement'" aria-labelledby="Supprimer"></button> -->
+            <button class="btn" @click="deleteSignalement(signalement.id)" v-html="require('../assets/images/icons/round-delete.svg') + ' Supprimer le signalement'" aria-labelledby="Supprimer"></button>
           </div>
         </li>
       </ul>
@@ -58,6 +58,18 @@
       },
       formatDate(date) {
         return moment(date).locale('fr').format('D MMMM YYYY');
+      },
+      deleteSignalement(id) {
+        const AuthStr = 'Bearer '.concat(store.user.api_token),
+                url = store.api_root + '/signalements/' + id + '/delete';
+
+        axios.delete(url, {headers: {Authorization: AuthStr}})
+          .then(response => {
+            this.$router.push({path: '/signalements/profil'});
+          })
+          .catch(error => {
+              console.log('error.response.data: ', error.response.data);
+          })
       }
     },
     mounted(){
