@@ -11,6 +11,7 @@
       return {
         marker: false,
         uuid: store.uuid,
+        user_id: store.user_id
       }
     },
 
@@ -25,7 +26,7 @@
       } else {
         markerClass += 'map-marker-incidents ';
       }
-      if (this.data.uuid == this.uuid && (this.data.anonymous == 0)) {
+      if ((this.data.uuid == this.uuid && this.data.anonymous == 0) || (this.user_id && this.data.user_id == this.user_id)) {
         markerClass += 'map-marker-owner ';
       }
       var icon = L.divIcon({
