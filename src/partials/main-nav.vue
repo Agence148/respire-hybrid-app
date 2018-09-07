@@ -82,7 +82,7 @@
     position: fixed;
     bottom: 50px;
     left: 0;
-    transform: translateY(110%);
+    transform: translateY(130%);
     transition: all .5s;
     height: calc(30vh - 15px);
     display: flex;
@@ -222,7 +222,7 @@
     z-index: 3000;
     background: $offline;
     box-shadow: 10px 10px 20px 0 rgba(0,0,0,0.15);
-    transform: translateY(-100%);
+    transform: translateY(-130%);
     transition: all 0.3s;
     h2, p {
       font-variant: none;
