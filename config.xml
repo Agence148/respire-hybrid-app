@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="10016" id="com.weare148.respire.test" ios-CFBundleVersion="1.0.5" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="10017" id="com.weare148.respire.test" ios-CFBundleVersion="1.0.6" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Respire</name>
     <description>Surveillez la qualité de l'air à Paris !</description>
     <author email="contact@148.fr">Agence 148</author>
@@ -27,7 +27,6 @@
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-device" spec="~1.1.3" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <preference name="Orientation" value="portrait" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="android-targetSdkVersion" value="26" />
@@ -41,4 +40,5 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="L'application Respire a besoin de votre position pour fonctionner" />
     </plugin>
     <preference name="SplashScreenDelay" value="3000" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
 </widget>
