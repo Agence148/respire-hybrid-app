@@ -51,6 +51,7 @@
     padding: 30px 20px;
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     &-left,
     &-right,
@@ -106,6 +107,8 @@
 
       .btn {
         box-shadow: none;
+        width: 30px;
+        height: 30px;
       }
     }
 

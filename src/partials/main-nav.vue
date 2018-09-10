@@ -143,6 +143,8 @@
       align-content: center;
       align-items: center;
       justify-content: space-between;
+      overflow: visible;
+      position: relative;
 
       li {
         width: 33.32%;
@@ -158,7 +160,7 @@
           height: 75px;
           left: 50%;
           transform: translateX(-50%);
-          position: absolute;
+          position: fixed;
           box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.15);
           #link-signalement {
             padding: 13px 10px;
