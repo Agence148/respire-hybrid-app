@@ -13,7 +13,7 @@
     "android": "cordova prepare android && cordova run android",
     "lint": "eslint --ext .js,.vue src",
     "postinstall": "npm run build && cordova prepare",
-    "icons": "cordova-icon && cordova-splash && cp splash.png ./platforms/ios/Respire/Images.xcassets/LaunchStoryboard.imageset/Default@2x~universal~anyany.png"
+    "icons": "cordova-icon && cordova-splash && cp splash.png ./platforms/ios/Respire/res/screen/Default@2x~universal~anyany.png"
   },
   "dependencies": {
     "axios": "^0.18.0",
