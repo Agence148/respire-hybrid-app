@@ -34,24 +34,30 @@ new Vue({
 
   data: {
     shared: store,
-    cordova: Vue.cordova
+    cordova: Vue.cordova,
+    deviceReady: false
   },
 
   created() {
     store.api_root = process.env.API_ROOT + process.env.API_VERSION
     store.debug = process.env.DEBUG
-
-    if (process.env.NODE_ENV === 'development') {
-      store.uuid = 'dev-test'
-    } else {
-      store.uuid = (typeof device === 'undefined' || device.platform === 'browser' || device.uuid === '') ? 'dev-test' : device.uuid
-    }
   },
 
   mounted() {
     router.push({path: '/'})
-    this.checkUser()
-    this.checkUserLocation()
+
+    document.addEventListener('deviceready', () => {
+      // Get device UUID
+      if (process.env.NODE_ENV === 'development') {
+        store.uuid = 'dev-test'
+      } else {
+        store.uuid = (typeof device === 'undefined' || device.platform === 'browser' || device.uuid === '') ? 'dev-test' : device.uuid
+      }
+
+      // Get user's location
+      this.checkUser()
+      this.checkUserLocation(true)
+    }, false)
 
     // Get signalements
     axios.get(store.api_root + '/signalements')
@@ -118,19 +124,11 @@ new Vue({
           store.authenticated = false
         })
     },
-    // checkUserLocation () {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition((position) => {
-    //       if (position.coords.latitude !== this.shared.user_position[0] || position.coords.longitude !== this.shared.user_position[1]) {
-    //         this.shared.user_position = [position.coords.latitude, position.coords.longitude]
-    //         E.$emit('user-location-updated')
-    //       }
-    //     })
-    //     setTimeout(this.checkUserLocation, 30 * 1000)
-    //   }
-    // },
-    checkUserLocation () {
-      navigator.geolocation.watchPosition(this.geolocationSuccess, this.geolocationError, { timeout: 30000 })
+    checkUserLocation (initial = false) {
+      if (initial || this.deviceReady) {
+        this.deviceReady = true
+        navigator.geolocation.watchPosition(this.geolocationSuccess, this.geolocationError, { timeout: 30000 })
+      }
     },
     geolocationSuccess (position) {
       this.shared.user_position = [position.coords.latitude, position.coords.longitude]

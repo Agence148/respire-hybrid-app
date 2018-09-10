@@ -103,15 +103,18 @@
     },
 
     mounted () {
+      document.addEventListener('deviceready', () => {
+        // Init Leaflet
+        this.createMap()
+        this.resizeCpt = 0
+        requestAnimationFrame(this.resizeMap)
 
-      this.createMap()
-
-      this.resizeCpt = 0
-      requestAnimationFrame(this.resizeMap)
+        // Init AirParif
+        this.initHeatMap()
+      }, false)
 
       E.$on('route-change', (route) => {
         this.resizeCpt = 0
-        // requestAnimationFrame(this.resizeMap)
       })
       E.$on('map-locate-user', () => {
         this.map.setView(store.user_position, 12)
@@ -121,9 +124,6 @@
       })
 
       var switchHeatmap = document.querySelector('#switch-heatmap');
-
-      // Init AirParif
-      this.initHeatMap()
 
       switchHeatmap.addEventListener('click', (e) => {
         if(this.map.hasLayer(this.layers.heatmap)) {
