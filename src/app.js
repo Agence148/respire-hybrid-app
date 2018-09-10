@@ -54,6 +54,15 @@ new Vue({
         store.uuid = (typeof device === 'undefined' || device.platform === 'browser' || device.uuid === '') ? 'dev-test' : device.uuid
       }
 
+      // Get orphans
+      axios.get(store.api_root + '/signalements/' + store.uuid + '/orphelins')
+        .then(response => {
+          store.orphelins = response.data
+          if (!store.authenticated) {
+            store.user.signalements = response.data
+          }
+        })
+
       // Get user's location
       this.checkUser()
       this.checkUserLocation(true)
@@ -81,15 +90,6 @@ new Vue({
     axios.get(store.api_root + '/symptomes')
       .then(response => {
         store.symptomes = response.data
-      })
-
-    // Get orphans
-    axios.get(store.api_root + '/signalements/' + store.uuid + '/orphelins')
-      .then(response => {
-        store.orphelins = response.data
-        if (!store.authenticated) {
-          store.user.signalements = response.data
-        }
       })
 
   },

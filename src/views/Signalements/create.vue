@@ -90,6 +90,10 @@
           .then((response) => {
             this.sent = true;
             store.signalements[newSignalementIndex].id=response.id;
+            store.orphelins[newSignalementIndex] = response;
+            if (!store.authenticated) {
+              store.user.signalements[newSignalementIndex] = response;
+            }
             local.save("signalements");
             setTimeout(() => {
               this.$router.push({path: '/signalements/index'})
