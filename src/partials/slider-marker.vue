@@ -187,8 +187,12 @@
           line-height: normal;
           margin-left: -5px;
           z-index: -1;
+          position: relative;
           svg {
             height: 8px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
           }
         }
       }
