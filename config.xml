@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="10019" id="com.weare148.respire.test" ios-CFBundleVersion="1.0.8" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Respire</name>
-    <description>Surveillez la qualité de l'air à Paris !</description>
+<widget android-versionCode="10000" id="com.weare148.respire" ios-CFBundleVersion="1.0.0" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Respire SuperCapteur</name>
+    <description>Evaluez vous-mêmes la pollution de l'air autour de vous</description>
     <author email="contact@148.fr">Agence 148</author>
     <content src="index.html" />
     <access origin="*" />
