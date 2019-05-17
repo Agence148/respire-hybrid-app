@@ -1,4 +1,4 @@
-# com.weare148.com
+# respire-hybrid-app
 
 Based on [vue-cordova-demo](https://github.com/kartsims/vue-cordova-demo).
 
