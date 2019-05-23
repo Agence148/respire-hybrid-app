@@ -1,7 +1,7 @@
 # respire-hybrid-app
 
 Made with love by [148 ❤︎](https://148.fr)  
-Please follow us on [Facebook](https://www.facebook.com/weare148)-, [Instagram](https://www.instagram.com/weare148/) and [LinkedIn](https://www.linkedin.com/company/agence-148)   
+Please follow us on [Facebook](https://www.facebook.com/weare148), [Instagram](https://www.instagram.com/weare148/) and [LinkedIn](https://www.linkedin.com/company/agence-148)   
 And check our shots on [Dribbble](https://dribbble.com/weare148) !  
 
 If you want to support [Respire Asso](https://www.respire-asso.org/dons/), you can make a donation  
