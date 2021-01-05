@@ -16,7 +16,7 @@
     "icons": "cordova-icon && cordova-splash && cp splash.png ./platforms/ios/Respire/res/screen/Default@2x~universal~anyany.png"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cordova": "^6.5.0",
     "cordova-android": "^6.2.2",
     "cordova-browser": "~4.1.0",
